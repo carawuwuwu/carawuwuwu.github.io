@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>618 营销情报工作台</title>
+  <meta name="description" content="618 大促营销工作台，含多平台热搜、爆款单品、词云洞察与营销策略建议。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#eef4ff',
+            paper2: '#dfeafb',
+            paper3: '#cfdef6',
+            ink: '#10233f',
+            accent: '#2563eb',
+            pine: '#1e40af',
+            gold: '#38bdf8',
+            blue: '#1d4ed8',
+            rust: '#4f46e5',
+            forest: '#0284c7'
+          },
+          boxShadow: {
+            editorial: '0 16px 40px rgba(21, 19, 18, 0.08)',
+            punch: '8px 8px 0 rgba(21, 19, 18, 0.95)'
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts-wordcloud@2.1.0/dist/echarts-wordcloud.min.js"></script>
+  <style>
+    :root {
+      --paper: #eef4ff;
+      --paper-2: #dfeafb;
+      --paper-3: #cfdef6;
+      --ink: #10233f;
+      --muted: #5f7393;
+      --accent: #2563eb;
+      --pine: #1e40af;
+      --gold: #38bdf8;
+      --blue: #1d4ed8;
+      --rust: #4f46e5;
+      --forest: #0284c7;
+      --border: rgba(16, 35, 63, 0.88);
+      --shadow: 0 16px 40px rgba(37, 99, 235, 0.10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(37, 99, 235, 0.12), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(56, 189, 248, 0.10), transparent 30%),
+        linear-gradient(180deg, rgba(255,255,255,0.55), rgba(238,244,255,0.95)),
+        var(--paper);
+      font-family: 'Noto Sans SC', sans-serif;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.18;
+      background-image:
+        linear-gradient(rgba(21,19,18,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(21,19,18,0.035) 1px, transparent 1px);
+      background-size: 18px 18px;
+      mask-image: radial-gradient(circle at center, black 45%, transparent 95%);
+    }
+    .editorial-title {
+      font-family: 'Fraunces', 'Noto Serif SC', serif;
+      font-style: italic;
+      letter-spacing: -0.03em;
+    }
+    .cn-serif {
+      font-family: 'Noto Serif SC', serif;
+    }
+    .grain {
+      position: relative;
+      overflow: hidden;
+    }
+    .grain::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.05;
+      background-image: radial-gradient(#000 0.6px, transparent 0.6px);
+      background-size: 8px 8px;
+    }
+    .section-card {
+      border: 1.5px solid var(--border);
+      background: rgba(238, 244, 255, 0.9);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+    .section-head-number {
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--ink);
+      font-family: 'Fraunces', serif;
+      font-size: 76px;
+      line-height: 0.8;
+      font-style: italic;
+      font-weight: 900;
+    }
+    .jump-link.active {
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .jump-link.active span:last-child {
+      color: rgba(244, 237, 225, 0.72);
+    }
+    .filter-tab {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.3);
+      color: var(--ink);
+      transition: all 0.2s ease;
+    }
+    .filter-tab:hover {
+      transform: translateY(-1px);
+      background: var(--paper-2);
+    }
+    .filter-tab.active {
+      background: var(--ink);
+      color: var(--paper);
+      box-shadow: inset 0 -2px 0 var(--gold);
+    }
+    .platform-card {
+      border: 1px solid rgba(21,19,18,0.9);
+      background: linear-gradient(180deg, rgba(255,255,255,0.52), rgba(223,234,251,0.88));
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .platform-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 28px rgba(21,19,18,0.1);
+    }
+    .rank-row:last-child,
+    .product-row:last-child,
+    .strategy-point:last-child {
+      border-bottom: none;
+    }
+    .rank-chip,
+    .meta-chip,
+    .topic-chip {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid currentColor;
+      font-size: 11px;
+      line-height: 1;
+      letter-spacing: 0.06em;
+      padding: 4px 8px;
+      border-radius: 999px;
+    }
+    .topic-chip {
+      color: var(--pine);
+      background: rgba(35, 75, 65, 0.07);
+      border-color: rgba(35, 75, 65, 0.35);
+      margin: 0 6px 6px 0;
+    }
+    .strategy-card {
+      border: 1.2px solid var(--border);
+      background: rgba(255,255,255,0.36);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .strategy-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+    .wordcloud-shell {
+      background: #F4F0E6;
+      border: 1.5px solid var(--ink);
+      position: relative;
+      min-height: 420px;
+    }
+    .wordcloud-shell::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: rgba(21,19,18,0.18);
+      transform: translateX(-0.5px);
+    }
+    .word-panel {
+      position: relative;
+      padding: 16px 18px 18px;
+      min-height: 420px;
+    }
+    .word-panel .label-tag {
+      position: absolute;
+      right: 18px;
+      top: 16px;
+      color: #fff;
+      font-family: 'Noto Serif SC', serif;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 12px;
+      letter-spacing: 0.06em;
+      z-index: 2;
+    }
+    .word-panel .source-note {
+      position: absolute;
+      right: 20px;
+      top: 58px;
+      color: rgba(21,19,18,0.7);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      z-index: 2;
+    }
+    .word-title {
+      font-family: 'Fraunces', 'Noto Serif SC', serif;
+      font-size: 28px;
+      font-style: italic;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+    .word-sub {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 8px;
+      padding-right: 160px;
+    }
+    .word-chart {
+      height: 320px;
+      margin-top: 26px;
+    }
+    .summary-ticker {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      white-space: nowrap;
+      background: rgba(255,255,255,0.45);
+    }
+    .summary-ticker-track {
+      display: inline-flex;
+      gap: 28px;
+      min-width: 100%;
+      padding: 10px 0;
+      animation: ticker 28s linear infinite;
+    }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .summary-item {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .summary-item b {
+      color: var(--ink);
+      font-family: 'Noto Serif SC', serif;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    @media (max-width: 1024px) {
+      .wordcloud-shell::before { display: none; }
+      .wordcloud-shell { display: grid !important; grid-template-columns: 1fr !important; }
+      .word-panel { border-bottom: 1px solid rgba(21,19,18,0.18); }
+      .word-panel:last-child { border-bottom: none; }
+    }
+    @media (max-width: 768px) {
+      .section-head-number { font-size: 56px; }
+      .word-sub { padding-right: 0; }
+      .word-panel .label-tag,
+      .word-panel .source-note {
+        position: static;
+        display: inline-block;
+        margin-top: 4px;
+      }
+      .word-panel .source-note { display: block; margin-bottom: 10px; }
+      .word-chart { margin-top: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="relative z-10">
+    <div class="mx-auto max-w-[1440px] px-4 py-5 lg:px-8">
+      <header class="grain overflow-hidden rounded-[28px] border-[1.5px] border-ink bg-[rgba(238,244,255,0.92)] shadow-editorial backdrop-blur-md">
+        <div class="border-b border-ink/80 px-5 py-4 lg:px-8">
+          <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <div class="flex items-start gap-4">
+              <div class="flex h-14 w-14 shrink-0 items-center justify-center border border-ink bg-ink text-paper">
+                <span class="editorial-title text-3xl font-black">M</span>
+              </div>
+              <div>
+                <p class="mb-3 flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.32em] text-accent">
+                  <span>618 Campaign Intelligence</span>
+                  <span class="inline-block h-px w-10 bg-ink/40"></span>
+                  <span>Daily Mock Dashboard</span>
+                </p>
+                <h1 class="editorial-title text-[40px] font-black leading-none text-ink sm:text-[54px] lg:text-[76px]">
+                  营销情报工作台
+                </h1>
+                <p class="cn-serif mt-4 max-w-3xl text-[15px] leading-7 text-[#5d7292] sm:text-[17px]">
+                  面向 618 大促的静态可视化看板。聚合 <b class="text-ink">多平台热搜</b>、<b class="text-ink">电商爆款</b>、<b class="text-ink">词云洞察</b> 与 <b class="text-ink">当日营销策略</b>，帮助代理商快速判断当天该追什么热点、推什么货、用什么内容和渠道承接转化。
+                </p>
+              </div>
+            </div>
+            <div class="grid gap-2 text-right text-[11px] uppercase tracking-[0.18em] text-[#6b6256]">
+              <div>数据更新时间：<b class="text-ink">2026-06-02 10:00</b></div>
+              <div>更新频率：<b class="text-ink">每天 10:00 更新</b></div>
+              <div>编辑者：<b class="text-ink">吴丹</b></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid gap-0 border-b border-ink/80 lg:grid-cols-[1.2fr_0.8fr]">
+          <div class="px-5 py-6 lg:px-8">
+            <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              <div class="rounded-2xl border border-ink/80 bg-[rgba(255,255,255,0.42)] p-4">
+                <div class="text-[11px] font-bold uppercase tracking-[0.22em] text-[#6b6256]">监测平台</div>
+                <div class="editorial-title mt-3 text-5xl font-black text-accent">11</div>
+                <div class="mt-2 text-sm text-[#6b6256]">7 个热搜平台 + 4 个电商平台</div>
+              </div>
+              <div class="rounded-2xl border border-ink/80 bg-[rgba(255,255,255,0.42)] p-4">
+                <div class="text-[11px] font-bold uppercase tracking-[0.22em] text-[#6b6256]">行业维度</div>
+                <div class="editorial-title mt-3 text-5xl font-black text-pine">7</div>
+                <div class="mt-2 text-sm text-[#6b6256]">服饰 / 美妆 / 食饮 / 3C / 日化 / 母婴 / 教育</div>
+              </div>
+              <div class="rounded-2xl border border-ink/80 bg-[rgba(255,255,255,0.42)] p-4">
+                <div class="text-[11px] font-bold uppercase tracking-[0.22em] text-[#6b6256]">今日热点风向</div>
+                <div class="mt-3 text-2xl font-black text-ink cn-serif">618 冲刺 + 直播爆发</div>
+                <div class="mt-2 text-sm text-[#6b6256]">“折扣权益、直播抢购、场景种草”占比最高</div>
+              </div>
+              <div class="rounded-2xl border border-ink/80 bg-[rgba(255,255,255,0.42)] p-4">
+                <div class="text-[11px] font-bold uppercase tracking-[0.22em] text-[#6b6256]">建议使用方式</div>
+                <div class="mt-3 text-2xl font-black text-ink cn-serif">上午定主题，下午推转化</div>
+                <div class="mt-2 text-sm text-[#6b6256]">热点先定内容钩子，爆款再定商品承接</div>
+              </div>
+            </div>
+          </div>
+          <div class="border-t border-ink/80 px-5 py-6 lg:border-l lg:border-t-0 lg:px-8">
+            <div class="mb-4 flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.28em] text-accent">
+              <span class="inline-flex h-2.5 w-2.5 rounded-full bg-accent shadow-[0_0_0_6px_rgba(37,99,235,0.16)]"></span>
+              Today Key Signals
+            </div>
+            <div class="space-y-4 text-sm leading-7 text-[#5d7292] cn-serif">
+              <p><b class="text-ink">服饰：</b>“防晒衣、薄款凉感、通勤穿搭”热度持续抬头，适合做夏季场景化直播切片。</p>
+              <p><b class="text-ink">美妆：</b>防晒与底妆双线并行，内容建议突出 <span class="text-accent">户外持妆 + 618 券后到手价</span>。</p>
+              <p><b class="text-ink">食饮：</b>“低糖、囤货、办公室提神”是成交关键词，适合短视频测款 + 直播承接。</p>
+              <p><b class="text-ink">3C：</b>补贴、性能、换新是核心搜索动机，建议把“平台补贴”和“真实体验”一起讲清楚。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="summary-ticker">
+          <div class="summary-ticker-track">
+            <div class="summary-item">即看即用 · <b>热点词</b> 快速找选题</div>
+            <div class="summary-item">爆款清单 · <b>商品词</b> 快速找承接</div>
+            <div class="summary-item">策略卡片 · <b>渠道组合</b> 快速做执行</div>
+            <div class="summary-item">行业切换 · <b>一键查看</b> 服饰 / 美妆 / 食饮 / 3C / 日化 / 母婴 / 教育</div>
+            <div class="summary-item">即看即用 · <b>热点词</b> 快速找选题</div>
+            <div class="summary-item">爆款清单 · <b>商品词</b> 快速找承接</div>
+            <div class="summary-item">策略卡片 · <b>渠道组合</b> 快速做执行</div>
+            <div class="summary-item">行业切换 · <b>一键查看</b> 服饰 / 美妆 / 食饮 / 3C / 日化 / 母婴 / 教育</div>
+          </div>
+        </div>
+      </header>
+
+      <nav class="sticky top-0 z-20 mt-5 rounded-2xl border border-ink bg-[rgba(238,244,255,0.96)] shadow-editorial backdrop-blur-md">
+        <div class="grid grid-cols-2 gap-px bg-ink/80 md:grid-cols-4">
+          <a class="jump-link flex items-center justify-center gap-3 bg-paper px-4 py-4 transition hover:bg-ink hover:text-paper" href="#section-hot">
+            <span class="editorial-title text-2xl font-black">01</span>
+            <span class="text-center text-sm font-bold tracking-[0.18em] text-[#6b6256]">热搜<br/>TOP10</span>
+          </a>
+          <a class="jump-link flex items-center justify-center gap-3 bg-paper px-4 py-4 transition hover:bg-ink hover:text-paper" href="#section-product">
+            <span class="editorial-title text-2xl font-black">02</span>
+            <span class="text-center text-sm font-bold tracking-[0.18em] text-[#6b6256]">爆款单品<br/>TOP10</span>
+          </a>
+          <a class="jump-link flex items-center justify-center gap-3 bg-paper px-4 py-4 transition hover:bg-ink hover:text-paper" href="#section-cloud">
+            <span class="editorial-title text-2xl font-black">03</span>
+            <span class="text-center text-sm font-bold tracking-[0.18em] text-[#6b6256]">热词洞察<br/>词云</span>
+          </a>
+          <a class="jump-link flex items-center justify-center gap-3 bg-paper px-4 py-4 transition hover:bg-ink hover:text-paper" href="#section-strategy">
+            <span class="editorial-title text-2xl font-black">04</span>
+            <span class="text-center text-sm font-bold tracking-[0.18em] text-[#6b6256]">营销策略<br/>建议</span>
+          </a>
+        </div>
+      </nav>
+
+      <section id="section-hot" class="section-card mt-6 rounded-[28px] p-5 lg:p-8">
+        <div class="mb-5 flex flex-col gap-4 border-b border-ink/80 pb-5 lg:flex-row lg:items-end lg:justify-between">
+          <div class="flex items-end gap-4">
+            <div class="section-head-number">01</div>
+            <div>
+              <h2 class="editorial-title text-3xl font-black text-ink lg:text-4xl">多平台热搜 TOP10</h2>
+              <p class="mt-2 text-sm tracking-[0.14em] text-[#6b6256] uppercase">Douyin · Weibo · Baidu · Tmall · JD · Kuaishou · 今日热卖</p>
+            </div>
+          </div>
+          <div class="max-w-xl text-sm leading-7 text-[#5d7292] cn-serif">
+            每个平台展示当日热搜词条，适合上午 10 点后快速判断“今天值得追的内容话题”。不同产业会自动切换对应热搜语境。
+          </div>
+        </div>
+        <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div id="tabs-hot" class="flex flex-wrap gap-2"></div>
+          <div class="text-[12px] text-[#6b6256]">标注：<span class="font-semibold text-ink">每天早上 10:00 更新</span></div>
+        </div>
+        <div id="hot-intro" class="mb-5 rounded-3xl border border-ink/80 bg-[rgba(223,234,251,0.82)] p-5 shadow-editorial"></div>
+        <div id="hot-grid" class="grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"></div>
+      </section>
+
+      <section id="section-product" class="section-card mt-6 rounded-[28px] p-5 lg:p-8">
+        <div class="mb-5 flex flex-col gap-4 border-b border-ink/80 pb-5 lg:flex-row lg:items-end lg:justify-between">
+          <div class="flex items-end gap-4">
+            <div class="section-head-number">02</div>
+            <div>
+              <h2 class="editorial-title text-3xl font-black text-ink lg:text-4xl">电商爆款单品 TOP10</h2>
+              <p class="mt-2 text-sm tracking-[0.14em] text-[#6b6256] uppercase">淘宝天猫 · 京东 · 快手电商 · 今日热卖</p>
+            </div>
+          </div>
+          <div class="max-w-xl text-sm leading-7 text-[#5d7292] cn-serif">
+            展示昨日爆款参考单品，帮助你判断内容推什么货更容易接得住。榜单偏向“618 大促真实感”场景，适合做直播间与素材选品参考。
+          </div>
+        </div>
+        <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div id="tabs-product" class="flex flex-wrap gap-2"></div>
+          <div class="text-[12px] text-[#6b6256]">标注：<span class="font-semibold text-ink">爆款参考，供营销策略参考用</span></div>
+        </div>
+        <div id="product-intro" class="mb-5 rounded-3xl border border-ink/80 bg-[rgba(223,234,251,0.82)] p-5 shadow-editorial"></div>
+        <div id="product-grid" class="grid gap-4 md:grid-cols-2 xl:grid-cols-4"></div>
+      </section>
+
+      <section id="section-cloud" class="section-card mt-6 rounded-[28px] p-5 lg:p-8">
+        <div class="mb-5 flex flex-col gap-4 border-b border-ink/80 pb-5 lg:flex-row lg:items-end lg:justify-between">
+          <div class="flex items-end gap-4">
+            <div class="section-head-number">03</div>
+            <div>
+              <h2 class="editorial-title text-3xl font-black text-ink lg:text-4xl">热词洞察词云</h2>
+              <p class="mt-2 text-sm tracking-[0.14em] text-[#6b6256] uppercase">Topics & Products · Multi-Platform Merge</p>
+            </div>
+          </div>
+          <div class="max-w-xl text-sm leading-7 text-[#5d7292] cn-serif">
+            合并多平台热词后，左侧看内容话题、右侧看商品词心智。统一采用米白底、衬线体、固定倾斜角的词云风格，方便做“话题 → 商品”的联动判断。
+          </div>
+        </div>
+        <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div id="tabs-cloud" class="flex flex-wrap gap-2"></div>
+          <div class="text-[12px] text-[#6b6256]">标注：<span class="font-semibold text-ink">话题词来自微博 / 百度 / 抖音，商品词来自淘宝天猫 / 京东 / 快手 / 今日热卖</span></div>
+        </div>
+        <div id="cloud-summary" class="mb-5 rounded-3xl border border-ink/80 bg-[rgba(223,234,251,0.82)] p-5 shadow-editorial"></div>
+        <div class="wordcloud-shell grid grid-cols-1 lg:grid-cols-2">
+          <div class="word-panel">
+            <div class="label-tag" style="background:#10233f;">话题词 · TOPICS</div>
+            <div class="source-note">来源：微博 / 百度 / 抖音</div>
+            <div class="word-title">热搜话题词云</div>
+            <div class="word-sub">看今天更适合讲什么角度、打什么情绪、用什么场景切内容。</div>
+            <div id="topic-cloud" class="word-chart"></div>
+          </div>
+          <div class="word-panel">
+            <div class="label-tag" style="background:#1e40af;">商品词 · PRODUCTS</div>
+            <div class="source-note">来源：淘宝天猫 / 京东 / 快手 / 今日热卖</div>
+            <div class="word-title">电商商品词云</div>
+            <div class="word-sub">看今天更适合承接什么商品词、主推什么卖点、重点拎什么二级品类。</div>
+            <div id="product-cloud" class="word-chart"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="section-strategy" class="section-card mt-6 rounded-[28px] p-5 lg:p-8">
+        <div class="mb-5 flex flex-col gap-4 border-b border-ink/80 pb-5 lg:flex-row lg:items-end lg:justify-between">
+          <div class="flex items-end gap-4">
+            <div class="section-head-number">04</div>
+            <div>
+              <h2 class="editorial-title text-3xl font-black text-ink lg:text-4xl">营销策略建议</h2>
+              <p class="mt-2 text-sm tracking-[0.14em] text-[#6b6256] uppercase">Sub-category Playbook · Content · Channel Mix</p>
+            </div>
+          </div>
+          <div class="max-w-xl text-sm leading-7 text-[#5d7292] cn-serif">
+            按二级行业拆解今天更建议推什么、怎么讲、在哪些渠道组合投放。你可以直接把这里当成代理商每日晨会的“执行动作版”。
+          </div>
+        </div>
+        <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div id="tabs-strategy" class="flex flex-wrap gap-2"></div>
+          <div class="text-[12px] text-[#6b6256]">标注：<span class="font-semibold text-ink">“全部”展示所有行业混合卡片</span></div>
+        </div>
+        <div id="strategy-summary" class="mb-5 rounded-3xl border border-ink/80 bg-[rgba(223,234,251,0.82)] p-5 shadow-editorial"></div>
+        <div id="strategy-grid" class="grid gap-4 md:grid-cols-2 xl:grid-cols-3"></div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const INDUSTRY_ORDER = ['all', 'fashion', 'beauty', 'food', 'tech', 'daily', 'baby', 'edu'];
+    const INDUSTRY_META = {
+      all: { label: '全部', short: 'ALL', accent: '#10233f', glow: '#dfeafb' },
+      fashion: { label: '服饰', short: 'FASHION', accent: '#2563eb', glow: 'rgba(37,99,235,0.12)' },
+      beauty: { label: '美妆', short: 'BEAUTY', accent: '#4f46e5', glow: 'rgba(79,70,229,0.12)' },
+      food: { label: '食饮', short: 'FOOD', accent: '#0284c7', glow: 'rgba(2,132,199,0.12)' },
+      tech: { label: '3C', short: 'TECH', accent: '#1d4ed8', glow: 'rgba(29,78,216,0.12)' },
+      daily: { label: '日化', short: 'DAILY', accent: '#0369a1', glow: 'rgba(3,105,161,0.12)' },
+      baby: { label: '母婴', short: 'BABY', accent: '#3b82f6', glow: 'rgba(59,130,246,0.12)' },
+      edu: { label: '教育', short: 'EDU', accent: '#1e40af', glow: 'rgba(30,64,175,0.12)' }
+    };
+
+    const HOT_PLATFORMS = [
+      { key: 'douyin', name: '抖音', en: 'Douyin', suffix: ['直播间冲榜', '短视频爆发', '同款种草', '搜索飙升'], metric: '热度' },
+      { key: 'weibo', name: '微博', en: 'Weibo', suffix: ['话题飙升', '讨论破圈', '热议升级', '上榜冲刺'], metric: '讨论量' },
+      { key: 'baidu', name: '百度', en: 'Baidu', suffix: ['怎么选', '推荐', '值得买吗', '真实测评'], metric: '搜索指数' },
+      { key: 'tmall', name: '淘宝天猫', en: 'Tmall', suffix: ['加购暴涨', '618 会场热卖', '旗舰店同款', '券后必囤'], metric: '成交热度' },
+      { key: 'jd', name: '京东', en: 'JD', suffix: ['补贴爆发', '现货开抢', '口碑榜', '换新优选'], metric: '销量热度' },
+      { key: 'kuaishou', name: '快手', en: 'Kuaishou', suffix: ['老铁回购', '主播主推', '直播秒空', '团购热卖'], metric: '互动热度' },
+      { key: 'jinri', name: '今日热卖', en: 'Today Best Sellers', suffix: ['销量暴涨', '榜单上升', '连带成交', '高转化'], metric: '热卖指数' }
+    ];
+
+    const PRODUCT_PLATFORMS = [
+      { key: 'tmall', name: '淘宝天猫', en: 'Tmall', metric: '热度指数' },
+      { key: 'jd', name: '京东', en: 'JD', metric: '销量指数' },
+      { key: 'kuaishou_shop', name: '快手电商', en: 'Kuaishou Shop', metric: '成交指数' },
+      { key: 'jinri_shop', name: '今日热卖', en: 'Today Best Sellers', metric: '热卖指数' }
+    ];
+
+    const INDUSTRY_DATA = {
+      fashion: {
+        overview: '夏装换季进入冲刺期，防晒衣、凉感通勤与显瘦穿搭是最稳定的搜索入口。',
+        hotBase: ['防晒衣', '凉感通勤裤', '法式连衣裙', '小个子显高穿搭', '白T 高级感', '薄款西装外套', '牛仔短裙', '阔腿裤版型', '辣妹上衣', '男士凉感 POLO', '小香风短外套', '运动背心', '盐系衬衫', '凉鞋搭配', '职场穿搭模板'],
+        hotAngles: ['618 到手价', '直播间福利', '显瘦对比', '上身实拍', '职场通勤', '一周穿搭', '学生党平替'],
+        cloudTopics: [
+          ['凉感穿搭', 118], ['显瘦版型', 110], ['通勤衣橱', 102], ['直播返场', 95], ['小个子公式', 93], ['上镜显白', 88], ['法式度假', 84], ['防晒通勤', 81], ['平替清单', 77], ['约会穿搭', 73], ['多巴胺配色', 69], ['面料测评', 66], ['微胖友好', 62], ['一衣多穿', 58], ['周末出游', 54]
+        ],
+        cloudProducts: [
+          ['防晒衣', 120], ['凉感阔腿裤', 112], ['法式连衣裙', 107], ['薄款西装', 95], ['冰丝 POLO', 92], ['高腰牛仔裙', 88], ['显瘦短袖', 83], ['速干背心', 78], ['真丝衬衫', 72], ['一脚蹬凉鞋', 68], ['通勤半裙', 64], ['男士亚麻衬衫', 60], ['凉感内搭', 55], ['工装短裤', 52], ['轻薄针织衫', 48]
+        ],
+        products: [
+          ['蕉下凉感 UPF50+ 防晒衣', '防晒外套'], ['优衣库 AIRism 凉感阔腿裤', '凉感裤装'], ['UR 法式收腰连衣裙', '连衣裙'], ['MO&Co. 薄款通勤西装', '轻薄外套'], ['波司登轻薄防晒衫', '防晒外套'], ['Nike Dri-FIT 速干背心', '运动上装'], ['蕉内云感冰丝家居服', '居家服'], ['太平鸟高腰牛仔短裙', '裙装'], ['海澜之家亚麻短袖衬衫', '男装衬衫'], ['蕉下户外凉感鸭舌帽', '防晒配件'], ['Lululemon Align 短裤', '运动裤装'], ['百丽云朵软底凉鞋', '鞋履']
+        ],
+        strategies: [
+          {
+            subCategory: '服饰 > 防晒衣',
+            scene: '618 大促 / 户外通勤 / 直播间连麦',
+            hotWords: ['防晒通勤', '凉感面料', '户外不闷', '券后到手', '上身实拍', '一衣多穿'],
+            content: ['用“办公室通勤 + 地铁通勤 + 周末遛娃”三场景对比，突出凉感和不闷汗。', '短视频里做“不同身型上身实拍”，用真实镜头解决版型疑虑。', '直播间把“直播券后价 + 赠品”讲透，配合 3 分钟一轮试穿。'],
+            integration: '抖音短视频种草 + 抖音直播间转化 + 小红书图文做搜索沉淀'
+          },
+          {
+            subCategory: '服饰 > 连衣裙',
+            scene: '618 大促 / 约会出游 / 夏季上新',
+            hotWords: ['约会穿搭', '法式氛围', '显瘦腰线', '拍照出片', '百元质感'],
+            content: ['内容封面直接给“约会 / 通勤 / 出游”三套人群标签，让用户秒懂适合谁。', '重点放大“腰线、材质垂感、肤色适配”三个购买理由。', '用达人穿搭合集做风格种草，再接直播讲版型细节和尺码建议。'],
+            integration: '小红书风格种草 + 抖音短视频转化 + 淘宝直播承接收藏加购'
+          },
+          {
+            subCategory: '服饰 > 男士凉感上装',
+            scene: '618 大促 / 男装焕新 / 父亲节前置',
+            hotWords: ['凉感男装', '轻商务', '通勤不皱', '父亲节礼物', '百搭基础款'],
+            content: ['主打“上班能穿、周末也能穿”的多场景价值，降低决策成本。', '多做“洗后不变形、近看面料、身高体重试穿”类内容。', '结合父亲节赠礼场景，增加第二件半价和礼盒话术。'],
+            integration: '京东搜索广告 + 抖音直播试穿 + 微信私域老客复购触达'
+          }
+        ]
+      },
+      beauty: {
+        overview: '防晒、底妆与功效精华并行，美妆用户既看成分也看价格权益，直播成交弹性大。',
+        hotBase: ['防晒喷雾', '持妆粉底液', '隔离霜怎么选', '油皮定妆', '口红显白色号', '修护精华', '敏感肌护肤', '早 C 晚 A', '素颜霜', '卸妆膏推荐', '高倍防晒', '妆前乳服帖', '面膜急救', '抗老精华', '夏季底妆'],
+        hotAngles: ['高温持妆', '晒后修护', '618 券后价', '成分党', '妆效实测', '油皮友好', '通勤妆'],
+        cloudTopics: [
+          ['高温持妆', 120], ['防晒修护', 115], ['成分对比', 108], ['上脸实测', 99], ['油皮友好', 95], ['通勤裸妆', 90], ['晒后急救', 85], ['学生党囤货', 80], ['主播同款', 76], ['夏季底妆', 72], ['不搓泥', 69], ['一整天不脱妆', 64], ['肤感轻薄', 61], ['养肤底妆', 58], ['敏感肌可用', 53]
+        ],
+        cloudProducts: [
+          ['防晒霜', 122], ['防晒喷雾', 114], ['粉底液', 108], ['散粉', 101], ['隔离霜', 94], ['修护精华', 87], ['卸妆膏', 82], ['妆前乳', 79], ['口红', 74], ['面膜', 68], ['眼霜', 64], ['遮瑕', 60], ['素颜霜', 57], ['定妆喷雾', 53], ['抗老精华', 49]
+        ],
+        products: [
+          ['安热沙金灿防晒乳 60ml', '防晒'], ['珀莱雅双抗精华', '功效精华'], ['兰蔻持妆轻透粉底液', '粉底液'], ['花西子玉养散粉', '定妆'], ['薇诺娜舒敏修护精华液', '修护精华'], ['Mistine 小黄帽防晒', '防晒'], ['毛戈平光感无痕粉膏', '底妆'], ['欧莱雅玻色因安瓶面膜', '面膜'], ['尔木萄净透卸妆膏', '卸妆'], ['YSL 小金条 1966', '口红'], ['完美日记云纱柔焦隔离', '隔离'], ['HFP 乳糖酸水乳套装', '护肤套装']
+        ],
+        strategies: [
+          {
+            subCategory: '美妆 > 防晒',
+            scene: '618 大促 / 户外通勤 / 直播福利场',
+            hotWords: ['高倍防晒', '晒后修护', '不搓泥', '持妆搭子', '油皮友好', '到手价'],
+            content: ['用“室外暴晒 + 室内空调”两种环境做真实妆效测试，回答是否搓泥、是否闷痘。', '直播中把“防晒值、肤感、是否泛白”做成固定口播模板，提升转化效率。', '内容上尽量多讲“通勤党 / 学生党 / 敏感肌”三类人群差异。'],
+            integration: '抖音测评短视频 + 抖音直播成交 + 天猫旗舰店承接大促会场流量'
+          },
+          {
+            subCategory: '美妆 > 底妆',
+            scene: '618 大促 / 高温持妆 / 通勤裸妆',
+            hotWords: ['高温持妆', '不暗沉', '毛孔隐形', '上脸实测', '养肤粉底'],
+            content: ['先做“8 小时持妆挑战”，再用近景展示毛孔和鼻翼卡粉情况。', '内容里要把“肤质差异”讲清楚，油皮与混干皮分别推荐。', '达人素材重点做前后对比图，直播负责解释色号和妆感。'],
+            integration: '微博话题引流 + 抖音达人测评 + 京东店播晚间收口'
+          },
+          {
+            subCategory: '美妆 > 修护精华',
+            scene: '618 大促 / 熬夜修护 / 成分种草',
+            hotWords: ['屏障修护', '维稳精华', '敏感肌', '成分党', '熬夜脸救急'],
+            content: ['用“泛红 / 干痒 / 熬夜暗沉”问题入手，让用户先代入，再讲成分。', '把“多少天能感知变化”说清楚，降低功效预期误差。', '适合搭配医生或功效达人口吻做信任背书。'],
+            integration: '小红书成分种草 + 百度搜索承接 + 天猫私域会员复购'
+          }
+        ]
+      },
+      food: {
+        overview: '囤货型食品和办公室补能型饮品最容易爆，低糖、健康和省心是主要决策点。',
+        hotBase: ['低糖黑咖啡', '即食鸡胸肉', '电解质水', '无糖茶饮', '早餐代餐', '高蛋白酸奶', '办公室零食', '坚果礼盒', '益生菌软糖', '榴莲千层', '轻食面包', '椰子水', '熬夜零食', '山姆平替', '618 囤货清单'],
+        hotAngles: ['办公室囤货', '熬夜搭子', '低卡轻负担', '618 买一囤三', '直播秒杀', '宿舍党必备', '夏季解暑'],
+        cloudTopics: [
+          ['低负担囤货', 118], ['办公室提神', 109], ['夏季解暑', 101], ['直播秒杀', 98], ['健康嘴馋', 93], ['早餐效率', 88], ['懒人补能', 82], ['全家共享', 78], ['熬夜搭子', 74], ['高蛋白', 69], ['低糖低脂', 65], ['通勤早餐', 61], ['冰箱囤货', 58], ['学生党囤粮', 54], ['轻食替代', 50]
+        ],
+        cloudProducts: [
+          ['无糖茶饮', 121], ['黑咖啡', 116], ['鸡胸肉', 109], ['电解质水', 101], ['酸奶', 95], ['椰子水', 88], ['坚果礼盒', 83], ['益生菌软糖', 78], ['低卡面包', 73], ['燕麦片', 68], ['榴莲千层', 63], ['蛋白棒', 58], ['冻干酸奶块', 54], ['轻食代餐', 51], ['咖啡液', 47]
+        ],
+        products: [
+          ['三顿半冷萃咖啡液 30 颗装', '咖啡饮品'], ['元气森林外星人电解质水', '功能饮料'], ['认养一头牛高蛋白酸奶', '乳制品'], ['Keep 即食鸡胸肉组合装', '轻食'], ['农夫山泉东方树叶无糖茶', '茶饮'], ['每日坚果 30 袋礼盒', '坚果零食'], ['OATLY 燕麦奶 12 盒装', '植物饮品'], ['良品铺子低糖全麦面包', '烘焙食品'], ['椰树椰子水 1L*6', '饮料'], ['WonderLab 益生菌软糖', '营养零食'], ['空刻低脂意面组合', '方便速食'], ['钟薛高轻牛乳雪糕礼盒', '冷饮甜品']
+        ],
+        strategies: [
+          {
+            subCategory: '食饮 > 饮品',
+            scene: '618 大促 / 夏季解暑 / 办公室囤货',
+            hotWords: ['低糖饮品', '电解质', '办公室囤货', '夏季解暑', '买一囤三', '直播秒杀'],
+            content: ['从“下午犯困、天气闷热、健身补水”三个真实时刻切入，强化场景记忆。', '做口感盲测和成分对比，让用户快速分辨“好喝”和“低负担”能否兼得。', '直播间适合做多规格组合价，拉高客单。'],
+            integration: '抖音短视频场景切入 + 快手直播促成交 + 私域团购链接复购'
+          },
+          {
+            subCategory: '食饮 > 轻食',
+            scene: '618 大促 / 身材管理 / 午餐替代',
+            hotWords: ['轻食囤货', '高蛋白', '低卡不饿', '懒人午餐', '健身搭子'],
+            content: ['用“忙碌上班族 3 分钟搞定午餐”的叙事，强调省时和低负担。', '一定要拍清楚营养成分表和真实分量，避免“吃不饱”疑虑。', '可联动健身达人或减脂博主做背书。'],
+            integration: '小红书减脂笔记 + 抖音橱窗短视频 + 天猫会场活动页承接'
+          },
+          {
+            subCategory: '食饮 > 零食礼盒',
+            scene: '618 大促 / 家庭囤货 / 节点送礼',
+            hotWords: ['家庭囤货', '坚果礼盒', '儿童可吃', '办公室分享', '高性价比'],
+            content: ['主画面做“全家共享”与“办公分享”两类场景，突出大包装的价值感。', '把原料、独立小包装、开箱丰富度作为主要卖点来讲。', '适合和满减活动、第二件折扣一起表达。'],
+            integration: '微博话题曝光 + 京东搜索投流 + 企业团购私域转化'
+          }
+        ]
+      },
+      tech: {
+        overview: '国补、换新、性能和真实体验是 3C 核心搜索逻辑，适合高客单商品做内容蓄水 + 直播转化。',
+        hotBase: ['手机国补', '游戏本怎么选', '降噪耳机推荐', '平板学习机', '扫地机器人', '智能手表', '空调国补', '投影仪家用', '摄像头清晰度', '机械键盘', '618 电脑配置', '洗地机测评', '手机拍照对比', '学生平板', '以旧换新'],
+        hotAngles: ['补贴政策', '真实体验', '直播拆箱', '性能对比', '618 限时价', '旧机换新', '学生党'],
+        cloudTopics: [
+          ['国家补贴', 124], ['性能实测', 116], ['换新攻略', 110], ['价格对比', 102], ['直播拆箱', 96], ['学生党配置', 91], ['居家清洁升级', 86], ['办公效率', 82], ['电竞沉浸感', 78], ['拍照体验', 72], ['全屋智能', 68], ['以旧换新', 64], ['客厅娱乐', 60], ['高性价比', 56], ['限时现货', 52]
+        ],
+        cloudProducts: [
+          ['手机', 124], ['游戏本', 116], ['平板', 109], ['降噪耳机', 103], ['扫地机器人', 97], ['洗地机', 90], ['智能手表', 84], ['空调', 79], ['投影仪', 73], ['机械键盘', 67], ['显示器', 62], ['摄像头', 58], ['路由器', 54], ['学习机', 50], ['相机云台', 46]
+        ],
+        products: [
+          ['iPhone 16 128G 国补版', '智能手机'], ['华为 MatePad Air 学习平板', '平板电脑'], ['联想拯救者 Y9000P 游戏本', '笔记本电脑'], ['索尼 WH-1000XM6 降噪耳机', '耳机'], ['石头 P10 Pro 扫地机器人', '清洁电器'], ['追觅 H30 Ultra 洗地机', '清洁电器'], ['大疆 Pocket 4 全能套装', '影像设备'], ['小米手环 10 NFC 版', '智能穿戴'], ['极米 H6 投影仪', '投影设备'], ['华凌一级能效空调', '大家电'], ['雷蛇黑寡妇机械键盘', '电脑外设'], ['TP-Link Wi-Fi 7 路由器', '网络设备']
+        ],
+        strategies: [
+          {
+            subCategory: '3C > 手机 / 平板',
+            scene: '618 大促 / 国家补贴 / 旧机换新',
+            hotWords: ['国补', '以旧换新', '学生党', '拍照对比', '续航实测', '现货优惠'],
+            content: ['短视频第一句话直接报“补贴后到手价”，比单纯讲配置更能抓停留。', '真实使用场景要多：拍照、打游戏、办公学习，别只讲参数。', '直播间重点解决“版本怎么选、补贴怎么领、旧机怎么抵”三个高频问题。'],
+            integration: '抖音测评视频 + 京东直播间成交 + 企业微信 1 对 1 跟进高客单用户'
+          },
+          {
+            subCategory: '3C > 清洁电器',
+            scene: '618 大促 / 家电焕新 / 家务效率提升',
+            hotWords: ['家电焕新', '懒人清洁', '国补到手价', '实测吸力', '养宠家庭'],
+            content: ['内容里优先拍“毛发、汤汁、地砖缝隙”三类强感知场景，最容易出效果。', '对比旧款或手工清洁的时间成本，更容易解释高客单价值。', '直播里要演示噪音、重量和自清洁，不然用户会犹豫。'],
+            integration: '抖音家电达人探店 + 小红书家务升级种草 + 天猫旗舰直播收口'
+          },
+          {
+            subCategory: '3C > 影音外设',
+            scene: '618 大促 / 电竞娱乐 / 办公升级',
+            hotWords: ['沉浸体验', '降噪办公', '客厅娱乐', '性能拉满', '限时补贴'],
+            content: ['从“办公效率”与“娱乐体验”两条线拆内容，覆盖不同购买动机。', '重点展示音质、延迟、连接稳定性等体验型指标。', '适合联动主播做现场体验和连麦问答。'],
+            integration: 'B站测评内容分发 + 抖音直播卖货 + 京东搜索广告兜底拦截'
+          }
+        ]
+      },
+      daily: {
+        overview: '家庭清洁、洗护与纸品是典型大促囤货盘，关注点集中在大包装、香型和去污效果。',
+        hotBase: ['洗衣凝珠', '香氛沐浴露', '纸巾囤货', '衣物除菌液', '厨房清洁剂', '驱蚊喷雾', '洗洁精大包装', '婴衣洗衣液', '护手霜平价', '除螨喷雾', '地板清洁片', '卫生巾囤货', '厕洁慕斯', '油污清洁', '夏季驱蚊'],
+        hotAngles: ['家庭囤货', '大包装更省', '夏季驱蚊', '去污实测', '直播返场', '留香更久', '宿舍可用'],
+        cloudTopics: [
+          ['省心囤货', 117], ['去污实测', 111], ['留香体验', 103], ['夏季驱蚊', 96], ['家庭大包装', 92], ['直播返场', 86], ['育儿家庭', 80], ['厨房清洁', 74], ['衣物除菌', 70], ['宿舍必备', 66], ['油污克星', 62], ['家务减负', 58], ['温和不刺激', 54], ['回购清单', 51], ['全家可用', 48]
+        ],
+        cloudProducts: [
+          ['洗衣凝珠', 121], ['抽纸', 113], ['洗衣液', 106], ['沐浴露', 100], ['除菌液', 92], ['厨房清洁剂', 86], ['驱蚊液', 82], ['洗洁精', 76], ['卫生巾', 72], ['地板清洁片', 68], ['厕洁慕斯', 63], ['除螨喷雾', 58], ['护手霜', 54], ['湿厕纸', 49], ['垃圾袋', 45]
+        ],
+        products: [
+          ['奥妙酵素洗衣凝珠 72 颗', '洗护清洁'], ['维达抽纸家庭装 24 包', '纸品'], ['威露士衣物除菌液 3kg', '衣物护理'], ['蓝月亮深层洁净洗衣液 8kg', '洗衣液'], ['滴露松木香沐浴露套装', '洗护'], ['超能厨房重油污净', '厨房清洁'], ['六神驱蚊花露水家庭装', '驱蚊'], ['雕牌高效洗洁精 3 瓶装', '厨房清洁'], ['护舒宝液体卫生巾组合', '个护'], ['魔渍地板清洁片 120 片', '居家清洁'], ['小林制药除螨喷雾', '家居护理'], ['可心柔婴儿保湿纸家庭装', '纸品']
+        ],
+        strategies: [
+          {
+            subCategory: '日化 > 洗护清洁',
+            scene: '618 大促 / 家庭囤货 / 新客尝鲜',
+            hotWords: ['大包装', '去污实测', '留香更久', '满减囤货', '全家可用'],
+            content: ['内容里要直接拍出“用量、泡沫、去污对比”，用户最吃这套。', '建议把“单次使用成本”算出来，强化囤货价值。', '直播适合叠加满减券和赠品，拉高一次性购买件数。'],
+            integration: '抖音短视频实测 + 快手直播走量 + 微信社群接龙复购'
+          },
+          {
+            subCategory: '日化 > 驱蚊 / 除菌',
+            scene: '618 大促 / 夏季家庭 / 母婴周边场景',
+            hotWords: ['夏季驱蚊', '温和不刺激', '儿童可用', '居家除菌', '安心成分'],
+            content: ['从“家有宝宝 / 家里养宠 / 梅雨季”三个家庭焦虑点切入最有效。', '把使用方式演示清楚，比如喷哪里、多久见效、味道重不重。', '适合搭配口碑型达人或母婴达人提高信任感。'],
+            integration: '小红书家庭场景种草 + 抖音直播答疑 + 天猫旗舰店收口'
+          },
+          {
+            subCategory: '日化 > 纸品 / 个护',
+            scene: '618 大促 / 高频回购 / 家庭刚需',
+            hotWords: ['家庭装', '高频回购', '柔软厚实', '满减囤货', '安心材质'],
+            content: ['做“每月都要买”的刚需感，不需要过度复杂内容，重点是价格和品质。', '可把开箱体积、层数、触感拍细，让用户快速有感。', '适合信息流低成本跑量，再用私域做复购提醒。'],
+            integration: '信息流广告拉新 + 天猫活动页承接 + 私域订阅提醒复购'
+          }
+        ]
+      },
+      baby: {
+        overview: '母婴消费看重安全、成分和口碑，纸尿裤、喂养与防晒护理在大促期间转化最稳定。',
+        hotBase: ['纸尿裤红屁屁', '宝宝防晒', '婴儿湿巾', '奶瓶消毒柜', '儿童安全座椅', '辅食机推荐', '婴儿洗衣液', '宝宝面霜', '学饮杯', '奶粉转奶', '遛娃神器', '宝宝驱蚊', '婴童凉感睡袋', '早教机', '母婴囤货清单'],
+        hotAngles: ['安全成分', '育儿囤货', '618 妈妈必买', '口碑回购', '育儿场景', '宝宝夏季护理', '新手妈妈'],
+        cloudTopics: [
+          ['安心成分', 119], ['夏季护理', 111], ['妈妈囤货', 104], ['育儿口碑', 98], ['宝宝防晒', 93], ['红屁屁预防', 88], ['遛娃必备', 82], ['新手妈妈', 77], ['儿童安全', 71], ['睡眠安抚', 66], ['辅食过渡', 61], ['全家放心', 58], ['囤货攻略', 54], ['夏季出行', 51], ['科学喂养', 47]
+        ],
+        cloudProducts: [
+          ['纸尿裤', 123], ['婴儿湿巾', 114], ['宝宝防晒霜', 107], ['婴儿洗衣液', 100], ['奶瓶消毒柜', 92], ['儿童安全座椅', 86], ['婴儿面霜', 80], ['凉感睡袋', 75], ['辅食机', 69], ['学饮杯', 64], ['驱蚊喷雾', 59], ['早教机', 54], ['奶粉', 50], ['遛娃推车', 46], ['宝宝餐椅', 42]
+        ],
+        products: [
+          ['帮宝适清新帮纸尿裤 XL 72 片', '纸尿裤'], ['babycare 纯水湿巾 10 包装', '湿巾'], ['戴可思宝宝物理防晒乳', '婴童防晒'], ['贝亲婴儿洗衣液家庭装', '婴童洗护'], ['小白熊奶瓶蒸汽消毒柜', '喂养电器'], ['宝得适儿童安全座椅', '出行安全'], ['启初婴儿倍润面霜', '婴童护肤'], ['可优比凉感睡袋', '寝居用品'], ['小壮熊辅食机套装', '喂养工具'], ['利其尔学饮杯', '喂养用品'], ['润本宝宝驱蚊液', '婴童护理'], ['火火兔早教机', '早教益智']
+        ],
+        strategies: [
+          {
+            subCategory: '母婴 > 纸尿裤 / 湿巾',
+            scene: '618 大促 / 高频囤货 / 新生儿家庭',
+            hotWords: ['红屁屁预防', '柔软透气', '囤货装', '妈妈回购', '整夜安睡'],
+            content: ['内容先抓“漏不漏、闷不闷、会不会红屁屁”这三个妈妈最关心的问题。', '多拍细节和实测，尤其是吸收速度、厚薄、触感。', '直播适合做“大包装 + 加赠湿巾”的家庭囤货组合。'],
+            integration: '母婴达人短视频 + 抖音直播答疑 + 私域妈妈群团购复购'
+          },
+          {
+            subCategory: '母婴 > 夏季护理',
+            scene: '618 大促 / 夏季出行 / 日常护理',
+            hotWords: ['宝宝防晒', '温和成分', '夏季出门', '驱蚊护理', '安心可用'],
+            content: ['从“带娃出门怕晒怕蚊”的高频焦虑切入，马上能建立需求。', '强调成分温和和使用步骤，减少妈妈对刺激性的担心。', '适合图文和短视频同步发，搜索承接更强。'],
+            integration: '小红书育儿经验 + 百度搜索承接 + 天猫旗舰店促销页转化'
+          },
+          {
+            subCategory: '母婴 > 喂养 / 安全座椅',
+            scene: '618 大促 / 新生儿准备 / 出行升级',
+            hotWords: ['科学喂养', '出行安全', '新手妈妈', '功能升级', '大件补贴'],
+            content: ['大件母婴产品更需要解释“为什么值得买”，内容要讲清楚功能与年龄段适配。', '多拍安装、清洗、收纳等实际使用动作，提升信任。', '直播间可设置专家答疑或客服连线。'],
+            integration: '京东母婴搜索 + 抖音直播演示 + 企业微信顾问式成交'
+          }
+        ]
+      },
+      edu: {
+        overview: '教育行业在 618 期间更适合卖“效率提升、暑期规划、家庭决策”相关服务与产品。',
+        hotBase: ['暑期衔接课', '英语启蒙', '学习机怎么选', '考研冲刺', '考公资料', 'AI 学习工具', 'K12 家长群', '作文提分', '口才班体验', '编程启蒙', '暑假托管', '一对一试听', '志愿填报', '升学规划', '暑期训练营'],
+        hotAngles: ['暑期规划', '家长决策', '试听体验', '效率提升', '直播讲座', '报名优惠', '升学节点'],
+        cloudTopics: [
+          ['暑期规划', 117], ['家长决策', 110], ['试听体验', 103], ['效率提分', 97], ['AI 学习工具', 91], ['升学节点', 86], ['英语启蒙', 81], ['家庭陪学', 76], ['直播公开课', 71], ['作文提分', 67], ['考研考公', 63], ['学习方法', 59], ['规划咨询', 55], ['资料包领取', 52], ['口碑试听', 48]
+        ],
+        cloudProducts: [
+          ['学习机', 120], ['暑期课程包', 112], ['AI 学习机', 106], ['英语启蒙课', 100], ['训练营', 94], ['考研资料', 87], ['考公课程', 82], ['作文提分课', 76], ['思维课', 70], ['志愿填报服务', 66], ['口才体验课', 61], ['编程启蒙课', 57], ['家长训练营', 52], ['阅读打卡营', 48], ['试听课礼包', 44]
+        ],
+        products: [
+          ['科大讯飞 AI 学习机 X5 Pro', '学习机'], ['猿辅导暑期系统班', 'K12 课程'], ['作业帮英语启蒙 90 天营', '英语课程'], ['粉笔考公冲刺资料包', '考公资料'], ['高途考研政治冲刺班', '考研课程'], ['火花思维暑期逻辑训练营', '思维课程'], ['学而思阅读写作提升课', '阅读写作'], ['编程猫少儿编程体验营', '编程启蒙'], ['掌门 1 对 1 暑期试听卡', '试听服务'], ['夸克志愿填报专家服务', '升学规划'], ['凯叔口才表达体验营', '素质教育'], ['家长陪学方法训练营', '家长课程']
+        ],
+        strategies: [
+          {
+            subCategory: '教育 > 暑期课程',
+            scene: '618 大促 / 暑期规划 / 家长决策窗口',
+            hotWords: ['暑期衔接', '试听体验', '提分规划', '限时优惠', '家长必看'],
+            content: ['短视频先讲“暑假两个月最容易拉开差距”，把紧迫感打出来。', '用体验课、试听课、家长评价来降低决策门槛。', '直播里适合做“顾问式答疑 + 资料包领取”组合。'],
+            integration: '视频号直播讲座 + 抖音投流获客 + 企业微信咨询成交'
+          },
+          {
+            subCategory: '教育 > 学习机 / AI 工具',
+            scene: '618 大促 / 学习效率提升 / 家庭教育升级',
+            hotWords: ['AI 学习', '效率工具', '错题管理', '家长省心', '暑假陪学'],
+            content: ['重点展示真实使用路径，比如“拍题—讲解—巩固”是否顺畅。', '家长视角要讲“节省陪学精力”，学生视角讲“效率提高”。', '适合做直播演示和问答，减少用户对智商税的担心。'],
+            integration: 'B站测评讲解 + 京东搜索承接 + 视频号私域成交'
+          },
+          {
+            subCategory: '教育 > 规划咨询 / 升学',
+            scene: '暑期节点 / 升学前置 / 高客单咨询',
+            hotWords: ['升学规划', '志愿填报', '家长焦虑', '顾问咨询', '节点决策'],
+            content: ['把“信息差”和“节点错过风险”讲清楚，用户更容易愿意留资。', '内容里适合多用案例拆解，提升可信度。', '线索型业务建议把直播和私信承接打通。'],
+            integration: '百度搜索 + 视频号直播答疑 + 企业微信顾问跟进'
+          }
+        ]
+      }
+    };
+
+    const state = {
+      hot: 'all',
+      product: 'all',
+      cloud: 'all',
+      strategy: 'all'
+    };
+
+    const wordCharts = {
+      topic: null,
+      product: null
+    };
+
+    function hashCode(str) {
+      let h = 0;
+      for (let i = 0; i < str.length; i += 1) h = ((h << 5) - h + str.charCodeAt(i)) | 0;
+      return Math.abs(h);
+    }
+
+    function formatMetric(value) {
+      return value >= 10000 ? `${(value / 10000).toFixed(1)}w` : `${value}`;
+    }
+
+    function getIndustryKeys(currentKey) {
+      return currentKey === 'all' ? INDUSTRY_ORDER.filter(k => k !== 'all') : [currentKey];
+    }
+
+    function createTabs(containerId, activeKey, onClick) {
+      const root = document.getElementById(containerId);
+      root.innerHTML = '';
+      INDUSTRY_ORDER.forEach(key => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `filter-tab active:scale-[0.99] rounded-full px-4 py-2 text-sm font-semibold ${activeKey === key ? 'active' : ''}`;
+        btn.textContent = INDUSTRY_META[key].label;
+        btn.style.borderColor = INDUSTRY_META[key].accent;
+        btn.addEventListener('click', () => onClick(key));
+        root.appendChild(btn);
+      });
+    }
+
+    function introBlock(containerId, key, title, subtitle, bullets) {
+      const meta = INDUSTRY_META[key];
+      const el = document.getElementById(containerId);
+      el.innerHTML = `
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <div class="mb-2 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em]" style="color:${meta.accent}; border-color:${meta.accent}; background:${meta.glow};">
+              ${meta.short} Insight
+            </div>
+            <div class="cn-serif text-xl font-bold text-ink">${title}</div>
+            <div class="mt-2 text-sm leading-7 text-[#5d7292]">${subtitle}</div>
+          </div>
+          <div class="grid gap-2 text-sm text-[#5d7292] lg:max-w-[420px]">
+            ${bullets.map(item => `<div class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full" style="background:${meta.accent};"></span><span>${item}</span></div>`).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function rotateTake(list, start, count) {
+      const result = [];
+      for (let i = 0; i < count; i += 1) {
+        result.push(list[(start + i) % list.length]);
+      }
+      return result;
+    }
+
+    function hotItemTitle(term, angle, platform, index) {
+      if (platform.key === 'weibo') return `#${term} ${angle}#`;
+      if (platform.key === 'baidu') return `${term}${index % 2 === 0 ? ' 怎么选' : ' 值得买吗'}`;
+      if (platform.key === 'douyin') return `${term} ${platform.suffix[index % platform.suffix.length]}`;
+      return `${term} ${index % 2 === 0 ? angle : platform.suffix[index % platform.suffix.length]}`;
+    }
+
+    function buildHotData(industryKey) {
+      const keys = getIndustryKeys(industryKey);
+      return HOT_PLATFORMS.map((platform, pIndex) => {
+        const items = [];
+        keys.forEach((key, blendIndex) => {
+          const src = INDUSTRY_DATA[key];
+          const terms = rotateTake(src.hotBase, (pIndex * 2 + blendIndex * 3) % src.hotBase.length, industryKey === 'all' ? 2 : 10);
+          const angles = rotateTake(src.hotAngles, pIndex + blendIndex, terms.length);
+          terms.forEach((term, index) => {
+            const raw = 920000 - index * 43000 - pIndex * 18000 + (hashCode(`${key}-${platform.key}-${term}`) % 26000);
+            items.push({
+              title: hotItemTitle(term, angles[index], platform, index),
+              baseTitle: term,
+              metric: platform.metric,
+              value: raw,
+              tag: index < 3 ? 'TOP' : (index % 3 === 0 ? 'NEW' : 'HOT'),
+              industry: key
+            });
+          });
+        });
+        items.sort((a, b) => b.value - a.value);
+        return {
+          ...platform,
+          items: items.slice(0, 10).map((item, idx) => ({ ...item, rank: idx + 1 }))
+        };
+      });
+    }
+
+    function productItemName(name, platformKey, index) {
+      if (platformKey === 'jd' && index % 2 === 0) return `${name}｜现货速发`;
+      if (platformKey === 'kuaishou_shop' && index % 2 === 1) return `${name}｜主播主推款`;
+      if (platformKey === 'jinri_shop' && index % 3 === 0) return `${name}｜连带成交高`;
+      if (platformKey === 'tmall' && index % 2 === 0) return `${name}｜旗舰店爆款`;
+      return name;
+    }
+
+    function buildProductData(industryKey) {
+      const keys = getIndustryKeys(industryKey);
+      return PRODUCT_PLATFORMS.map((platform, pIndex) => {
+        const items = [];
+        keys.forEach((key, blendIndex) => {
+          const src = INDUSTRY_DATA[key];
+          const products = rotateTake(src.products, (pIndex * 3 + blendIndex * 2) % src.products.length, industryKey === 'all' ? 3 : 10);
+          products.forEach((item, index) => {
+            const value = 98000 - index * 4300 - pIndex * 1800 + (hashCode(`${platform.key}-${key}-${item[0]}`) % 1800);
+            items.push({
+              name: productItemName(item[0], platform.key, index),
+              category: item[1],
+              value,
+              metric: platform.metric,
+              industry: key
+            });
+          });
+        });
+        items.sort((a, b) => b.value - a.value);
+        return {
+          ...platform,
+          items: items.slice(0, 10).map((item, idx) => ({ ...item, rank: idx + 1 }))
+        };
+      });
+    }
+
+    function mergeCloudData(industryKey, type) {
+      const keys = getIndustryKeys(industryKey);
+      const map = new Map();
+      keys.forEach((key, orderIndex) => {
+        INDUSTRY_DATA[key][type].forEach(([name, value], idx) => {
+          const current = map.get(name) || 0;
+          const adjusted = value - orderIndex * 2 - idx * 0.3;
+          map.set(name, current + adjusted);
+        });
+      });
+      return Array.from(map.entries())
+        .map(([name, value]) => ({ name, value: Number(value.toFixed(1)) }))
+        .sort((a, b) => b.value - a.value)
+        .slice(0, 15);
+    }
+
+    function buildStrategies(industryKey) {
+      const keys = getIndustryKeys(industryKey);
+      return keys.flatMap(key => INDUSTRY_DATA[key].strategies.map(item => ({ ...item, industry: key })));
+    }
+
+    function renderHot() {
+      createTabs('tabs-hot', state.hot, key => { state.hot = key; renderHot(); });
+      const meta = INDUSTRY_META[state.hot];
+      const sourceKeys = getIndustryKeys(state.hot);
+      introBlock(
+        'hot-intro',
+        state.hot,
+        `${meta.label}热搜观察：${sourceKeys.length > 1 ? '跨行业热点混看，方便总览 618 内容情绪' : INDUSTRY_DATA[state.hot].overview}`,
+        sourceKeys.length > 1
+          ? '“全部”模式会把七大行业的高热词混合排序，更适合晨会快速扫一遍今天全网更热的内容切口。'
+          : '当前行业词条会按平台语境变化，比如微博更偏话题、百度更偏搜索、抖音更偏直播与短视频。',
+        sourceKeys.length > 1
+          ? ['优先盯前 3 名词条，基本就是今天可用的话题入口。', '如果同一个词在多个平台同时出现，优先安排内容联动。', '百度词更偏“决策”，抖音词更偏“种草”，可分工使用。']
+          : ['抖音 / 微博更适合定内容角度。', '百度更适合补充用户决策问题。', '电商平台热搜可直接反推直播间货盘表达。']
+      );
+      const data = buildHotData(state.hot);
+      document.getElementById('hot-grid').innerHTML = data.map(platform => `
+        <article class="platform-card rounded-[24px] p-5">
+          <div class="mb-4 flex items-end justify-between border-b border-ink/80 pb-4">
+            <div>
+              <div class="editorial-title text-[26px] font-black text-ink">${platform.name}</div>
+              <div class="mt-1 text-[11px] uppercase tracking-[0.2em] text-[#6b6256]">${platform.en}</div>
+            </div>
+            <div class="text-right text-[11px] leading-5 text-[#6b6256]">
+              <div>今日榜单</div>
+              <div class="font-bold text-ink">TOP10</div>
+            </div>
+          </div>
+          <div class="space-y-2">
+            ${platform.items.map(item => `
+              <div class="rank-row grid grid-cols-[30px_1fr_auto] items-center gap-3 border-b border-dashed border-ink/15 py-2.5">
+                <div class="editorial-title text-center text-[24px] font-black ${item.rank === 1 ? 'text-accent' : item.rank === 2 ? 'text-gold' : item.rank === 3 ? 'text-blue' : 'text-[#7a7165]'}">${item.rank}</div>
+                <div>
+                  <div class="cn-serif truncate text-[14px] font-semibold text-ink">${item.title}</div>
+                  <div class="mt-1 flex items-center gap-2 text-[11px] text-[#6b6256]">
+                    <span class="rank-chip ${item.tag === 'TOP' ? 'text-accent' : item.tag === 'NEW' ? 'text-pine' : 'text-blue'}">${item.tag}</span>
+                    <span>${INDUSTRY_META[item.industry].label}</span>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-[10px] uppercase tracking-[0.12em] text-[#6b6256]">${item.metric}</div>
+                  <div class="mt-1 font-mono text-[12px] font-bold text-ink">${formatMetric(item.value)}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function renderProduct() {
+      createTabs('tabs-product', state.product, key => { state.product = key; renderProduct(); });
+      const meta = INDUSTRY_META[state.product];
+      const sourceKeys = getIndustryKeys(state.product);
+      introBlock(
+        'product-intro',
+        state.product,
+        `${meta.label}爆款观察：${sourceKeys.length > 1 ? '看全行业哪些货最容易在 618 成交' : INDUSTRY_DATA[state.product].overview}`,
+        sourceKeys.length > 1
+          ? '“全部”模式适合从货盘视角找共性：什么品类在不同赛道都容易出现“囤货”“换新”“直播秒空”类表现。'
+          : '当前行业按平台拆单品榜，方便判断电商侧更适合推哪种 SKU、哪种货盘表达。',
+        sourceKeys.length > 1
+          ? ['高客单看“补贴 / 体验 / 现货”，低客单看“囤货 / 组合装 / 满减”。', '同一单品如果跨平台都靠前，优先纳入直播重点讲解。', '榜单适合配合当天内容话题一起用，形成“话题 + 商品”闭环。']
+          : ['先看平台榜首单品，再反推对应卖点。', '直播卖货要把“价格理由”和“产品理由”同时讲清。', '商品名里出现“组合装 / 家庭装 / 国补”时，通常转化更稳。']
+      );
+      const data = buildProductData(state.product);
+      document.getElementById('product-grid').innerHTML = data.map(platform => `
+        <article class="platform-card rounded-[24px] p-5">
+          <div class="mb-4 flex items-end justify-between border-b border-ink/80 pb-4">
+            <div>
+              <div class="editorial-title text-[26px] font-black text-ink">${platform.name}</div>
+              <div class="mt-1 text-[11px] uppercase tracking-[0.2em] text-[#6b6256]">${platform.en}</div>
+            </div>
+            <div class="text-right text-[11px] leading-5 text-[#6b6256]">
+              <div>昨日热卖</div>
+              <div class="font-bold text-ink">TOP10</div>
+            </div>
+          </div>
+          <div class="space-y-2">
+            ${platform.items.map(item => `
+              <div class="product-row grid grid-cols-[28px_1fr_auto] gap-3 border-b border-dashed border-ink/15 py-2.5">
+                <div class="editorial-title text-center text-[22px] font-black ${item.rank <= 3 ? 'text-accent' : 'text-[#7a7165]'}">${item.rank}</div>
+                <div class="min-w-0">
+                  <div class="cn-serif truncate text-[14px] font-semibold text-ink">${item.name}</div>
+                  <div class="mt-1 flex flex-wrap items-center gap-2 text-[11px] text-[#6b6256]">
+                    <span class="meta-chip text-pine">${item.category}</span>
+                    <span>${INDUSTRY_META[item.industry].label}</span>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-[10px] uppercase tracking-[0.12em] text-[#6b6256]">${item.metric}</div>
+                  <div class="mt-1 font-mono text-[12px] font-bold text-ink">${formatMetric(item.value)}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function wordCloudOption(words, palette, shape) {
+      return {
+        tooltip: {
+          backgroundColor: 'rgba(21,19,18,0.92)',
+          borderWidth: 0,
+          textStyle: { color: '#fff', fontFamily: 'Noto Sans SC' },
+          formatter: params => `${params.name}<br/>热度权重：${params.value}`
+        },
+        series: [{
+          type: 'wordCloud',
+          shape,
+          left: 'center',
+          top: '6%',
+          width: '92%',
+          height: '92%',
+          gridSize: 8,
+          sizeRange: [16, 48],
+          rotationRange: [-25, -25],
+          rotationStep: 1,
+          drawOutOfBound: false,
+          textStyle: {
+            fontFamily: 'Noto Serif SC, serif',
+            fontWeight: '700',
+            color: () => palette[Math.floor(Math.random() * palette.length)]
+          },
+          emphasis: {
+            textStyle: {
+              shadowBlur: 10,
+              shadowColor: 'rgba(21,19,18,0.2)'
+            }
+          },
+          data: words
+        }]
+      };
+    }
+
+    function renderCloud() {
+      createTabs('tabs-cloud', state.cloud, key => { state.cloud = key; renderCloud(); });
+      const topicWords = mergeCloudData(state.cloud, 'cloudTopics');
+      const productWords = mergeCloudData(state.cloud, 'cloudProducts');
+      introBlock(
+        'cloud-summary',
+        state.cloud,
+        `${INDUSTRY_META[state.cloud].label}词云观察：${state.cloud === 'all' ? '从全行业共性里看内容与商品双热点' : INDUSTRY_DATA[state.cloud].overview}`,
+        state.cloud === 'all'
+          ? '左边的话题词更适合拿来做选题，右边的商品词更适合拿来做直播间货盘与搜索承接。'
+          : '如果左词和右词能形成“场景 + 商品”的配对，比如“高温持妆 + 防晒”，当天内容就更容易成闭环。',
+        state.cloud === 'all'
+          ? ['左看情绪和场景，右看产品和卖点。', '词越大，说明今天越值得优先讲。', '建议把 TOP5 词直接给内容和直播团队同步。']
+          : ['优先把最大词做成当天内容主题。', '如果出现“价格 / 福利 / 券后”类词，直播承接优先级更高。', '如果出现“测评 / 怎么选 / 推荐”类词，搜索与解释型内容优先。']
+      );
+      if (!wordCharts.topic) wordCharts.topic = echarts.init(document.getElementById('topic-cloud'));
+      if (!wordCharts.product) wordCharts.product = echarts.init(document.getElementById('product-cloud'));
+      wordCharts.topic.setOption(wordCloudOption(topicWords, ['#1D4ED8', '#4F46E5', '#38BDF8', '#0F172A'], 'circle'), true);
+      wordCharts.product.setOption(wordCloudOption(productWords, ['#2563EB', '#0EA5E9', '#1E40AF', '#0F172A'], 'diamond'), true);
+    }
+
+    function renderStrategy() {
+      createTabs('tabs-strategy', state.strategy, key => { state.strategy = key; renderStrategy(); });
+      const list = buildStrategies(state.strategy);
+      const currentLabel = INDUSTRY_META[state.strategy].label;
+      introBlock(
+        'strategy-summary',
+        state.strategy,
+        `${currentLabel}策略建议：${state.strategy === 'all' ? '把全部行业动作混排，适合晨会直接分工' : INDUSTRY_DATA[state.strategy].overview}`,
+        state.strategy === 'all'
+          ? '“全部”模式建议看卡片标题先做优先级，再把热点词和渠道组合拆给内容、投流、直播三个角色。'
+          : '每张卡都按“二级行业 → 营销场景 → 热点词 → 内容策略 → 渠道组合”展开，拿去直接执行即可。',
+        state.strategy === 'all'
+          ? ['晨会先定 2-3 个高优先卡片，不建议同时开太多题。', '热点词适合给内容团队，渠道组合适合给投流与直播。', '今天有直播的行业，优先选择带“价格权益”表达的卡片。']
+          : ['热点词可以直接抄到封面和标题里。', '内容策略适合拆成短视频脚本方向。', '整合营销策略适合作为渠道预算分配参考。']
+      );
+      document.getElementById('strategy-grid').innerHTML = list.map(item => {
+        const meta = INDUSTRY_META[item.industry];
+        return `
+          <article class="strategy-card rounded-[24px] p-5">
+            <div class="mb-4 flex items-start justify-between gap-3 border-b border-ink/80 pb-4">
+              <div>
+                <div class="mb-2 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em]" style="color:${meta.accent}; border-color:${meta.accent}; background:${meta.glow};">
+                  ${meta.label}
+                </div>
+                <div class="cn-serif text-xl font-bold leading-8 text-ink">${item.subCategory}</div>
+              </div>
+              <div class="text-right text-[10px] uppercase tracking-[0.18em] text-[#6b6256]">Marketing<br/>Playbook</div>
+            </div>
+            <div class="space-y-4 text-sm leading-7 text-[#5d7292]">
+              <div>
+                <div class="mb-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#6b6256]">营销场景</div>
+                <div class="cn-serif text-[15px] font-semibold text-ink">${item.scene}</div>
+              </div>
+              <div>
+                <div class="mb-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[#6b6256]">热点词</div>
+                <div>${item.hotWords.map(word => `<span class="topic-chip">${word}</span>`).join('')}</div>
+              </div>
+              <div>
+                <div class="mb-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[#6b6256]">内容策略</div>
+                <div class="space-y-2">${item.content.map(text => `<div class="strategy-point border-b border-dashed border-ink/15 pb-2"><span class="mr-2 font-bold text-accent">•</span>${text}</div>`).join('')}</div>
+              </div>
+              <div>
+                <div class="mb-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#6b6256]">整合营销策略</div>
+                <div class="cn-serif text-[15px] font-semibold text-ink">${item.integration}</div>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function syncJumpNav() {
+      const sections = ['section-hot', 'section-product', 'section-cloud', 'section-strategy'];
+      const links = Array.from(document.querySelectorAll('.jump-link'));
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            links.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`));
+          }
+        });
+      }, { rootMargin: '-40% 0px -45% 0px', threshold: 0.01 });
+      sections.forEach(id => observer.observe(document.getElementById(id)));
+    }
+
+    function init() {
+      renderHot();
+      renderProduct();
+      renderCloud();
+      renderStrategy();
+      syncJumpNav();
+      window.addEventListener('resize', () => {
+        if (wordCharts.topic) wordCharts.topic.resize();
+        if (wordCharts.product) wordCharts.product.resize();
+      });
+    }
+
+    init();
+  </script>
+</body>
+</html>
