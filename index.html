@@ -512,7 +512,7 @@
           <div class="text-[12px] text-[#6b6256]">标注：<span class="font-semibold text-ink">“全部”展示所有行业混合卡片</span></div>
         </div>
         <div id="strategy-summary" class="mb-5 rounded-3xl border border-ink/80 bg-[rgba(223,234,251,0.82)] p-5 shadow-editorial"></div>
-        <div id="strategy-grid" class="strategy-grid-row"></div>
+        <div id="strategy-grid" class="strategy-grid-row" style="display:flex; flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden; gap:16px;"></div>
       </section>
     </div>
   </main>
@@ -1141,7 +1141,7 @@
       document.getElementById('strategy-grid').innerHTML = list.map(item => {
         const meta = INDUSTRY_META[item.industry];
         return `
-          <article class="strategy-card rounded-[24px] p-5">
+          <article class="strategy-card rounded-[24px] p-5" style="flex:0 0 420px; min-width:420px; width:420px;">
             <div class="mb-4 flex items-start justify-between gap-3 border-b border-ink/80 pb-4">
               <div>
                 <div class="mb-2 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em]" style="color:${meta.accent}; border-color:${meta.accent}; background:${meta.glow};">
