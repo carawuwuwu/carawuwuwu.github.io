@@ -166,7 +166,11 @@
       margin: 0 6px 6px 0;
     }
     .strategy-grid-row {
-      display: flex;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 420px;
+      grid-template-rows: 1fr;
+      align-items: stretch;
       gap: 16px;
       overflow-x: auto;
       overflow-y: hidden;
@@ -174,6 +178,7 @@
       scroll-snap-type: x proximity;
       scrollbar-width: thin;
       scrollbar-color: rgba(29,78,216,0.35) rgba(223,234,251,0.6);
+      white-space: normal;
     }
     .strategy-grid-row::-webkit-scrollbar {
       height: 10px;
@@ -187,9 +192,10 @@
       border-radius: 999px;
     }
     .strategy-card {
-      flex: 0 0 420px;
       width: 420px;
       min-width: 420px;
+      max-width: 420px;
+      height: 100%;
       border: 1.2px solid var(--border);
       background: rgba(255,255,255,0.36);
       transition: transform 0.2s ease, border-color 0.2s ease;
@@ -512,7 +518,7 @@
           <div class="text-[12px] text-[#6b6256]">标注：<span class="font-semibold text-ink">“全部”展示所有行业混合卡片</span></div>
         </div>
         <div id="strategy-summary" class="mb-5 rounded-3xl border border-ink/80 bg-[rgba(223,234,251,0.82)] p-5 shadow-editorial"></div>
-        <div id="strategy-grid" class="strategy-grid-row" style="display:flex; flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden; gap:16px;"></div>
+        <div id="strategy-grid" class="strategy-grid-row"></div>
       </section>
     </div>
   </main>
@@ -1138,10 +1144,19 @@
           ? ['晨会先定 2-3 个高优先卡片，不建议同时开太多题。', '热点词适合给内容团队，渠道组合适合给投流与直播。', '今天有直播的行业，优先选择带“价格权益”表达的卡片。']
           : ['热点词可以直接抄到封面和标题里。', '内容策略适合拆成短视频脚本方向。', '整合营销策略适合作为渠道预算分配参考。']
       );
-      document.getElementById('strategy-grid').innerHTML = list.map(item => {
+      const strategyGrid = document.getElementById('strategy-grid');
+      strategyGrid.style.display = 'grid';
+      strategyGrid.style.gridAutoFlow = 'column';
+      strategyGrid.style.gridAutoColumns = '420px';
+      strategyGrid.style.gridTemplateRows = '1fr';
+      strategyGrid.style.overflowX = 'auto';
+      strategyGrid.style.overflowY = 'hidden';
+      strategyGrid.style.gap = '16px';
+      strategyGrid.style.alignItems = 'stretch';
+      strategyGrid.innerHTML = list.map(item => {
         const meta = INDUSTRY_META[item.industry];
         return `
-          <article class="strategy-card rounded-[24px] p-5" style="flex:0 0 420px; min-width:420px; width:420px;">
+          <article class="strategy-card rounded-[24px] p-5" style="width:420px; min-width:420px; max-width:420px;">
             <div class="mb-4 flex items-start justify-between gap-3 border-b border-ink/80 pb-4">
               <div>
                 <div class="mb-2 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em]" style="color:${meta.accent}; border-color:${meta.accent}; background:${meta.glow};">
