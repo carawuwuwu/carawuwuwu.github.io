@@ -142,6 +142,75 @@
       transform: translateY(-4px);
       box-shadow: 0 18px 28px rgba(21,19,18,0.1);
     }
+    .status-fresh {
+      color: var(--accent);
+    }
+    .status-stale {
+      color: #b45309;
+    }
+    .status-unavailable {
+      color: #6b7280;
+    }
+    .empty-state {
+      border: 1px dashed rgba(16, 35, 63, 0.35);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.46);
+      padding: 18px 16px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .platform-note {
+      margin-top: 10px;
+      border-top: 1px dashed rgba(16, 35, 63, 0.18);
+      padding-top: 10px;
+      font-size: 11px;
+      line-height: 1.7;
+      color: #5f7393;
+    }
+    .platform-link {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .platform-link:hover {
+      text-decoration: underline;
+    }
+    .platform-meta-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+    .platform-meta-stack .rank-chip,
+    .platform-meta-stack .meta-chip {
+      white-space: nowrap;
+    }
+    .rank-link {
+      color: inherit;
+      text-decoration: none;
+    }
+    .rank-link:hover .cn-serif,
+    .rank-link:hover .product-title-text {
+      text-decoration: underline;
+      text-decoration-color: rgba(37, 99, 235, 0.5);
+    }
+    .product-title-text {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .product-rank-card {
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      gap: 12px;
+      border-bottom: 1px dashed rgba(16,35,63,0.15);
+      padding: 10px 0;
+    }
+    .product-rank-card:last-child {
+      border-bottom: none;
+    }
     .rank-row:last-child,
     .product-row:last-child,
     .strategy-point:last-child {
@@ -330,7 +399,7 @@
                 <p class="mb-3 flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.32em] text-accent">
                   <span>618 Campaign Intelligence</span>
                   <span class="inline-block h-px w-10 bg-ink/40"></span>
-                  <span>Daily Mock Dashboard</span>
+                  <span>Daily Auto Data Dashboard</span>
                 </p>
                 <h1 class="editorial-title text-[40px] font-black leading-none text-ink sm:text-[54px] lg:text-[76px]">
                   营销情报工作台
@@ -341,7 +410,7 @@
               </div>
             </div>
             <div class="grid gap-2 text-right text-[11px] uppercase tracking-[0.18em] text-[#6b6256]">
-              <div>数据更新时间：<b class="text-ink">2026-06-02 10:00</b></div>
+              <div>数据更新时间：<b id="meta-updated-at" class="text-ink">加载中</b></div>
               <div>更新频率：<b class="text-ink">每天 10:00 更新</b></div>
               <div>编辑者：<b class="text-ink">吴丹</b></div>
             </div>
@@ -353,8 +422,8 @@
             <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
               <div class="rounded-2xl border border-ink/80 bg-[rgba(255,255,255,0.42)] p-4">
                 <div class="text-[11px] font-bold uppercase tracking-[0.22em] text-[#6b6256]">监测平台</div>
-                <div class="editorial-title mt-3 text-5xl font-black text-accent">10</div>
-                <div class="mt-2 text-sm text-[#6b6256]">6 个热搜平台 + 4 个电商平台</div>
+                <div id="stat-platform-count" class="editorial-title mt-3 text-5xl font-black text-accent">8</div>
+                <div id="stat-platform-desc" class="mt-2 text-sm text-[#6b6256]">4 个热搜平台 + 4 个电商榜单</div>
               </div>
               <div class="rounded-2xl border border-ink/80 bg-[rgba(255,255,255,0.42)] p-4">
                 <div class="text-[11px] font-bold uppercase tracking-[0.22em] text-[#6b6256]">行业维度</div>
@@ -428,11 +497,11 @@
             <div class="section-head-number">01</div>
             <div>
               <h2 class="editorial-title text-3xl font-black text-ink lg:text-4xl">多平台热搜 TOP10</h2>
-              <p class="mt-2 text-sm tracking-[0.14em] text-[#6b6256] uppercase">Douyin · Weibo · Baidu · Tmall · JD · Kuaishou</p>
+              <p class="mt-2 text-sm tracking-[0.14em] text-[#6b6256] uppercase">Douyin · Weibo · Baidu · Kuaishou</p>
             </div>
           </div>
           <div class="max-w-xl text-sm leading-7 text-[#5d7292] cn-serif">
-            每个平台展示当日热搜词条，适合上午 10 点后快速判断“今天值得追的内容话题”。不同产业会自动切换对应热搜语境。
+            每个平台展示 data/hot.json 中的真实热搜词条，适合上午 10 点后快速判断“今天值得追的内容话题”。若个别平台当天未更新，会明确显示“暂无更新”或“沿用上次数据”。
           </div>
         </div>
         <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
@@ -453,7 +522,7 @@
             </div>
           </div>
           <div class="max-w-xl text-sm leading-7 text-[#5d7292] cn-serif">
-            展示昨日爆款参考单品，帮助你判断内容推什么货更容易接得住。榜单偏向“618 大促真实感”场景，适合做直播间与素材选品参考。
+            展示 data/hot.json 中的真实商品榜单，帮助你判断内容推什么货更容易接得住。若某个榜单当天抓取失败，会优先沿用上次成功数据，并在卡片中明确标识。
           </div>
         </div>
         <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
@@ -821,17 +890,27 @@
       strategy: 'all'
     };
 
-    const DAILY_HOT_API_BASE = 'https://test12345-eta.vercel.app';
-    const HOT_API_ENDPOINTS = {
-      douyin: '/douyin'
+    const DATA_JSON_CANDIDATES = ['/data/hot.json', 'data/hot.json', './data/hot.json'];
+    const HOT_TAB_META = {
+      all: { label: '全部', accent: '#10233f', glow: '#dfeafb', short: 'ALL' },
+      douyin: { label: '抖音', accent: '#2563eb', glow: 'rgba(37,99,235,0.12)', short: 'DY' },
+      weibo: { label: '微博', accent: '#4f46e5', glow: 'rgba(79,70,229,0.12)', short: 'WB' },
+      baidu: { label: '百度', accent: '#0284c7', glow: 'rgba(2,132,199,0.12)', short: 'BD' },
+      kuaishou: { label: '快手', accent: '#1d4ed8', glow: 'rgba(29,78,216,0.12)', short: 'KS' }
+    };
+    const PRODUCT_TAB_META = {
+      all: { label: '全部', accent: '#10233f', glow: '#dfeafb', short: 'ALL' },
+      tmall: { label: '淘宝天猫', accent: '#2563eb', glow: 'rgba(37,99,235,0.12)', short: 'TM' },
+      jd: { label: '京东', accent: '#4f46e5', glow: 'rgba(79,70,229,0.12)', short: 'JD' },
+      remai: { label: '今日热卖', accent: '#0284c7', glow: 'rgba(2,132,199,0.12)', short: 'RM' },
+      kuaishou_shop: { label: '快手电商', accent: '#1d4ed8', glow: 'rgba(29,78,216,0.12)', short: 'KS SHOP' }
     };
 
     const runtimeData = {
-      hotPlatforms: {},
-      hotFetchMeta: {
-        attempted: false,
-        loaded: []
-      }
+      dataset: null,
+      loadStatus: 'loading',
+      error: '',
+      resolvedPath: ''
     };
 
     const wordCharts = {
@@ -860,219 +939,103 @@
         .replace(/'/g, '&#39;');
     }
 
-    function getHotIndustryLabel(itemIndustry, currentIndustry) {
-      const fallbackKey = currentIndustry === 'all' ? 'all' : currentIndustry;
-      const targetKey = (itemIndustry && INDUSTRY_META[itemIndustry]) ? itemIndustry : fallbackKey;
-      return (INDUSTRY_META[targetKey] && INDUSTRY_META[targetKey].label) ? INDUSTRY_META[targetKey].label : '全部';
+    function formatDateTime(value) {
+      if (!value) return '暂无更新';
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return value;
+      return new Intl.DateTimeFormat('zh-CN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+        timeZone: 'Asia/Shanghai'
+      }).format(date).replace(/\//g, '-');
     }
 
-    function normalizeRealHotPlatform(platformKey, payload) {
-      const rawList = Array.isArray(payload?.data) ? payload.data : [];
-      const usable = rawList.filter(item => {
-        const title = item?.title || item?.word || item?.name || item?.keyword;
-        return typeof title === 'string' && title.trim();
-      });
-      if (usable.length < 5) return null;
-      return {
-        items: usable.slice(0, 10).map((item, idx) => ({
-          rank: idx + 1,
-          title: item.title || item.word || item.name || item.keyword,
-          metric: item.hot || item.score || item.view || item.value || item.desc || '实时热度',
-          value: item.hot || item.score || item.view || item.value || null,
-          tag: idx < 3 ? 'REAL' : 'API',
-          url: item.url || item.mobileUrl || payload?.link || '#'
-        })),
-        updateTime: payload?.updateTime || '',
-        sourceType: payload?.type || '实时榜单',
-        sourceLabel: '实时接口'
-      };
+    function getStatusBadge(status) {
+      if (status === 'stale') return { text: '沿用上次数据', className: 'status-stale', chip: 'STALE' };
+      if (status === 'unavailable') return { text: '暂无更新', className: 'status-unavailable', chip: 'EMPTY' };
+      return { text: '今日已更新', className: 'status-fresh', chip: 'FRESH' };
     }
 
-    async function fetchPlatformHot(platformKey) {
-      const endpoint = HOT_API_ENDPOINTS[platformKey];
-      if (!endpoint) return null;
-      try {
-        const controller = new AbortController();
-        const timer = setTimeout(() => controller.abort(), 8000);
-        const res = await fetch(`${DAILY_HOT_API_BASE}${endpoint}`, {
-          method: 'GET',
-          headers: { 'Accept': 'application/json' },
-          signal: controller.signal
-        });
-        clearTimeout(timer);
-        if (!res.ok) return null;
-        const payload = await res.json();
-        if (!payload || payload.code !== 200) return null;
-        return normalizeRealHotPlatform(platformKey, payload);
-      } catch (error) {
-        return null;
-      }
+    function getMetricText(item) {
+      if (item?.metric_text) return item.metric_text;
+      if (item?.metric_value !== undefined && item?.metric_value !== null) return String(item.metric_value);
+      return '--';
     }
 
-    async function loadRealHotData() {
-      runtimeData.hotFetchMeta.attempted = true;
-      const entries = await Promise.all(
-        Object.keys(HOT_API_ENDPOINTS).map(async (platformKey) => [platformKey, await fetchPlatformHot(platformKey)])
-      );
-      entries.forEach(([platformKey, result]) => {
-        if (result) {
-          runtimeData.hotPlatforms[platformKey] = result;
-        }
-      });
-      runtimeData.hotFetchMeta.loaded = Object.keys(runtimeData.hotPlatforms);
-      renderHot();
+    function getSourceLabel(platform) {
+      const sourceName = platform?.source_name || '同域 JSON';
+      const sourceKind = platform?.source_kind || 'same-origin';
+      return `${sourceName} · ${sourceKind}`;
     }
 
-    function getIndustryKeys(currentKey) {
-      return currentKey === 'all' ? INDUSTRY_ORDER.filter(k => k !== 'all') : [currentKey];
+    function getDatasetSection(sectionKey) {
+      if (!runtimeData.dataset) return {};
+      return runtimeData.dataset[sectionKey] || {};
     }
 
-    function createTabs(containerId, activeKey, onClick) {
+    function getSectionKeys(sectionKey) {
+      const section = getDatasetSection(sectionKey);
+      return Object.keys(section);
+    }
+
+    function getSectionList(sectionKey, selectedKey = 'all') {
+      const section = getDatasetSection(sectionKey);
+      const keys = Object.keys(section);
+      const orderedKeys = sectionKey === 'hot'
+        ? ['douyin', 'weibo', 'baidu', 'kuaishou'].filter(key => keys.includes(key)).concat(keys.filter(key => !['douyin', 'weibo', 'baidu', 'kuaishou'].includes(key)))
+        : ['tmall', 'jd', 'remai', 'kuaishou_shop'].filter(key => keys.includes(key)).concat(keys.filter(key => !['tmall', 'jd', 'remai', 'kuaishou_shop'].includes(key)));
+      return (selectedKey && selectedKey !== 'all' ? orderedKeys.filter(key => key === selectedKey) : orderedKeys).map(key => section[key]).filter(Boolean);
+    }
+
+    function updateHeaderStats() {
+      const meta = runtimeData.dataset?.meta;
+      document.getElementById('meta-updated-at').textContent = meta?.generated_at_local || '暂无更新';
+      const hotCount = getSectionKeys('hot').length;
+      const productCount = getSectionKeys('products').length;
+      document.getElementById('stat-platform-count').textContent = String(hotCount + productCount || 0);
+      document.getElementById('stat-platform-desc').textContent = `${hotCount} 个热搜平台 + ${productCount} 个电商榜单`;
+    }
+
+    function createTabs(containerId, tabs, activeKey, onClick) {
       const root = document.getElementById(containerId);
       root.innerHTML = '';
-      INDUSTRY_ORDER.forEach(key => {
+      tabs.forEach(tab => {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = `filter-tab active:scale-[0.99] rounded-full px-4 py-2 text-sm font-semibold ${activeKey === key ? 'active' : ''}`;
-        btn.textContent = INDUSTRY_META[key].label;
-        btn.style.borderColor = INDUSTRY_META[key].accent;
-        btn.addEventListener('click', () => onClick(key));
+        btn.className = `filter-tab active:scale-[0.99] rounded-full px-4 py-2 text-sm font-semibold ${activeKey === tab.key ? 'active' : ''}`;
+        btn.textContent = tab.label;
+        btn.style.borderColor = tab.accent;
+        btn.addEventListener('click', () => onClick(tab.key));
         root.appendChild(btn);
       });
     }
 
-    function introBlock(containerId, key, title, subtitle, bullets) {
-      const meta = INDUSTRY_META[key];
+    function introBlock(containerId, meta, title, subtitle, bullets) {
+      const safeMeta = meta || HOT_TAB_META.all;
       const el = document.getElementById(containerId);
       el.innerHTML = `
         <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <div class="mb-2 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em]" style="color:${meta.accent}; border-color:${meta.accent}; background:${meta.glow};">
-              ${meta.short} Insight
+            <div class="mb-2 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em]" style="color:${safeMeta.accent}; border-color:${safeMeta.accent}; background:${safeMeta.glow};">
+              ${escapeHtml(safeMeta.short)} Insight
             </div>
-            <div class="cn-serif text-xl font-bold text-ink">${title}</div>
-            <div class="mt-2 text-sm leading-7 text-[#5d7292]">${subtitle}</div>
+            <div class="cn-serif text-xl font-bold text-ink">${escapeHtml(title)}</div>
+            <div class="mt-2 text-sm leading-7 text-[#5d7292]">${escapeHtml(subtitle)}</div>
           </div>
-          <div class="grid gap-2 text-sm text-[#5d7292] lg:max-w-[420px]">
-            ${bullets.map(item => `<div class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full" style="background:${meta.accent};"></span><span>${item}</span></div>`).join('')}
+          <div class="grid gap-2 text-sm text-[#5d7292] lg:max-w-[460px]">
+            ${bullets.map(item => `<div class="flex items-start gap-2"><span class="mt-1 h-2 w-2 rounded-full" style="background:${safeMeta.accent};"></span><span>${escapeHtml(item)}</span></div>`).join('')}
           </div>
         </div>
       `;
     }
 
-    function rotateTake(list, start, count) {
-      const result = [];
-      for (let i = 0; i < count; i += 1) {
-        result.push(list[(start + i) % list.length]);
-      }
-      return result;
-    }
-
-    function hotItemTitle(term, angle, platform, index) {
-      if (platform.key === 'weibo') return `#${term} ${angle}#`;
-      if (platform.key === 'baidu') return `${term}${index % 2 === 0 ? ' 怎么选' : ' 值得买吗'}`;
-      if (platform.key === 'douyin') return `${term} ${platform.suffix[index % platform.suffix.length]}`;
-      return `${term} ${index % 2 === 0 ? angle : platform.suffix[index % platform.suffix.length]}`;
-    }
-
-    function buildHotData(industryKey) {
-      const keys = getIndustryKeys(industryKey);
-      return HOT_PLATFORMS.map((platform, pIndex) => {
-        const realPlatform = runtimeData.hotPlatforms[platform.key];
-        if (realPlatform) {
-          return {
-            ...platform,
-            sourceLabel: realPlatform.sourceLabel,
-            sourceType: realPlatform.sourceType,
-            badge: 'REAL',
-            updateTime: realPlatform.updateTime,
-            isReal: true,
-            items: realPlatform.items.map((item, idx) => ({
-              ...item,
-              rank: idx + 1,
-              metric: platform.metric,
-              industry: industryKey === 'all' ? 'all' : industryKey
-            }))
-          };
-        }
-        const items = [];
-        keys.forEach((key, blendIndex) => {
-          const src = INDUSTRY_DATA[key];
-          const terms = rotateTake(src.hotBase, (pIndex * 2 + blendIndex * 3) % src.hotBase.length, industryKey === 'all' ? 2 : 10);
-          const angles = rotateTake(src.hotAngles, pIndex + blendIndex, terms.length);
-          terms.forEach((term, index) => {
-            const raw = 920000 - index * 43000 - pIndex * 18000 + (hashCode(`${key}-${platform.key}-${term}`) % 26000);
-            items.push({
-              title: hotItemTitle(term, angles[index], platform, index),
-              baseTitle: term,
-              metric: platform.metric,
-              value: raw,
-              tag: index < 3 ? 'TOP' : (index % 3 === 0 ? 'NEW' : 'HOT'),
-              industry: key
-            });
-          });
-        });
-        items.sort((a, b) => b.value - a.value);
-        return {
-          ...platform,
-          sourceLabel: 'Mock 数据',
-          sourceType: '行业模拟',
-          badge: 'MOCK',
-          updateTime: '',
-          isReal: false,
-          items: items.slice(0, 10).map((item, idx) => ({ ...item, rank: idx + 1 }))
-        };
-      });
-    }
-
-    function productItemName(name, platformKey, index) {
-      if (platformKey === 'jd' && index % 2 === 0) return `${name}｜现货速发`;
-      if (platformKey === 'kuaishou_shop' && index % 2 === 1) return `${name}｜主播主推款`;
-      if (platformKey === 'jinri_shop' && index % 3 === 0) return `${name}｜连带成交高`;
-      if (platformKey === 'tmall' && index % 2 === 0) return `${name}｜旗舰店爆款`;
-      return name;
-    }
-
-    function buildProductData(industryKey) {
-      const keys = getIndustryKeys(industryKey);
-      return PRODUCT_PLATFORMS.map((platform, pIndex) => {
-        const items = [];
-        keys.forEach((key, blendIndex) => {
-          const src = INDUSTRY_DATA[key];
-          const products = rotateTake(src.products, (pIndex * 3 + blendIndex * 2) % src.products.length, industryKey === 'all' ? 3 : 10);
-          products.forEach((item, index) => {
-            const value = 98000 - index * 4300 - pIndex * 1800 + (hashCode(`${platform.key}-${key}-${item[0]}`) % 1800);
-            items.push({
-              name: productItemName(item[0], platform.key, index),
-              category: item[1],
-              value,
-              metric: platform.metric,
-              industry: key
-            });
-          });
-        });
-        items.sort((a, b) => b.value - a.value);
-        return {
-          ...platform,
-          items: items.slice(0, 10).map((item, idx) => ({ ...item, rank: idx + 1 }))
-        };
-      });
-    }
-
-    function mergeCloudData(industryKey, type) {
-      const keys = getIndustryKeys(industryKey);
-      const map = new Map();
-      keys.forEach((key, orderIndex) => {
-        INDUSTRY_DATA[key][type].forEach(([name, value], idx) => {
-          const current = map.get(name) || 0;
-          const adjusted = value - orderIndex * 2 - idx * 0.3;
-          map.set(name, current + adjusted);
-        });
-      });
-      return Array.from(map.entries())
-        .map(([name, value]) => ({ name, value: Number(value.toFixed(1)) }))
-        .sort((a, b) => b.value - a.value)
-        .slice(0, 15);
+    function getIndustryKeys(currentKey) {
+      return currentKey === 'all' ? INDUSTRY_ORDER.filter(k => k !== 'all') : [currentKey];
     }
 
     function buildStrategies(industryKey) {
@@ -1080,113 +1043,219 @@
       return keys.flatMap(key => INDUSTRY_DATA[key].strategies.map(item => ({ ...item, industry: key })));
     }
 
+    function renderHotLoading() {
+      createTabs('tabs-hot', [{ key: 'all', label: '全部', ...HOT_TAB_META.all }], 'all', () => {});
+      introBlock('hot-intro', HOT_TAB_META.all, '热搜数据加载中', '正在读取同域 /data/hot.json。', [
+        '页面不再直接请求外部 API。',
+        '若抓取脚本当天失败，会显示“沿用上次数据”或“暂无更新”。',
+        '加载失败时页面仍可继续浏览其他模块。'
+      ]);
+      document.getElementById('hot-grid').innerHTML = '<div class="empty-state md:col-span-2 xl:col-span-3 2xl:col-span-4">正在加载热搜数据，请稍候…</div>';
+    }
+
+    function renderProductLoading() {
+      createTabs('tabs-product', [{ key: 'all', label: '全部', ...PRODUCT_TAB_META.all }], 'all', () => {});
+      introBlock('product-intro', PRODUCT_TAB_META.all, '商品榜单加载中', '正在读取同域 /data/hot.json。', [
+        '数据源统一来自仓库内生成的 JSON 文件。',
+        '若某个平台当天抓取失败，会明确显示状态。',
+        '不会再在前端偷偷生成 mock 数据冒充真数据。'
+      ]);
+      document.getElementById('product-grid').innerHTML = '<div class="empty-state md:col-span-2 xl:col-span-4">正在加载商品榜单，请稍候…</div>';
+    }
+
+    function renderHotError() {
+      createTabs('tabs-hot', [{ key: 'all', label: '全部', ...HOT_TAB_META.all }], 'all', () => {});
+      introBlock('hot-intro', HOT_TAB_META.all, '热搜数据暂不可用', '同域 /data/hot.json 读取失败，但页面不会崩。', [
+        runtimeData.error || '未能获取 JSON 文件。',
+        '请检查 data/hot.json 是否已随站点发布。',
+        '重新发布后页面会自动恢复。'
+      ]);
+      document.getElementById('hot-grid').innerHTML = '<div class="empty-state md:col-span-2 xl:col-span-3 2xl:col-span-4">暂时无法读取热搜数据，请稍后刷新重试。</div>';
+    }
+
+    function renderProductError() {
+      createTabs('tabs-product', [{ key: 'all', label: '全部', ...PRODUCT_TAB_META.all }], 'all', () => {});
+      introBlock('product-intro', PRODUCT_TAB_META.all, '商品榜单暂不可用', '同域 /data/hot.json 读取失败，但页面不会崩。', [
+        runtimeData.error || '未能获取 JSON 文件。',
+        '请检查 data/hot.json 是否已随站点发布。',
+        '重新发布后页面会自动恢复。'
+      ]);
+      document.getElementById('product-grid').innerHTML = '<div class="empty-state md:col-span-2 xl:col-span-4">暂时无法读取商品榜单，请稍后刷新重试。</div>';
+    }
+
+    function buildHotTabs() {
+      const list = getSectionList('hot');
+      return [{ key: 'all', ...HOT_TAB_META.all }].concat(list.map(platform => ({
+        key: platform.key,
+        ...(HOT_TAB_META[platform.key] || { label: platform.name || platform.key, accent: '#10233f', glow: '#dfeafb', short: platform.name || platform.key })
+      })));
+    }
+
+    function buildProductTabs() {
+      const list = getSectionList('products');
+      return [{ key: 'all', ...PRODUCT_TAB_META.all }].concat(list.map(platform => ({
+        key: platform.key,
+        ...(PRODUCT_TAB_META[platform.key] || { label: platform.name || platform.key, accent: '#10233f', glow: '#dfeafb', short: platform.name || platform.key })
+      })));
+    }
+
     function renderHot() {
-      createTabs('tabs-hot', state.hot, key => { state.hot = key; renderHot(); });
-      const meta = INDUSTRY_META[state.hot];
-      const sourceKeys = getIndustryKeys(state.hot);
-      const loadedRealCount = runtimeData.hotFetchMeta.loaded.length;
+      if (runtimeData.loadStatus === 'loading') {
+        renderHotLoading();
+        return;
+      }
+      if (runtimeData.loadStatus === 'error' || !runtimeData.dataset) {
+        renderHotError();
+        return;
+      }
+
+      const tabs = buildHotTabs();
+      if (!tabs.some(tab => tab.key === state.hot)) state.hot = 'all';
+      createTabs('tabs-hot', tabs, state.hot, key => { state.hot = key; renderHot(); });
+      const platforms = getSectionList('hot', state.hot);
+      const meta = runtimeData.dataset.meta || {};
+      const summary = meta.summary || {};
+      const currentMeta = HOT_TAB_META[state.hot] || HOT_TAB_META.all;
+      const staleCount = platforms.filter(platform => platform.status === 'stale').length;
+      const unavailableCount = platforms.filter(platform => platform.status === 'unavailable').length;
       introBlock(
         'hot-intro',
-        state.hot,
-        `${meta.label}热搜观察：${sourceKeys.length > 1 ? '跨行业热点混看，方便总览 618 内容情绪' : INDUSTRY_DATA[state.hot].overview}`,
-        loadedRealCount > 0
-          ? `当前已接入 ${loadedRealCount} 个平台的真实接口数据；接口未覆盖或请求失败的平台，会自动回退为 Mock 数据，保证页面始终可用。`
-          : (sourceKeys.length > 1
-            ? '“全部”模式会把七大行业的高热词混合排序，更适合晨会快速扫一遍今天全网更热的内容切口。'
-            : '当前行业词条会按平台语境变化，比如微博更偏话题、百度更偏搜索、抖音更偏直播与短视频。'),
-        loadedRealCount > 0
-          ? ['带“REAL”标记的平台已接入接口实时数据。', '接口暂不支持或返回异常的平台会自动显示 Mock 榜单。', '如需更多平台真数据，可继续补充 DailyHotApi 对应路由。']
-          : (sourceKeys.length > 1
-            ? ['优先盯前 3 名词条，基本就是今天可用的话题入口。', '如果同一个词在多个平台同时出现，优先安排内容联动。', '百度词更偏“决策”，抖音词更偏“种草”，可分工使用。']
-            : ['抖音 / 微博更适合定内容角度。', '百度更适合补充用户决策问题。', '电商平台热搜可直接反推直播间货盘表达。'])
+        currentMeta,
+        state.hot === 'all' ? '多平台热搜观察：统一读取同域 JSON' : `${currentMeta.label}热搜观察：真实榜单直出`,
+        state.hot === 'all'
+          ? `当前热搜模块共展示 ${summary.hot_platform_count || platforms.length} 个平台，全部数据来自站点同域 /data/hot.json。`
+          : `${currentMeta.label} 榜单优先展示今日抓取结果；若当日抓取失败，则显式显示“沿用上次数据”或“暂无更新”。`,
+        [
+          `今日已更新 ${platforms.filter(platform => platform.status === 'fresh').length} 个平台。`,
+          staleCount > 0 ? `${staleCount} 个平台沿用了上次成功数据。` : '当前筛选范围内没有使用历史回退数据的平台。',
+          unavailableCount > 0 ? `${unavailableCount} 个平台暂无更新，界面会直接提示。` : '当前筛选范围内的平台均有可展示数据。'
+        ]
       );
-      const data = buildHotData(state.hot);
-      document.getElementById('hot-grid').innerHTML = data.map(platform => `
-        <article class="platform-card rounded-[24px] p-5">
-          <div class="mb-4 flex items-end justify-between border-b border-ink/80 pb-4">
-            <div>
-              <div class="editorial-title text-[26px] font-black text-ink">${platform.name}</div>
-              <div class="mt-1 text-[11px] uppercase tracking-[0.2em] text-[#6b6256]">${platform.en}</div>
-            </div>
-            <div class="text-right text-[11px] leading-5 text-[#6b6256]">
-              <div>${platform.isReal ? '实时榜单' : '今日榜单'}</div>
-              <div class="font-bold text-ink">TOP10</div>
-            </div>
-          </div>
-          <div class="mb-3 flex items-center justify-between text-[11px] text-[#6b6256]">
-            <span class="rank-chip ${platform.badge === 'REAL' ? 'text-accent' : 'text-pine'}">${platform.badge || 'MOCK'}</span>
-            <span>${escapeHtml(platform.sourceType || (platform.badge === 'REAL' ? '实时榜单' : '行业模拟'))}</span>
-          </div>
-          <div class="space-y-2">
-            ${platform.items.map(item => `
-              <div class="rank-row grid grid-cols-[30px_1fr_auto] items-center gap-3 border-b border-dashed border-ink/15 py-2.5">
-                <div class="editorial-title text-center text-[24px] font-black ${item.rank === 1 ? 'text-accent' : item.rank === 2 ? 'text-gold' : item.rank === 3 ? 'text-blue' : 'text-[#7a7165]'}">${item.rank}</div>
-                <div>
-                  <div class="cn-serif truncate text-[14px] font-semibold text-ink">${escapeHtml(item.title)}</div>
-                  <div class="mt-1 flex items-center gap-2 text-[11px] text-[#6b6256]">
-                    <span class="rank-chip ${item.tag === 'TOP' ? 'text-accent' : item.tag === 'NEW' ? 'text-pine' : item.tag === 'REAL' ? 'text-accent' : 'text-blue'}">${escapeHtml(item.tag || 'HOT')}</span>
-                    <span>${escapeHtml(getHotIndustryLabel(item.industry, state.hot))}</span>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <div class="text-[10px] uppercase tracking-[0.12em] text-[#6b6256]">${escapeHtml(item.metric)}</div>
-                  <div class="mt-1 font-mono text-[12px] font-bold text-ink">${formatMetric(item.value)}</div>
-                </div>
+
+      document.getElementById('hot-grid').innerHTML = platforms.map(platform => {
+        const statusBadge = getStatusBadge(platform.status);
+        const items = Array.isArray(platform.items) ? platform.items : [];
+        const rows = items.length ? items.map(item => `
+          <div class="rank-row grid grid-cols-[30px_1fr_auto] items-center gap-3 border-b border-dashed border-ink/15 py-2.5">
+            <div class="editorial-title text-center text-[24px] font-black ${item.rank === 1 ? 'text-accent' : item.rank === 2 ? 'text-gold' : item.rank === 3 ? 'text-blue' : 'text-[#7a7165]'}">${escapeHtml(item.rank)}</div>
+            <div class="min-w-0">
+              <a class="rank-link" href="${escapeHtml(item.url || '#')}" target="_blank" rel="noreferrer noopener">
+                <div class="cn-serif truncate text-[14px] font-semibold text-ink">${escapeHtml(item.title || '暂无更新')}</div>
+              </a>
+              <div class="mt-1 flex flex-wrap items-center gap-2 text-[11px] text-[#6b6256]">
+                <span class="rank-chip ${statusBadge.className}">${escapeHtml(statusBadge.chip)}</span>
+                <span>${escapeHtml(item.subtitle || platform.title || '榜单条目')}</span>
               </div>
-            `).join('')}
+            </div>
+            <div class="text-right">
+              <div class="text-[10px] uppercase tracking-[0.12em] text-[#6b6256]">热度</div>
+              <div class="mt-1 font-mono text-[12px] font-bold text-ink">${escapeHtml(getMetricText(item))}</div>
+            </div>
           </div>
-        </article>
-      `).join('');
+        `).join('') : `<div class="empty-state">${platform.status === 'stale' ? '本次抓取失败，且无可展示条目。' : '暂无更新'}</div>`;
+        return `
+          <article class="platform-card rounded-[24px] p-5">
+            <div class="mb-4 flex items-end justify-between border-b border-ink/80 pb-4">
+              <div>
+                <div class="editorial-title text-[26px] font-black text-ink">${escapeHtml(platform.name || platform.key)}</div>
+                <div class="mt-1 text-[11px] uppercase tracking-[0.2em] text-[#6b6256]">${escapeHtml(platform.en || '')}</div>
+              </div>
+              <div class="text-right text-[11px] leading-5 text-[#6b6256]">
+                <div class="${statusBadge.className}">${escapeHtml(statusBadge.text)}</div>
+                <div class="font-bold text-ink">TOP${items.length || 0}</div>
+              </div>
+            </div>
+            <div class="mb-3 platform-meta-stack text-[11px] text-[#6b6256]">
+              <span class="rank-chip ${statusBadge.className}">${escapeHtml(statusBadge.chip)}</span>
+              <span class="meta-chip">${escapeHtml(platform.updated_at ? formatDateTime(platform.updated_at) : '暂无更新时间')}</span>
+            </div>
+            <div class="space-y-2">${rows}</div>
+            <div class="platform-note">
+              <div>来源：<a class="platform-link" href="${escapeHtml(platform.source_url || '#')}" target="_blank" rel="noreferrer noopener">${escapeHtml(getSourceLabel(platform))}</a></div>
+              <div>说明：${escapeHtml(platform.note || (platform.status === 'unavailable' ? '当前暂无可展示数据。' : '已同步今日榜单。'))}</div>
+            </div>
+          </article>
+        `;
+      }).join('') || '<div class="empty-state md:col-span-2 xl:col-span-3 2xl:col-span-4">暂无可展示的热搜平台。</div>';
     }
 
     function renderProduct() {
-      createTabs('tabs-product', state.product, key => { state.product = key; renderProduct(); });
-      const meta = INDUSTRY_META[state.product];
-      const sourceKeys = getIndustryKeys(state.product);
+      if (runtimeData.loadStatus === 'loading') {
+        renderProductLoading();
+        return;
+      }
+      if (runtimeData.loadStatus === 'error' || !runtimeData.dataset) {
+        renderProductError();
+        return;
+      }
+
+      const tabs = buildProductTabs();
+      if (!tabs.some(tab => tab.key === state.product)) state.product = 'all';
+      createTabs('tabs-product', tabs, state.product, key => { state.product = key; renderProduct(); });
+      const platforms = getSectionList('products', state.product);
+      const meta = runtimeData.dataset.meta || {};
+      const summary = meta.summary || {};
+      const currentMeta = PRODUCT_TAB_META[state.product] || PRODUCT_TAB_META.all;
+      const staleCount = platforms.filter(platform => platform.status === 'stale').length;
+      const unavailableCount = platforms.filter(platform => platform.status === 'unavailable').length;
       introBlock(
         'product-intro',
-        state.product,
-        `${meta.label}爆款观察：${sourceKeys.length > 1 ? '看全行业哪些货最容易在 618 成交' : INDUSTRY_DATA[state.product].overview}`,
-        sourceKeys.length > 1
-          ? '“全部”模式适合从货盘视角找共性：什么品类在不同赛道都容易出现“囤货”“换新”“直播秒空”类表现。'
-          : '当前行业按平台拆单品榜，方便判断电商侧更适合推哪种 SKU、哪种货盘表达。',
-        sourceKeys.length > 1
-          ? ['高客单看“补贴 / 体验 / 现货”，低客单看“囤货 / 组合装 / 满减”。', '同一单品如果跨平台都靠前，优先纳入直播重点讲解。', '榜单适合配合当天内容话题一起用，形成“话题 + 商品”闭环。']
-          : ['先看平台榜首单品，再反推对应卖点。', '直播卖货要把“价格理由”和“产品理由”同时讲清。', '商品名里出现“组合装 / 家庭装 / 国补”时，通常转化更稳。']
+        currentMeta,
+        state.product === 'all' ? '真实商品榜单观察：统一读取同域 JSON' : `${currentMeta.label} 商品榜单观察`,
+        state.product === 'all'
+          ? `当前商品模块共展示 ${summary.product_platform_count || platforms.length} 个榜单来源，全部来自站点同域 /data/hot.json。`
+          : `${currentMeta.label} 榜单优先展示今日抓取结果；若当日抓取失败，则显式显示“沿用上次数据”或“暂无更新”。`,
+        [
+          `今日已更新 ${platforms.filter(platform => platform.status === 'fresh').length} 个榜单。`,
+          staleCount > 0 ? `${staleCount} 个榜单沿用了上次成功数据。` : '当前筛选范围内没有使用历史回退数据的榜单。',
+          unavailableCount > 0 ? `${unavailableCount} 个榜单暂无更新，界面会直接提示。` : '当前筛选范围内的榜单均有可展示数据。'
+        ]
       );
-      const data = buildProductData(state.product);
-      document.getElementById('product-grid').innerHTML = data.map(platform => `
-        <article class="platform-card rounded-[24px] p-5">
-          <div class="mb-4 flex items-end justify-between border-b border-ink/80 pb-4">
-            <div>
-              <div class="editorial-title text-[26px] font-black text-ink">${platform.name}</div>
-              <div class="mt-1 text-[11px] uppercase tracking-[0.2em] text-[#6b6256]">${platform.en}</div>
-            </div>
-            <div class="text-right text-[11px] leading-5 text-[#6b6256]">
-              <div>昨日热卖</div>
-              <div class="font-bold text-ink">TOP10</div>
-            </div>
-          </div>
-          <div class="space-y-2">
-            ${platform.items.map(item => `
-              <div class="product-row grid grid-cols-[28px_1fr_auto] gap-3 border-b border-dashed border-ink/15 py-2.5">
-                <div class="editorial-title text-center text-[22px] font-black ${item.rank <= 3 ? 'text-accent' : 'text-[#7a7165]'}">${item.rank}</div>
-                <div class="min-w-0">
-                  <div class="cn-serif truncate text-[14px] font-semibold text-ink">${item.name}</div>
-                  <div class="mt-1 flex flex-wrap items-center gap-2 text-[11px] text-[#6b6256]">
-                    <span class="meta-chip text-pine">${item.category}</span>
-                    <span>${INDUSTRY_META[item.industry].label}</span>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <div class="text-[10px] uppercase tracking-[0.12em] text-[#6b6256]">${item.metric}</div>
-                  <div class="mt-1 font-mono text-[12px] font-bold text-ink">${formatMetric(item.value)}</div>
-                </div>
+
+      document.getElementById('product-grid').innerHTML = platforms.map(platform => {
+        const statusBadge = getStatusBadge(platform.status);
+        const items = Array.isArray(platform.items) ? platform.items : [];
+        const rows = items.length ? items.map(item => `
+          <div class="product-rank-card">
+            <div class="editorial-title text-center text-[22px] font-black ${item.rank <= 3 ? 'text-accent' : 'text-[#7a7165]'}">${escapeHtml(item.rank)}</div>
+            <div class="min-w-0">
+              <a class="rank-link" href="${escapeHtml(item.url || '#')}" target="_blank" rel="noreferrer noopener">
+                <span class="cn-serif product-title-text text-[14px] font-semibold text-ink">${escapeHtml(item.title || '暂无更新')}</span>
+              </a>
+              <div class="mt-1 flex flex-wrap items-center gap-2 text-[11px] text-[#6b6256]">
+                <span class="meta-chip ${statusBadge.className}">${escapeHtml(item.subtitle || '榜单信息待补充')}</span>
               </div>
-            `).join('')}
+            </div>
+            <div class="text-right">
+              <div class="text-[10px] uppercase tracking-[0.12em] text-[#6b6256]">榜单说明</div>
+              <div class="mt-1 font-mono text-[12px] font-bold text-ink">${escapeHtml(getMetricText(item))}</div>
+            </div>
           </div>
-        </article>
-      `).join('');
+        `).join('') : `<div class="empty-state">${platform.status === 'stale' ? '本次抓取失败，且无可展示条目。' : '暂无更新'}</div>`;
+        return `
+          <article class="platform-card rounded-[24px] p-5">
+            <div class="mb-4 flex items-end justify-between border-b border-ink/80 pb-4">
+              <div>
+                <div class="editorial-title text-[26px] font-black text-ink">${escapeHtml(platform.name || platform.key)}</div>
+                <div class="mt-1 text-[11px] uppercase tracking-[0.2em] text-[#6b6256]">${escapeHtml(platform.en || '')}</div>
+              </div>
+              <div class="text-right text-[11px] leading-5 text-[#6b6256]">
+                <div class="${statusBadge.className}">${escapeHtml(statusBadge.text)}</div>
+                <div class="font-bold text-ink">TOP${items.length || 0}</div>
+              </div>
+            </div>
+            <div class="mb-3 platform-meta-stack text-[11px] text-[#6b6256]">
+              <span class="rank-chip ${statusBadge.className}">${escapeHtml(statusBadge.chip)}</span>
+              <span class="meta-chip">${escapeHtml(platform.updated_at ? formatDateTime(platform.updated_at) : '暂无更新时间')}</span>
+            </div>
+            <div>${rows}</div>
+            <div class="platform-note">
+              <div>来源：<a class="platform-link" href="${escapeHtml(platform.source_url || '#')}" target="_blank" rel="noreferrer noopener">${escapeHtml(getSourceLabel(platform))}</a></div>
+              <div>说明：${escapeHtml(platform.note || (platform.status === 'unavailable' ? '当前暂无可展示数据。' : '已同步今日榜单。'))}</div>
+            </div>
+          </article>
+        `;
+      }).join('') || '<div class="empty-state md:col-span-2 xl:col-span-4">暂无可展示的商品榜单。</div>';
     }
 
     function wordCloudOption(words, palette, shape) {
@@ -1195,7 +1264,7 @@
           backgroundColor: 'rgba(21,19,18,0.92)',
           borderWidth: 0,
           textStyle: { color: '#fff', fontFamily: 'Noto Sans SC' },
-          formatter: params => `${params.name}<br/>热度权重：${params.value}`
+          formatter: params => `${params.name}<br/>权重：${params.value}`
         },
         series: [{
           type: 'wordCloud',
@@ -1225,34 +1294,55 @@
       };
     }
 
+    function buildWordCloudData(sectionKey, limit = 15) {
+      const platforms = getSectionList(sectionKey);
+      const map = new Map();
+      platforms.forEach(platform => {
+        const items = Array.isArray(platform.items) ? platform.items : [];
+        items.forEach((item, index) => {
+          const name = String(item.title || '').trim();
+          if (!name) return;
+          const weight = Math.max(18 - index, 1) + (platform.status === 'stale' ? 1 : 3);
+          map.set(name, (map.get(name) || 0) + weight);
+        });
+      });
+      return Array.from(map.entries())
+        .map(([name, value]) => ({ name, value }))
+        .sort((a, b) => b.value - a.value)
+        .slice(0, limit);
+    }
+
     function renderCloud() {
-      createTabs('tabs-cloud', state.cloud, key => { state.cloud = key; renderCloud(); });
-      const topicWords = mergeCloudData(state.cloud, 'cloudTopics');
-      const productWords = mergeCloudData(state.cloud, 'cloudProducts');
+      createTabs('tabs-cloud', [{ key: 'all', label: '全部', ...HOT_TAB_META.all }], 'all', () => {});
+      const topicWords = runtimeData.dataset ? buildWordCloudData('hot', 15) : [];
+      const productWords = runtimeData.dataset ? buildWordCloudData('products', 15) : [];
       introBlock(
         'cloud-summary',
-        state.cloud,
-        `${INDUSTRY_META[state.cloud].label}词云观察：${state.cloud === 'all' ? '从全行业共性里看内容与商品双热点' : INDUSTRY_DATA[state.cloud].overview}`,
-        state.cloud === 'all'
-          ? '左边的话题词更适合拿来做选题，右边的商品词更适合拿来做直播间货盘与搜索承接。'
-          : '如果左词和右词能形成“场景 + 商品”的配对，比如“高温持妆 + 防晒”，当天内容就更容易成闭环。',
-        state.cloud === 'all'
-          ? ['左看情绪和场景，右看产品和卖点。', '词越大，说明今天越值得优先讲。', '建议把 TOP5 词直接给内容和直播团队同步。']
-          : ['优先把最大词做成当天内容主题。', '如果出现“价格 / 福利 / 券后”类词，直播承接优先级更高。', '如果出现“测评 / 怎么选 / 推荐”类词，搜索与解释型内容优先。']
+        HOT_TAB_META.all,
+        '热点词云观察：基于同域 JSON 自动聚合',
+        runtimeData.loadStatus === 'success'
+          ? '左侧话题词来自热搜榜单，右侧商品词来自电商榜单，方便直接做“话题 → 商品”的联动判断。'
+          : '词云会在 data/hot.json 加载成功后自动刷新；若 JSON 暂不可用，词云区域会保持空态但页面不会报错。',
+        [
+          '话题词来自抖音、微博、百度、快手等热搜榜单。',
+          '商品词来自淘宝天猫、京东、今日热卖与快手电商等商品榜单。',
+          '平台若处于 stale / unavailable 状态，也会在上方卡片中明确说明。'
+        ]
       );
       if (!wordCharts.topic) wordCharts.topic = echarts.init(document.getElementById('topic-cloud'));
       if (!wordCharts.product) wordCharts.product = echarts.init(document.getElementById('product-cloud'));
-      wordCharts.topic.setOption(wordCloudOption(topicWords, ['#1D4ED8', '#4F46E5', '#38BDF8', '#0F172A'], 'circle'), true);
-      wordCharts.product.setOption(wordCloudOption(productWords, ['#2563EB', '#0EA5E9', '#1E40AF', '#0F172A'], 'diamond'), true);
+      wordCharts.topic.setOption(wordCloudOption(topicWords.length ? topicWords : [{ name: '暂无更新', value: 20 }], ['#1D4ED8', '#4F46E5', '#38BDF8', '#0F172A'], 'circle'), true);
+      wordCharts.product.setOption(wordCloudOption(productWords.length ? productWords : [{ name: '暂无更新', value: 20 }], ['#2563EB', '#0EA5E9', '#1E40AF', '#0F172A'], 'diamond'), true);
     }
 
     function renderStrategy() {
-      createTabs('tabs-strategy', state.strategy, key => { state.strategy = key; renderStrategy(); });
+      const strategyTabs = INDUSTRY_ORDER.map(key => ({ key, label: INDUSTRY_META[key].label, accent: INDUSTRY_META[key].accent, glow: INDUSTRY_META[key].glow, short: INDUSTRY_META[key].short }));
+      createTabs('tabs-strategy', strategyTabs, state.strategy, key => { state.strategy = key; renderStrategy(); });
       const list = buildStrategies(state.strategy);
       const currentLabel = INDUSTRY_META[state.strategy].label;
       introBlock(
         'strategy-summary',
-        state.strategy,
+        INDUSTRY_META[state.strategy],
         `${currentLabel}策略建议：${state.strategy === 'all' ? '把全部行业动作混排，适合晨会直接分工' : INDUSTRY_DATA[state.strategy].overview}`,
         state.strategy === 'all'
           ? '“全部”模式建议看卡片标题先做优先级，再把热点词和渠道组合拆给内容、投流、直播三个角色。'
@@ -1319,13 +1409,51 @@
       sections.forEach(id => observer.observe(document.getElementById(id)));
     }
 
+    async function loadHotJson() {
+      const errors = [];
+      for (const candidate of DATA_JSON_CANDIDATES) {
+        try {
+          const res = await fetch(candidate, {
+            method: 'GET',
+            headers: { Accept: 'application/json' },
+            cache: 'no-store'
+          });
+          if (!res.ok) {
+            errors.push(`${candidate} -> ${res.status}`);
+            continue;
+          }
+          const payload = await res.json();
+          if (!payload || typeof payload !== 'object') {
+            errors.push(`${candidate} -> invalid json payload`);
+            continue;
+          }
+          runtimeData.dataset = payload;
+          runtimeData.loadStatus = 'success';
+          runtimeData.resolvedPath = candidate;
+          updateHeaderStats();
+          renderHot();
+          renderProduct();
+          renderCloud();
+          return;
+        } catch (error) {
+          errors.push(`${candidate} -> ${error.message}`);
+        }
+      }
+      runtimeData.loadStatus = 'error';
+      runtimeData.error = errors.join('；');
+      updateHeaderStats();
+      renderHot();
+      renderProduct();
+      renderCloud();
+    }
+
     function init() {
       renderHot();
       renderProduct();
       renderCloud();
       renderStrategy();
       syncJumpNav();
-      loadRealHotData();
+      loadHotJson();
       window.addEventListener('resize', () => {
         if (wordCharts.topic) wordCharts.topic.resize();
         if (wordCharts.product) wordCharts.product.resize();

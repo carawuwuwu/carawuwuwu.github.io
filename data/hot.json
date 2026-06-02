@@ -1,0 +1,884 @@
+{
+  "meta": {
+    "version": 1,
+    "timezone": "Asia/Shanghai",
+    "generated_at": "2026-06-02T13:32:13Z",
+    "generated_at_local": "2026-06-02 21:32:13 CST",
+    "generated_date": "2026-06-02",
+    "workflow_name": "Daily Hot Data Sync",
+    "generator": "scripts/generate_hot_json.py",
+    "summary": {
+      "hot_platform_count": 4,
+      "product_platform_count": 4,
+      "fresh_count": 7,
+      "stale_count": 0,
+      "unavailable_count": 1
+    },
+    "platforms": {
+      "douyin": {
+        "section": "hot",
+        "name": "抖音",
+        "status": "fresh",
+        "status_text": "今日已更新",
+        "stale": false,
+        "fallback": null,
+        "source_kind": "api",
+        "source_name": "DailyHotApi /douyin",
+        "source_url": "https://test12345-eta.vercel.app/douyin",
+        "updated_at": "2026-06-02T13:27:55.176Z",
+        "item_count": 10,
+        "note": "优先使用 DailyHotApi 抖音热榜接口。",
+        "reason": ""
+      },
+      "weibo": {
+        "section": "hot",
+        "name": "微博",
+        "status": "fresh",
+        "status_text": "今日已更新",
+        "stale": false,
+        "fallback": null,
+        "source_kind": "web",
+        "source_name": "TopHub 微博热搜榜",
+        "source_url": "https://tophub.today/n/KqndgxeLl9",
+        "updated_at": "3分钟前",
+        "item_count": 10,
+        "note": "数据来自 TopHub 首页公开榜单卡片。",
+        "reason": ""
+      },
+      "baidu": {
+        "section": "hot",
+        "name": "百度",
+        "status": "fresh",
+        "status_text": "今日已更新",
+        "stale": false,
+        "fallback": null,
+        "source_kind": "web",
+        "source_name": "TopHub 百度实时热点",
+        "source_url": "https://tophub.today/n/Jb0vmloB1G",
+        "updated_at": "3分钟前",
+        "item_count": 10,
+        "note": "数据来自 TopHub 首页公开榜单卡片。",
+        "reason": ""
+      },
+      "kuaishou": {
+        "section": "hot",
+        "name": "快手",
+        "status": "fresh",
+        "status_text": "今日已更新",
+        "stale": false,
+        "fallback": null,
+        "source_kind": "web",
+        "source_name": "TopHub 快手实时热榜",
+        "source_url": "https://tophub.today/n/MZd7PrPerO",
+        "updated_at": "3分钟前",
+        "item_count": 10,
+        "note": "数据来自 TopHub 首页公开榜单卡片。",
+        "reason": ""
+      },
+      "tmall": {
+        "section": "products",
+        "name": "淘宝天猫",
+        "status": "fresh",
+        "status_text": "今日已更新",
+        "stale": false,
+        "fallback": null,
+        "source_kind": "web",
+        "source_name": "TopHub 淘宝天猫热销总榜",
+        "source_url": "https://tophub.today/n/yjvQDpjobg",
+        "updated_at": "6分钟前",
+        "item_count": 10,
+        "note": "数据来自 TopHub / 今日热卖公开商品榜单。",
+        "reason": ""
+      },
+      "jd": {
+        "section": "products",
+        "name": "京东",
+        "status": "fresh",
+        "status_text": "今日已更新",
+        "stale": false,
+        "fallback": null,
+        "source_kind": "web",
+        "source_name": "TopHub 京东热销总榜",
+        "source_url": "https://tophub.today/n/YqoXzV6dOD",
+        "updated_at": "7分钟前",
+        "item_count": 10,
+        "note": "数据来自 TopHub / 今日热卖公开商品榜单。",
+        "reason": ""
+      },
+      "remai": {
+        "section": "products",
+        "name": "今日热卖",
+        "status": "fresh",
+        "status_text": "今日已更新",
+        "stale": false,
+        "fallback": null,
+        "source_kind": "web",
+        "source_name": "TopHub 今日热卖全网线报聚合",
+        "source_url": "https://tophub.today/n/x9ozqX7eXb",
+        "updated_at": "5分钟前",
+        "item_count": 10,
+        "note": "数据来自 TopHub / 今日热卖公开商品榜单。",
+        "reason": ""
+      },
+      "kuaishou_shop": {
+        "section": "products",
+        "name": "快手电商",
+        "status": "unavailable",
+        "status_text": "暂无更新",
+        "stale": false,
+        "fallback": {
+          "type": "none",
+          "reason": "当前未接入稳定的快手电商公开榜单源"
+        },
+        "source_kind": "web",
+        "source_name": "快手电商公开榜单",
+        "source_url": "https://tophub.today/",
+        "updated_at": "",
+        "item_count": 0,
+        "note": "本次抓取失败，且仓库中暂无可沿用的历史数据：当前未接入稳定的快手电商公开榜单源",
+        "reason": "当前未接入稳定的快手电商公开榜单源"
+      }
+    },
+    "notes": [
+      "前端仅请求同域 /data/hot.json，不再直接请求外部 API。",
+      "抖音优先使用 DailyHotApi；其余榜单优先使用 TopHub 公网公开页面。",
+      "单个平台抓取失败时，会优先沿用仓库中上一次成功数据，并在 meta.platforms 中标记 stale / fallback。"
+    ]
+  },
+  "hot": {
+    "douyin": {
+      "key": "douyin",
+      "section": "hot",
+      "name": "抖音",
+      "en": "Douyin",
+      "title": "实时热榜",
+      "status": "fresh",
+      "status_text": "今日已更新",
+      "stale": false,
+      "fallback": null,
+      "note": "优先使用 DailyHotApi 抖音热榜接口。",
+      "source_kind": "api",
+      "source_name": "DailyHotApi /douyin",
+      "source_url": "https://test12345-eta.vercel.app/douyin",
+      "updated_at": "2026-06-02T13:27:55.176Z",
+      "generated_at": "2026-06-02T13:32:13Z",
+      "item_count": 10,
+      "items": [
+        {
+          "rank": 1,
+          "title": "CBA总决赛冠军点之战",
+          "url": "https://www.douyin.com/hot/2520946",
+          "metric_text": "11,183,083",
+          "metric_value": 11183083,
+          "subtitle": "实时上升热点",
+          "source_rank": 1
+        },
+        {
+          "rank": 2,
+          "title": "司马懿饰演者魏宗万去世",
+          "url": "https://www.douyin.com/hot/2521542",
+          "metric_text": "11,073,130",
+          "metric_value": 11073130,
+          "subtitle": "实时上升热点",
+          "source_rank": 2
+        },
+        {
+          "rank": 3,
+          "title": "我国商业航天取得新突破",
+          "url": "https://www.douyin.com/hot/2521576",
+          "metric_text": "10,854,840",
+          "metric_value": 10854840,
+          "subtitle": "实时上升热点",
+          "source_rank": 3
+        },
+        {
+          "rank": 4,
+          "title": "一口吃掉水果味的夏天",
+          "url": "https://www.douyin.com/hot/2520774",
+          "metric_text": "9,511,546",
+          "metric_value": 9511546,
+          "subtitle": "实时上升热点",
+          "source_rank": 4
+        },
+        {
+          "rank": 5,
+          "title": "杨瀚森锐评NBA菜鸟赛季",
+          "url": "https://www.douyin.com/hot/2521346",
+          "metric_text": "8,750,981",
+          "metric_value": 8750981,
+          "subtitle": "实时上升热点",
+          "source_rank": 5
+        },
+        {
+          "rank": 6,
+          "title": "网警查处网暴抗洪村支书的网民",
+          "url": "https://www.douyin.com/hot/2520553",
+          "metric_text": "8,749,533",
+          "metric_value": 8749533,
+          "subtitle": "实时上升热点",
+          "source_rank": 6
+        },
+        {
+          "rank": 7,
+          "title": "媒体评综艺安全带P图",
+          "url": "https://www.douyin.com/hot/2521128",
+          "metric_text": "7,777,764",
+          "metric_value": 7777764,
+          "subtitle": "实时上升热点",
+          "source_rank": 7
+        },
+        {
+          "rank": 8,
+          "title": "没有收割机师傅能在河南饿肚子",
+          "url": "https://www.douyin.com/hot/2519807",
+          "metric_text": "7,775,157",
+          "metric_value": 7775157,
+          "subtitle": "实时上升热点",
+          "source_rank": 8
+        },
+        {
+          "rank": 9,
+          "title": "中央巡视办原主任黎晓宏被查",
+          "url": "https://www.douyin.com/hot/2521408",
+          "metric_text": "7,760,945",
+          "metric_value": 7760945,
+          "subtitle": "实时上升热点",
+          "source_rank": 9
+        },
+        {
+          "rank": 10,
+          "title": "不露脸拍照姿势教学",
+          "url": "https://www.douyin.com/hot/2520870",
+          "metric_text": "7,754,680",
+          "metric_value": 7754680,
+          "subtitle": "实时上升热点",
+          "source_rank": 10
+        }
+      ]
+    },
+    "weibo": {
+      "key": "weibo",
+      "section": "hot",
+      "name": "微博",
+      "en": "Weibo",
+      "title": "热搜榜",
+      "status": "fresh",
+      "status_text": "今日已更新",
+      "stale": false,
+      "fallback": null,
+      "note": "数据来自 TopHub 首页公开榜单卡片。",
+      "source_kind": "web",
+      "source_name": "TopHub 微博热搜榜",
+      "source_url": "https://tophub.today/n/KqndgxeLl9",
+      "updated_at": "3分钟前",
+      "generated_at": "2026-06-02T13:32:13Z",
+      "item_count": 10,
+      "items": [
+        {
+          "rank": 1,
+          "title": "DeepSeek降价",
+          "url": "https://s.weibo.com/weibo?q=DeepSeek%E9%99%8D%E4%BB%B7",
+          "metric_text": "116万",
+          "subtitle": "116万",
+          "source_rank": 1
+        },
+        {
+          "rank": 2,
+          "title": "财政部下达999亿育儿补贴补助资金",
+          "url": "https://s.weibo.com/weibo?q=%E8%B4%A2%E6%94%BF%E9%83%A8%E4%B8%8B%E8%BE%BE999%E4%BA%BF%E8%82%B2%E5%84%BF%E8%A1%A5%E8%B4%B4%E8%A1%A5%E5%8A%A9%E8%B5%84%E9%87%91",
+          "metric_text": "86万",
+          "subtitle": "86万",
+          "source_rank": 2
+        },
+        {
+          "rank": 3,
+          "title": "预计今年共安排育儿补贴约1100亿",
+          "url": "https://s.weibo.com/weibo?q=%E9%A2%84%E8%AE%A1%E4%BB%8A%E5%B9%B4%E5%85%B1%E5%AE%89%E6%8E%92%E8%82%B2%E5%84%BF%E8%A1%A5%E8%B4%B4%E7%BA%A61100%E4%BA%BF",
+          "metric_text": "73万",
+          "subtitle": "73万",
+          "source_rank": 3
+        },
+        {
+          "rank": 4,
+          "title": "自然绮境当然是加拿大",
+          "url": "https://s.weibo.com/weibo?q=%E8%87%AA%E7%84%B6%E7%BB%AE%E5%A2%83%E5%BD%93%E7%84%B6%E6%98%AF%E5%8A%A0%E6%8B%BF%E5%A4%A7",
+          "metric_text": "73万",
+          "subtitle": "73万",
+          "source_rank": 4
+        },
+        {
+          "rank": 5,
+          "title": "中国足球小将夺冠",
+          "url": "https://s.weibo.com/weibo?q=%E4%B8%AD%E5%9B%BD%E8%B6%B3%E7%90%83%E5%B0%8F%E5%B0%86%E5%A4%BA%E5%86%A0",
+          "metric_text": "73万",
+          "subtitle": "73万",
+          "source_rank": 5
+        },
+        {
+          "rank": 6,
+          "title": "小米隐藏王牌即将落地",
+          "url": "https://s.weibo.com/weibo?q=%E5%B0%8F%E7%B1%B3%E9%9A%90%E8%97%8F%E7%8E%8B%E7%89%8C%E5%8D%B3%E5%B0%86%E8%90%BD%E5%9C%B0",
+          "metric_text": "72万",
+          "subtitle": "72万",
+          "source_rank": 6
+        },
+        {
+          "rank": 7,
+          "title": "为什么荔枝干不普及",
+          "url": "https://s.weibo.com/weibo?q=%E4%B8%BA%E4%BB%80%E4%B9%88%E8%8D%94%E6%9E%9D%E5%B9%B2%E4%B8%8D%E6%99%AE%E5%8F%8A",
+          "metric_text": "71万",
+          "subtitle": "71万",
+          "source_rank": 7
+        },
+        {
+          "rank": 8,
+          "title": "歌手帮唱嘉宾",
+          "url": "https://s.weibo.com/weibo?q=%E6%AD%8C%E6%89%8B%E5%B8%AE%E5%94%B1%E5%98%89%E5%AE%BE",
+          "metric_text": "60万",
+          "subtitle": "60万",
+          "source_rank": 8
+        },
+        {
+          "rank": 9,
+          "title": "歌手2026",
+          "url": "https://s.weibo.com/weibo?q=%E6%AD%8C%E6%89%8B2026",
+          "metric_text": "47万",
+          "subtitle": "47万",
+          "source_rank": 9
+        },
+        {
+          "rank": 10,
+          "title": "原来老祖宗才是最懂午睡的",
+          "url": "https://s.weibo.com/weibo?q=%E5%8E%9F%E6%9D%A5%E8%80%81%E7%A5%96%E5%AE%97%E6%89%8D%E6%98%AF%E6%9C%80%E6%87%82%E5%8D%88%E7%9D%A1%E7%9A%84",
+          "metric_text": "36万",
+          "subtitle": "36万",
+          "source_rank": 10
+        }
+      ]
+    },
+    "baidu": {
+      "key": "baidu",
+      "section": "hot",
+      "name": "百度",
+      "en": "Baidu",
+      "title": "实时热点",
+      "status": "fresh",
+      "status_text": "今日已更新",
+      "stale": false,
+      "fallback": null,
+      "note": "数据来自 TopHub 首页公开榜单卡片。",
+      "source_kind": "web",
+      "source_name": "TopHub 百度实时热点",
+      "source_url": "https://tophub.today/n/Jb0vmloB1G",
+      "updated_at": "3分钟前",
+      "generated_at": "2026-06-02T13:32:13Z",
+      "item_count": 10,
+      "items": [
+        {
+          "rank": 1,
+          "title": "习近平的文化足迹",
+          "url": "https://www.baidu.com/s?wd=%E4%B9%A0%E8%BF%91%E5%B9%B3%E7%9A%84%E6%96%87%E5%8C%96%E8%B6%B3%E8%BF%B9",
+          "metric_text": "790.4万",
+          "subtitle": "790.4万",
+          "source_rank": 1
+        },
+        {
+          "rank": 2,
+          "title": "警惕！日本新版“特高课”上线",
+          "url": "https://www.baidu.com/s?wd=%E8%AD%A6%E6%83%95%EF%BC%81%E6%97%A5%E6%9C%AC%E6%96%B0%E7%89%88%E2%80%9C%E7%89%B9%E9%AB%98%E8%AF%BE%E2%80%9D%E4%B8%8A%E7%BA%BF",
+          "metric_text": "780.9万",
+          "subtitle": "780.9万",
+          "source_rank": 2
+        },
+        {
+          "rank": 3,
+          "title": "94版三国演义司马懿饰演者魏宗万去世",
+          "url": "https://www.baidu.com/s?wd=94%E7%89%88%E4%B8%89%E5%9B%BD%E6%BC%94%E4%B9%89%E5%8F%B8%E9%A9%AC%E6%87%BF%E9%A5%B0%E6%BC%94%E8%80%85%E9%AD%8F%E5%AE%97%E4%B8%87%E5%8E%BB%E4%B8%96",
+          "metric_text": "771.4万",
+          "subtitle": "771.4万",
+          "source_rank": 3
+        },
+        {
+          "rank": 4,
+          "title": "一文了解汛期知识、避险方法",
+          "url": "https://www.baidu.com/s?wd=%E4%B8%80%E6%96%87%E4%BA%86%E8%A7%A3%E6%B1%9B%E6%9C%9F%E7%9F%A5%E8%AF%86%E3%80%81%E9%81%BF%E9%99%A9%E6%96%B9%E6%B3%95",
+          "metric_text": "761.6万",
+          "subtitle": "761.6万",
+          "source_rank": 4
+        },
+        {
+          "rank": 5,
+          "title": "差77米登顶珠峰 因人太多无奈放弃",
+          "url": "https://www.baidu.com/s?wd=%E5%B7%AE77%E7%B1%B3%E7%99%BB%E9%A1%B6%E7%8F%A0%E5%B3%B0+%E5%9B%A0%E4%BA%BA%E5%A4%AA%E5%A4%9A%E6%97%A0%E5%A5%88%E6%94%BE%E5%BC%83",
+          "metric_text": "752.4万",
+          "subtitle": "752.4万",
+          "source_rank": 5
+        },
+        {
+          "rank": 6,
+          "title": "韩国“鸟叔”已被移交检察机关",
+          "url": "https://www.baidu.com/s?wd=%E9%9F%A9%E5%9B%BD%E2%80%9C%E9%B8%9F%E5%8F%94%E2%80%9D%E5%B7%B2%E8%A2%AB%E7%A7%BB%E4%BA%A4%E6%A3%80%E5%AF%9F%E6%9C%BA%E5%85%B3",
+          "metric_text": "742.5万",
+          "subtitle": "742.5万",
+          "source_rank": 6
+        },
+        {
+          "rank": 7,
+          "title": "网警查处网暴救灾村支书的网民",
+          "url": "https://www.baidu.com/s?wd=%E7%BD%91%E8%AD%A6%E6%9F%A5%E5%A4%84%E7%BD%91%E6%9A%B4%E6%95%91%E7%81%BE%E6%9D%91%E6%94%AF%E4%B9%A6%E7%9A%84%E7%BD%91%E6%B0%91",
+          "metric_text": "733.1万",
+          "subtitle": "733.1万",
+          "source_rank": 7
+        },
+        {
+          "rank": 8,
+          "title": "男子花3800元体验白鲸同游却被追着咬",
+          "url": "https://www.baidu.com/s?wd=%E7%94%B7%E5%AD%90%E8%8A%B13800%E5%85%83%E4%BD%93%E9%AA%8C%E7%99%BD%E9%B2%B8%E5%90%8C%E6%B8%B8%E5%8D%B4%E8%A2%AB%E8%BF%BD%E7%9D%80%E5%92%AC",
+          "metric_text": "723.8万",
+          "subtitle": "723.8万",
+          "source_rank": 8
+        },
+        {
+          "rank": 9,
+          "title": "黎晓宏被查",
+          "url": "https://www.baidu.com/s?wd=%E9%BB%8E%E6%99%93%E5%AE%8F%E8%A2%AB%E6%9F%A5",
+          "metric_text": "714.3万",
+          "subtitle": "714.3万",
+          "source_rank": 9
+        },
+        {
+          "rank": 10,
+          "title": "白开水48元一杯被吐槽 餐厅回应",
+          "url": "https://www.baidu.com/s?wd=%E7%99%BD%E5%BC%80%E6%B0%B448%E5%85%83%E4%B8%80%E6%9D%AF%E8%A2%AB%E5%90%90%E6%A7%BD+%E9%A4%90%E5%8E%85%E5%9B%9E%E5%BA%94",
+          "metric_text": "704.3万",
+          "subtitle": "704.3万",
+          "source_rank": 10
+        }
+      ]
+    },
+    "kuaishou": {
+      "key": "kuaishou",
+      "section": "hot",
+      "name": "快手",
+      "en": "Kuaishou",
+      "title": "实时热榜",
+      "status": "fresh",
+      "status_text": "今日已更新",
+      "stale": false,
+      "fallback": null,
+      "note": "数据来自 TopHub 首页公开榜单卡片。",
+      "source_kind": "web",
+      "source_name": "TopHub 快手实时热榜",
+      "source_url": "https://tophub.today/n/MZd7PrPerO",
+      "updated_at": "3分钟前",
+      "generated_at": "2026-06-02T13:32:13Z",
+      "item_count": 10,
+      "items": [
+        {
+          "rank": 1,
+          "title": "谁能拒绝小猫咪的得劲魔法",
+          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E8%B0%81%E8%83%BD%E6%8B%92%E7%BB%9D%E5%B0%8F%E7%8C%AB%E5%92%AA%E7%9A%84%E5%BE%97%E5%8A%B2%E9%AD%94%E6%B3%95&rankType=1",
+          "metric_text": "1327.4万",
+          "subtitle": "1327.4万",
+          "source_rank": 1
+        },
+        {
+          "rank": 2,
+          "title": "网警查处网暴戴耳环女干部的网民",
+          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E7%BD%91%E8%AD%A6%E6%9F%A5%E5%A4%84%E7%BD%91%E6%9A%B4%E6%88%B4%E8%80%B3%E7%8E%AF%E5%A5%B3%E5%B9%B2%E9%83%A8%E7%9A%84%E7%BD%91%E6%B0%91&rankType=1",
+          "metric_text": "1257.3万",
+          "subtitle": "1257.3万",
+          "source_rank": 2
+        },
+        {
+          "rank": 3,
+          "title": "如何防范汛期风险",
+          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E5%A6%82%E4%BD%95%E9%98%B2%E8%8C%83%E6%B1%9B%E6%9C%9F%E9%A3%8E%E9%99%A9&rankType=1",
+          "metric_text": "1255.8万",
+          "subtitle": "1255.8万",
+          "source_rank": 3
+        },
+        {
+          "rank": 4,
+          "title": "司马懿饰演者魏宗万去世",
+          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E5%8F%B8%E9%A9%AC%E6%87%BF%E9%A5%B0%E6%BC%94%E8%80%85%E9%AD%8F%E5%AE%97%E4%B8%87%E5%8E%BB%E4%B8%96&rankType=1",
+          "metric_text": "1240.7万",
+          "subtitle": "1240.7万",
+          "source_rank": 4
+        },
+        {
+          "rank": 5,
+          "title": "刘大炮埃及行",
+          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E5%88%98%E5%A4%A7%E7%82%AE%E5%9F%83%E5%8F%8A%E8%A1%8C&rankType=1",
+          "metric_text": "1115.9万",
+          "subtitle": "1115.9万",
+          "source_rank": 5
+        },
+        {
+          "rank": 6,
+          "title": "CBA总决赛G4",
+          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=CBA%E6%80%BB%E5%86%B3%E8%B5%9BG4&rankType=1",
+          "metric_text": "1095.2万",
+          "subtitle": "1095.2万",
+          "source_rank": 6
+        },
+        {
+          "rank": 7,
+          "title": "甲亢哥的世界杯单曲怪好听的",
+          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E7%94%B2%E4%BA%A2%E5%93%A5%E7%9A%84%E4%B8%96%E7%95%8C%E6%9D%AF%E5%8D%95%E6%9B%B2%E6%80%AA%E5%A5%BD%E5%90%AC%E7%9A%84&rankType=1",
+          "metric_text": "1074.4万",
+          "subtitle": "1074.4万",
+          "source_rank": 7
+        },
+        {
+          "rank": 8,
+          "title": "日本试射两枚导弹",
+          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E6%97%A5%E6%9C%AC%E8%AF%95%E5%B0%84%E4%B8%A4%E6%9E%9A%E5%AF%BC%E5%BC%B9&rankType=1",
+          "metric_text": "1051.6万",
+          "subtitle": "1051.6万",
+          "source_rank": 8
+        },
+        {
+          "rank": 9,
+          "title": "毕业回忆录",
+          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E6%AF%95%E4%B8%9A%E5%9B%9E%E5%BF%86%E5%BD%95&rankType=1",
+          "metric_text": "1030.2万",
+          "subtitle": "1030.2万",
+          "source_rank": 9
+        },
+        {
+          "rank": 10,
+          "title": "灵魂摆渡十年开播",
+          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E7%81%B5%E9%AD%82%E6%91%86%E6%B8%A1%E5%8D%81%E5%B9%B4%E5%BC%80%E6%92%AD&rankType=1",
+          "metric_text": "1029.3万",
+          "subtitle": "1029.3万",
+          "source_rank": 10
+        }
+      ]
+    }
+  },
+  "products": {
+    "tmall": {
+      "key": "tmall",
+      "section": "products",
+      "name": "淘宝天猫",
+      "en": "Tmall",
+      "title": "热销总榜",
+      "status": "fresh",
+      "status_text": "今日已更新",
+      "stale": false,
+      "fallback": null,
+      "note": "数据来自 TopHub / 今日热卖公开商品榜单。",
+      "source_kind": "web",
+      "source_name": "TopHub 淘宝天猫热销总榜",
+      "source_url": "https://tophub.today/n/yjvQDpjobg",
+      "updated_at": "6分钟前",
+      "generated_at": "2026-06-02T13:32:13Z",
+      "item_count": 10,
+      "items": [
+        {
+          "rank": 1,
+          "title": "补了！薇诺娜舒敏保湿润肤水90ml 原价¥168.99 券后¥39.99",
+          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2F9z0jOjWBiBtOKNoJ6dAs2pKuQtW-GKGOWR8cqeVk0xYJHo",
+          "metric_text": "热销1000件(近2小时)",
+          "subtitle": "热销1000件(近2小时)",
+          "source_rank": 1
+        },
+        {
+          "rank": 2,
+          "title": "旺旺xWZ荣耀 儿童节零食礼盒808g 原价¥68 券后¥10",
+          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2FPOe5JXbjH3t6vV3ZmZJfv9zfPt6-gPGqkKxUA9meeawWiM",
+          "metric_text": "热销1000件(近2小时)",
+          "subtitle": "热销1000件(近2小时)",
+          "source_rank": 2
+        },
+        {
+          "rank": 3,
+          "title": "【下拉详情】福临门优选长粒香5kg*4整箱装 原价¥103.09 券后¥103.09",
+          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2FrX4qANdTOtVmrAJzObs6y6CqtZ-ANgJ0akHKwqBBjj2sDN",
+          "metric_text": "热销1000件(近2小时)",
+          "subtitle": "热销1000件(近2小时)",
+          "source_rank": 3
+        },
+        {
+          "rank": 4,
+          "title": "三只松鼠拇指小肉肠 40粒（20包） 原价¥10.9 券后¥9.9",
+          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2F4V5v323ZsgtNvKOgKORCwgqtNtg-36ON23KC0WXJgbj8CqB",
+          "metric_text": "热销1000件(近2小时)",
+          "subtitle": "热销1000件(近2小时)",
+          "source_rank": 4
+        },
+        {
+          "rank": 5,
+          "title": "可悠然美肌沐浴露欣怡+恬静450ml*2瓶 原价¥71.1 券后¥71.1",
+          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2FwnrGGKjtgtDOo4Zy8pfoaGtbtO-v6PKX7dCBvW9zdOZfdO",
+          "metric_text": "热销600件(近2小时)",
+          "subtitle": "热销600件(近2小时)",
+          "source_rank": 5
+        },
+        {
+          "rank": 6,
+          "title": "活动太少遇到就冲！超能双离子洗衣液11斤 原价¥84.9 券后¥59.9",
+          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2FyOJjOQjFRt2RdbZV8NhoeeTvtY-nJAVXpdHx6MJ0VQefBZ",
+          "metric_text": "热销600件(近2小时)",
+          "subtitle": "热销600件(近2小时)",
+          "source_rank": 6
+        },
+        {
+          "rank": 7,
+          "title": "胖东来断货王！舒蕾氧活三重专利洗发水400g 原价¥105 券后¥49",
+          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2F8gjeaQyTnt9zJ8xKeVtg50fbtj-woMjqrKCQaX8VNKjuyx",
+          "metric_text": "热销600件(近2小时)",
+          "subtitle": "热销600件(近2小时)",
+          "source_rank": 7
+        },
+        {
+          "rank": 8,
+          "title": "蓝漂厨房湿巾1包（70片加大加厚） 原价¥9.99 券后¥5.99",
+          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2Fg7RoKPQT3t2Wwva0XWUoQYUatr-VrGvymkIQjG2MW65sgj",
+          "metric_text": "热销600件(近2小时)",
+          "subtitle": "热销600件(近2小时)",
+          "source_rank": 8
+        },
+        {
+          "rank": 9,
+          "title": "植物医生绿茶氨基酸洁面乳控油男女通用 原价¥49 券后¥39",
+          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2F9Rdj3AeSBtOKN3vBZXi20JhQt6-v6PKX7dC8Dm2pGrpcOo",
+          "metric_text": "热销600件(近2小时)",
+          "subtitle": "热销600件(近2小时)",
+          "source_rank": 9
+        },
+        {
+          "rank": 10,
+          "title": "【拍一赠二】RO牙膏100gx3支 原价¥200.7 券后¥19.7",
+          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2FbX8xxjrPFgtor89NaQ6sy0jFQt6-OqGjQoAu0dkNKPJ0sZ",
+          "metric_text": "热销600件(近2小时)",
+          "subtitle": "热销600件(近2小时)",
+          "source_rank": 10
+        }
+      ]
+    },
+    "jd": {
+      "key": "jd",
+      "section": "products",
+      "name": "京东",
+      "en": "JD",
+      "title": "热销总榜",
+      "status": "fresh",
+      "status_text": "今日已更新",
+      "stale": false,
+      "fallback": null,
+      "note": "数据来自 TopHub / 今日热卖公开商品榜单。",
+      "source_kind": "web",
+      "source_name": "TopHub 京东热销总榜",
+      "source_url": "https://tophub.today/n/YqoXzV6dOD",
+      "updated_at": "7分钟前",
+      "generated_at": "2026-06-02T13:32:13Z",
+      "item_count": 10,
+      "items": [
+        {
+          "rank": 1,
+          "title": "斐驼力驼奶钙片FAINDELI儿童青少年学生成人正品高钙30片/瓶装 45g*5盒 【每瓶30粒】 原价¥88 券后¥86",
+          "url": "https://tophub.today/link?domain=jd.com&url=https%3A%2F%2Fremai.today%2Flink%2F2%2FZZTdJa3WIG4I1BwbT84wWU34Ap_3vbTdJa3WIwNfwz1tm",
+          "metric_text": "斐驼力",
+          "subtitle": "斐驼力",
+          "source_rank": 1
+        },
+        {
+          "rank": 2,
+          "title": "乐安竹笋手剥笋2025新货开袋即食竹笋新鲜嫩笋泡椒笋网红手撕笋休闲零食 20包混合口味【随机发】 原价¥66.6 券后¥65.6",
+          "url": "https://tophub.today/link?domain=jd.com&url=https%3A%2F%2Fremai.today%2Flink%2F2%2FQQxuQNjSfYU1wiSzz6UpiMvJ6V_3yuxuQNjSfpRMd4oRZ",
+          "metric_text": "乐安竹笋",
+          "subtitle": "乐安竹笋",
+          "source_rank": 2
+        },
+        {
+          "rank": 3,
+          "title": "同仁堂（TRT）特级豪州决明子养肝护肝清肝明目养生正宗精选大粒无硫 养生常备 特级决明子名目润肠 300g*4罐 精选大颗粒决明子 原价¥35.9 券后¥34.9",
+          "url": "https://tophub.today/link?domain=jd.com&url=https%3A%2F%2Fremai.today%2Flink%2F2%2FrrfbKGuCWdBpURIkaVB1OSsNt7_391fbKGuCW1Dend4xM",
+          "metric_text": "同仁堂（TRT）",
+          "subtitle": "同仁堂（TRT）",
+          "source_rank": 3
+        },
+        {
+          "rank": 4,
+          "title": "境然居乳胶漆室内自刷家用内墙大桶白色旧墙翻新无甲醛净味环保涂料 白色 【升级款防水防霉抗碱】白色+5斤可刷7.5平方送毛刷 原价¥24.17 券后¥21.17",
+          "url": "https://tophub.today/link?domain=jd.com&url=https%3A%2F%2Fremai.today%2Flink%2F2%2FUUbW6VplHKpTDmMa0XpeLxFY0L_3sdbW6VplHej8kFk1k",
+          "metric_text": "境然居",
+          "subtitle": "境然居",
+          "source_rank": 4
+        },
+        {
+          "rank": 5,
+          "title": "合生元（BIOSTIME）新生儿益生菌婴幼儿小超金滴剂0-3个月肠胀气 含双歧杆菌8ml 滴剂 8ml*1瓶 【0岁可用】 原价¥278 券后¥258",
+          "url": "https://tophub.today/link?domain=jd.com&url=https%3A%2F%2Fremai.today%2Flink%2F2%2FbbQVeV2eiRvYYWXk3evrSZtEnF_3LZQVeV2eirHHKV6H2",
+          "metric_text": "合生元（BIOSTIME）",
+          "subtitle": "合生元（BIOSTIME）",
+          "source_rank": 5
+        },
+        {
+          "rank": 6,
+          "title": "珂米2024新款沙发盖布轻奢高级感全盖夏季沙发巾罩套四季通用全包防滑 花开漫烂-灰 180*420cm(五人位) 原价¥219 券后¥159",
+          "url": "https://tophub.today/link?domain=jd.com&url=https%3A%2F%2Fremai.today%2Flink%2F2%2FDDNtULg33BTs8XxSPgT02YVDCv_3klNtULg330LXZAHUN",
+          "metric_text": "珂米",
+          "subtitle": "珂米",
+          "source_rank": 6
+        },
+        {
+          "rank": 7,
+          "title": "洛崽崽儿童内八脚矫正鞋夏季扁平足足外翻专用机能鞋XO型腿矫形长短腿 咖啡色 内八字专用 28 码 （合适脚长17/内长18） 原价¥203 券后¥186",
+          "url": "https://tophub.today/link?domain=jd.com&url=https%3A%2F%2Fremai.today%2Flink%2F2%2Fssh70cmFZPFGCaulKkFnJmKSID_3UIh70cmFZh9BkM2H5",
+          "metric_text": "洛崽崽",
+          "subtitle": "洛崽崽",
+          "source_rank": 7
+        },
+        {
+          "rank": 8,
+          "title": "谱硕汽车应急启动电源充气泵一体机数显车载电瓶搭电宝强启打火神器各类轮胎电动打气泵带户外照明灯 顶配/黑【12V不限排丨2000A电流】智能夹+收纳袋 原价¥169 券后¥149",
+          "url": "https://tophub.today/link?domain=jd.com&url=https%3A%2F%2Fremai.today%2Flink%2F2%2FPI2jDab4Ul7RmmPiZFcWQ39x_3ERAOfCGrUWutsqHDu",
+          "metric_text": "谱硕",
+          "subtitle": "谱硕",
+          "source_rank": 8
+        },
+        {
+          "rank": 9,
+          "title": "味滋源焦糖饼干曲奇饼500g/盒 原价¥42.9 券后¥12.9",
+          "url": "https://tophub.today/link?domain=jd.com&url=https%3A%2F%2Fremai.today%2Flink%2F2%2FyeQLNp0DDu4Eg3pgpdAELWsv_3ghOcnoBnrApjd02LI",
+          "metric_text": "味滋源",
+          "subtitle": "味滋源",
+          "source_rank": 9
+        },
+        {
+          "rank": 10,
+          "title": "LAMJIE创意飞机风扇双涡轮usb充电风扇办公室宿舍电竞潮玩炫酷桌面摆件风扇长续航夏天降温静音小风扇 5000毫安【无刷电机/炫彩灯光】 5000mAh 【灰瀚银】三重风量加速/长效续航/静音 原价¥169 券后¥159",
+          "url": "https://tophub.today/link?domain=jd.com&url=https%3A%2F%2Fremai.today%2Flink%2F2%2FGGzlTLBD096rvY9Lxo6YjeDKx3_3zxzlTLBD0M4p7r2XP",
+          "metric_text": "LAMJIE",
+          "subtitle": "LAMJIE",
+          "source_rank": 10
+        }
+      ]
+    },
+    "remai": {
+      "key": "remai",
+      "section": "products",
+      "name": "今日热卖",
+      "en": "Today Best Sellers",
+      "title": "全网线报聚合",
+      "status": "fresh",
+      "status_text": "今日已更新",
+      "stale": false,
+      "fallback": null,
+      "note": "数据来自 TopHub / 今日热卖公开商品榜单。",
+      "source_kind": "web",
+      "source_name": "TopHub 今日热卖全网线报聚合",
+      "source_url": "https://tophub.today/n/x9ozqX7eXb",
+      "updated_at": "5分钟前",
+      "generated_at": "2026-06-02T13:32:13Z",
+      "item_count": 10,
+      "items": [
+        {
+          "rank": 1,
+          "title": "罗小曼 唇釉任意3支，凑25左右",
+          "url": "https://remai.today/i/aQd1NwOlKv",
+          "metric_text": "",
+          "subtitle": "榜单信息待补充",
+          "source_rank": 1
+        },
+        {
+          "rank": 2,
+          "title": "猫超首页搜【卫龙】部分账号有2元品牌金卫龙辣条零食组合小吃豆干782g，领1.53礼金 3券，",
+          "url": "https://remai.today/i/aQOw1wzoQL",
+          "metric_text": "",
+          "subtitle": "榜单信息待补充",
+          "source_rank": 2
+        },
+        {
+          "rank": 3,
+          "title": "收藏-桃金币频道搜索加购 抵扣0.7亓金币 拍下39.2亓起 都市丽人雪尼",
+          "url": "https://remai.today/i/WK1M3M1rKp",
+          "metric_text": "",
+          "subtitle": "榜单信息待补充",
+          "source_rank": 3
+        },
+        {
+          "rank": 4,
+          "title": "地区价 蒙牛全脂纯牛奶250ml*24盒，29.9 亓",
+          "url": "https://remai.today/i/lKXagaGe2w",
+          "metric_text": "",
+          "subtitle": "榜单信息待补充",
+          "source_rank": 4
+        },
+        {
+          "rank": 5,
+          "title": "建信基金，必中小红包",
+          "url": "https://remai.today/i/AEYWjWYzKj",
+          "metric_text": "",
+          "subtitle": "榜单信息待补充",
+          "source_rank": 5
+        },
+        {
+          "rank": 6,
+          "title": "三元奶粉10亓， 自辨 三段10亓",
+          "url": "https://remai.today/i/vQy5Y5MWQV",
+          "metric_text": "",
+          "subtitle": "榜单信息待补充",
+          "source_rank": 6
+        },
+        {
+          "rank": 7,
+          "title": "15点 15点生鲜馆 甜玉米粒/鸡蛋/橙子/咽薯 如有省省卡全品类圈",
+          "url": "https://remai.today/i/VQepVpDLEG",
+          "metric_text": "",
+          "subtitle": "榜单信息待补充",
+          "source_rank": 7
+        },
+        {
+          "rank": 8,
+          "title": "百草味老汤慢卤鹌鹑蛋450g，领0.63礼金 2券，详情页进入淘金币页面加购1件商品下方如有2",
+          "url": "https://remai.today/i/LQDqLqz7KP",
+          "metric_text": "",
+          "subtitle": "榜单信息待补充",
+          "source_rank": 8
+        },
+        {
+          "rank": 9,
+          "title": "K80这波多少出",
+          "url": "https://remai.today/i/x2q0V0RBK1",
+          "metric_text": "",
+          "subtitle": "榜单信息待补充",
+          "source_rank": 9
+        },
+        {
+          "rank": 10,
+          "title": "[图片]中信银行抽1-500元V.x立减金，注册过二类电子卡",
+          "url": "https://remai.today/i/ZQR0P0zr2w",
+          "metric_text": "",
+          "subtitle": "榜单信息待补充",
+          "source_rank": 10
+        }
+      ]
+    },
+    "kuaishou_shop": {
+      "key": "kuaishou_shop",
+      "section": "products",
+      "name": "快手电商",
+      "en": "Kuaishou Shop",
+      "title": "热卖榜",
+      "status": "unavailable",
+      "status_text": "暂无更新",
+      "stale": false,
+      "fallback": {
+        "type": "none",
+        "reason": "当前未接入稳定的快手电商公开榜单源"
+      },
+      "note": "本次抓取失败，且仓库中暂无可沿用的历史数据：当前未接入稳定的快手电商公开榜单源",
+      "source_kind": "web",
+      "source_name": "快手电商公开榜单",
+      "source_url": "https://tophub.today/",
+      "updated_at": "",
+      "generated_at": "2026-06-02T13:32:13Z",
+      "item_count": 0,
+      "items": []
+    }
+  }
+}
