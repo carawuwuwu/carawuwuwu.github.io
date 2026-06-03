@@ -2,11 +2,15 @@ name: Daily Hot Data Sync
 
 on:
   schedule:
-    - cron: '17 2 * * *'
+    - cron: '0,2,4,6,8 2 * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
+
+concurrency:
+  group: daily-hot-data-sync
+  cancel-in-progress: false
 
 jobs:
   update-hot-data:
@@ -20,15 +24,45 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Check whether today's 10:00 refresh is already done
+        id: guard
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+
+          data_path = Path('data/hot.json')
+          today = datetime.now(ZoneInfo('Asia/Shanghai')).strftime('%Y-%m-%d')
+          already_done = False
+
+          if data_path.exists():
+              try:
+                  data = json.loads(data_path.read_text(encoding='utf-8'))
+                  generated_date = (((data or {}).get('meta') or {}).get('generated_date') or '').strip()
+                  already_done = generated_date == today
+              except Exception:
+                  already_done = False
+
+          with open(Path.cwd() / 'guard_result.txt', 'w', encoding='utf-8') as f:
+              f.write('true' if already_done else 'false')
+          print(f'already_done={already_done}')
+          PY
+          echo "already_done=$(cat guard_result.txt)" >> "$GITHUB_OUTPUT"
+
       - name: Install dependencies
+        if: steps.guard.outputs.already_done != 'true'
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: Generate data/hot.json
+        if: steps.guard.outputs.already_done != 'true'
         run: python scripts/generate_hot_json.py
 
       - name: Commit and push data changes
+        if: steps.guard.outputs.already_done != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -39,3 +73,7 @@ jobs:
           fi
           git commit -m "chore(data): refresh hot.json"
           git push origin HEAD:main
+
+      - name: Skip duplicate refresh of today
+        if: steps.guard.outputs.already_done == 'true'
+        run: echo "Today's 10:00 refresh has already completed. Skip duplicate run."
