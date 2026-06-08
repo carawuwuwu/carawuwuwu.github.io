@@ -89,6 +89,18 @@ PRODUCT_SPECS = [
         "source_name": "TopHub 淘宝天猫热销总榜",
     },
     {
+        "key": "douyin_shop",
+        "section": "products",
+        "name": "抖音商城",
+        "en": "Douyin Shop",
+        "title": "热卖榜",
+        "source_kind": "web",
+        "primary_url": "https://www.douyin.com/",
+        "hashid": None,
+        "source_name": "抖音商城公开榜单",
+        "optional": True,
+    },
+    {
         "key": "jd",
         "section": "products",
         "name": "京东",
@@ -361,6 +373,35 @@ def unavailable_platform(spec: Dict[str, Any], context: Dict[str, str], reason: 
     )
 
 
+def build_douyin_shop_mock(spec: Dict[str, Any], context: Dict[str, str], reason: str) -> Dict[str, Any]:
+    mock_items = [
+        {"rank": 1, "title": "618 防晒喷雾买一赠一", "url": "https://www.douyin.com/", "metric_text": "成交热度 99.1", "subtitle": "夏季刚需 + 短视频爆发款", "source_rank": 1},
+        {"rank": 2, "title": "国补空调一口价专场", "url": "https://www.douyin.com/", "metric_text": "成交热度 97.8", "subtitle": "大家电补贴 + 直播冲量", "source_rank": 2},
+        {"rank": 3, "title": "抗老精华 618 加赠旅行装", "url": "https://www.douyin.com/", "metric_text": "成交热度 96.3", "subtitle": "高客单护肤，适合达人种草转化", "source_rank": 3},
+        {"rank": 4, "title": "男士剃须刀礼盒限时补贴", "url": "https://www.douyin.com/", "metric_text": "成交热度 94.6", "subtitle": "父亲节送礼场景强相关", "source_rank": 4},
+        {"rank": 5, "title": "家庭囤货抽纸整箱秒杀", "url": "https://www.douyin.com/", "metric_text": "成交热度 93.5", "subtitle": "低决策快消，适合直播抢购", "source_rank": 5},
+        {"rank": 6, "title": "冰丝凉感阔腿裤女夏薄款", "url": "https://www.douyin.com/", "metric_text": "成交热度 92.4", "subtitle": "服饰换季热卖，短视频试穿高转化", "source_rank": 6},
+        {"rank": 7, "title": "敏感肌修护面膜囤货装", "url": "https://www.douyin.com/", "metric_text": "成交热度 91.6", "subtitle": "美妆个护复购型单品", "source_rank": 7},
+        {"rank": 8, "title": "山姆风零食大礼包直播补券", "url": "https://www.douyin.com/", "metric_text": "成交热度 90.8", "subtitle": "零食囤货心智强，适合晚间直播", "source_rank": 8},
+        {"rank": 9, "title": "儿童DHA藻油 618 直播专享", "url": "https://www.douyin.com/", "metric_text": "成交热度 89.9", "subtitle": "母婴品类，适合达人答疑场景", "source_rank": 9},
+        {"rank": 10, "title": "便携榨汁杯第二件半价", "url": "https://www.douyin.com/", "metric_text": "成交热度 88.7", "subtitle": "小家电轻决策，适合短视频带货", "source_rank": 10},
+    ]
+    return build_platform_payload(
+        spec,
+        context=context,
+        source_name="抖音商城 618 主题模拟榜单",
+        source_url="https://www.douyin.com/",
+        source_kind="mock",
+        updated_at=context["display_local"],
+        items=mock_items,
+        status="fresh",
+        status_text="今日已更新",
+        stale=False,
+        fallback={"type": "mock_data", "reason": reason},
+        note="当前未接入稳定的抖音商城公域榜单，已自动补齐 618 主题 Mock Top10，确保商品词云和榜单展示可用。",
+    )
+
+
 def build_kuaishou_shop_mock(spec: Dict[str, Any], context: Dict[str, str], reason: str) -> Dict[str, Any]:
     mock_items = [
         {"rank": 1, "title": "618 国补空调一口价专场", "url": "https://www.kuaishou.com/", "metric_text": "成交热度 98.6", "subtitle": "大家电补贴 + 直播间限时券", "source_rank": 1},
@@ -470,7 +511,10 @@ def collect_data(existing_root: Dict[str, Any]) -> Dict[str, Any]:
         failure_reason = ""
         try:
             if not spec.get("hashid"):
-                if spec["key"] == "kuaishou_shop":
+                if spec["key"] == "douyin_shop":
+                    failure_reason = "当前未接入稳定的抖音商城公开榜单源"
+                    platform_payload = build_douyin_shop_mock(spec, context, failure_reason)
+                elif spec["key"] == "kuaishou_shop":
                     failure_reason = "当前未接入稳定的快手电商公开榜单源"
                     platform_payload = build_kuaishou_shop_mock(spec, context, failure_reason)
                 else:

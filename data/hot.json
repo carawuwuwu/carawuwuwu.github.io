@@ -2,16 +2,16 @@
   "meta": {
     "version": 1,
     "timezone": "Asia/Shanghai",
-    "generated_at": "2026-06-08T02:13:49Z",
-    "generated_at_local": "2026-06-08 10:13:49 CST",
+    "generated_at": "2026-06-08T03:25:09Z",
+    "generated_at_local": "2026-06-08 11:25:09 CST",
     "generated_date": "2026-06-08",
     "workflow_name": "Daily Hot Data Sync",
     "generator": "scripts/generate_hot_json.py",
     "summary": {
       "hot_platform_count": 4,
-      "product_platform_count": 4,
-      "fresh_count": 8,
-      "stale_count": 0,
+      "product_platform_count": 5,
+      "fresh_count": 3,
+      "stale_count": 6,
       "unavailable_count": 0
     },
     "platforms": {
@@ -25,7 +25,7 @@
         "source_kind": "api",
         "source_name": "DailyHotApi /douyin",
         "source_url": "https://test12345-eta.vercel.app/douyin",
-        "updated_at": "2026-06-08T02:13:54.288Z",
+        "updated_at": "2026-06-08T03:25:22.355Z",
         "item_count": 10,
         "note": "优先使用 DailyHotApi 抖音热榜接口。",
         "reason": ""
@@ -33,92 +33,134 @@
       "weibo": {
         "section": "hot",
         "name": "微博",
-        "status": "fresh",
-        "status_text": "今日已更新",
-        "stale": false,
-        "fallback": null,
+        "status": "stale",
+        "status_text": "沿用上次数据",
+        "stale": true,
+        "fallback": {
+          "type": "previous_data",
+          "reason": "TopHub 首页抓取失败：403 Client Error: Forbidden for url: https://tophub.today/",
+          "from_generated_at": "2026-06-08T02:13:49Z"
+        },
         "source_kind": "web",
         "source_name": "TopHub 微博热搜榜",
         "source_url": "https://tophub.today/n/KqndgxeLl9",
         "updated_at": "4分钟前",
         "item_count": 10,
-        "note": "数据来自 TopHub 首页公开榜单卡片。",
-        "reason": ""
+        "note": "数据来自 TopHub 首页公开榜单卡片。 本次抓取失败，已沿用仓库内上一版 微博 数据。",
+        "reason": "TopHub 首页抓取失败：403 Client Error: Forbidden for url: https://tophub.today/"
       },
       "baidu": {
         "section": "hot",
         "name": "百度",
-        "status": "fresh",
-        "status_text": "今日已更新",
-        "stale": false,
-        "fallback": null,
+        "status": "stale",
+        "status_text": "沿用上次数据",
+        "stale": true,
+        "fallback": {
+          "type": "previous_data",
+          "reason": "TopHub 首页抓取失败：403 Client Error: Forbidden for url: https://tophub.today/",
+          "from_generated_at": "2026-06-08T02:13:49Z"
+        },
         "source_kind": "web",
         "source_name": "TopHub 百度实时热点",
         "source_url": "https://tophub.today/n/Jb0vmloB1G",
         "updated_at": "4分钟前",
         "item_count": 10,
-        "note": "数据来自 TopHub 首页公开榜单卡片。",
-        "reason": ""
+        "note": "数据来自 TopHub 首页公开榜单卡片。 本次抓取失败，已沿用仓库内上一版 百度 数据。",
+        "reason": "TopHub 首页抓取失败：403 Client Error: Forbidden for url: https://tophub.today/"
       },
       "kuaishou": {
         "section": "hot",
         "name": "快手",
-        "status": "fresh",
-        "status_text": "今日已更新",
-        "stale": false,
-        "fallback": null,
+        "status": "stale",
+        "status_text": "沿用上次数据",
+        "stale": true,
+        "fallback": {
+          "type": "previous_data",
+          "reason": "TopHub 首页抓取失败：403 Client Error: Forbidden for url: https://tophub.today/",
+          "from_generated_at": "2026-06-08T02:13:49Z"
+        },
         "source_kind": "web",
         "source_name": "TopHub 快手实时热榜",
         "source_url": "https://tophub.today/n/MZd7PrPerO",
         "updated_at": "7分钟前",
         "item_count": 10,
-        "note": "数据来自 TopHub 首页公开榜单卡片。",
-        "reason": ""
+        "note": "数据来自 TopHub 首页公开榜单卡片。 本次抓取失败，已沿用仓库内上一版 快手 数据。",
+        "reason": "TopHub 首页抓取失败：403 Client Error: Forbidden for url: https://tophub.today/"
       },
       "tmall": {
         "section": "products",
         "name": "淘宝天猫",
-        "status": "fresh",
-        "status_text": "今日已更新",
-        "stale": false,
-        "fallback": null,
+        "status": "stale",
+        "status_text": "沿用上次数据",
+        "stale": true,
+        "fallback": {
+          "type": "previous_data",
+          "reason": "TopHub 首页抓取失败：403 Client Error: Forbidden for url: https://tophub.today/",
+          "from_generated_at": "2026-06-08T02:13:49Z"
+        },
         "source_kind": "web",
         "source_name": "TopHub 淘宝天猫热销总榜",
         "source_url": "https://tophub.today/n/yjvQDpjobg",
         "updated_at": "19分钟前",
         "item_count": 10,
-        "note": "数据来自 TopHub / 今日热卖公开商品榜单。",
+        "note": "数据来自 TopHub / 今日热卖公开商品榜单。 本次抓取失败，已沿用仓库内上一版 淘宝天猫 数据。",
+        "reason": "TopHub 首页抓取失败：403 Client Error: Forbidden for url: https://tophub.today/"
+      },
+      "douyin_shop": {
+        "section": "products",
+        "name": "抖音商城",
+        "status": "fresh",
+        "status_text": "今日已更新",
+        "stale": false,
+        "fallback": {
+          "type": "mock_data",
+          "reason": "当前未接入稳定的抖音商城公开榜单源"
+        },
+        "source_kind": "mock",
+        "source_name": "抖音商城 618 主题模拟榜单",
+        "source_url": "https://www.douyin.com/",
+        "updated_at": "2026-06-08 11:25:09 CST",
+        "item_count": 10,
+        "note": "当前未接入稳定的抖音商城公域榜单，已自动补齐 618 主题 Mock Top10，确保商品词云和榜单展示可用。",
         "reason": ""
       },
       "jd": {
         "section": "products",
         "name": "京东",
-        "status": "fresh",
-        "status_text": "今日已更新",
-        "stale": false,
-        "fallback": null,
+        "status": "stale",
+        "status_text": "沿用上次数据",
+        "stale": true,
+        "fallback": {
+          "type": "previous_data",
+          "reason": "TopHub 首页抓取失败：403 Client Error: Forbidden for url: https://tophub.today/",
+          "from_generated_at": "2026-06-08T02:13:49Z"
+        },
         "source_kind": "web",
         "source_name": "TopHub 京东热销总榜",
         "source_url": "https://tophub.today/n/YqoXzV6dOD",
         "updated_at": "8分钟前",
         "item_count": 10,
-        "note": "数据来自 TopHub / 今日热卖公开商品榜单。",
-        "reason": ""
+        "note": "数据来自 TopHub / 今日热卖公开商品榜单。 本次抓取失败，已沿用仓库内上一版 京东 数据。",
+        "reason": "TopHub 首页抓取失败：403 Client Error: Forbidden for url: https://tophub.today/"
       },
       "remai": {
         "section": "products",
         "name": "今日热卖",
-        "status": "fresh",
-        "status_text": "今日已更新",
-        "stale": false,
-        "fallback": null,
+        "status": "stale",
+        "status_text": "沿用上次数据",
+        "stale": true,
+        "fallback": {
+          "type": "previous_data",
+          "reason": "TopHub 首页抓取失败：403 Client Error: Forbidden for url: https://tophub.today/",
+          "from_generated_at": "2026-06-08T02:13:49Z"
+        },
         "source_kind": "web",
         "source_name": "TopHub 今日热卖全网线报聚合",
         "source_url": "https://tophub.today/n/x9ozqX7eXb",
         "updated_at": "6分钟前",
         "item_count": 10,
-        "note": "数据来自 TopHub / 今日热卖公开商品榜单。",
-        "reason": ""
+        "note": "数据来自 TopHub / 今日热卖公开商品榜单。 本次抓取失败，已沿用仓库内上一版 今日热卖 数据。",
+        "reason": "TopHub 首页抓取失败：403 Client Error: Forbidden for url: https://tophub.today/"
       },
       "kuaishou_shop": {
         "section": "products",
@@ -133,7 +175,7 @@
         "source_kind": "mock",
         "source_name": "快手电商 618 主题模拟榜单",
         "source_url": "https://www.kuaishou.com/",
-        "updated_at": "2026-06-08 10:13:49 CST",
+        "updated_at": "2026-06-08 11:25:09 CST",
         "item_count": 10,
         "note": "当前未接入稳定的快手电商公域榜单，已自动补齐 618 主题 Mock Top10，确保对外展示版持续可用。",
         "reason": ""
@@ -142,7 +184,8 @@
     "notes": [
       "前端仅请求同域 /data/hot.json，不再直接请求外部 API。",
       "抖音优先使用 DailyHotApi；其余榜单优先使用 TopHub 公网公开页面。",
-      "单个平台抓取失败时，会优先沿用仓库中上一次成功数据，并在 meta.platforms 中标记 stale / fallback。"
+      "单个平台抓取失败时，会优先沿用仓库中上一次成功数据，并在 meta.platforms 中标记 stale / fallback。",
+      "本次 TopHub 首页抓取异常：403 Client Error: Forbidden for url: https://tophub.today/"
     ]
   },
   "hot": {
@@ -160,34 +203,34 @@
       "source_kind": "api",
       "source_name": "DailyHotApi /douyin",
       "source_url": "https://test12345-eta.vercel.app/douyin",
-      "updated_at": "2026-06-08T02:13:54.288Z",
-      "generated_at": "2026-06-08T02:13:49Z",
+      "updated_at": "2026-06-08T03:25:22.355Z",
+      "generated_at": "2026-06-08T03:25:09Z",
       "item_count": 10,
       "items": [
         {
           "rank": 1,
-          "title": "NBA总决赛G3安保全面升级",
-          "url": "https://www.douyin.com/hot/2525987",
-          "metric_text": "11,457,519",
-          "metric_value": 11457519,
+          "title": "金榜题名高考顺利",
+          "url": "https://www.douyin.com/hot/2525686",
+          "metric_text": "12,020,036",
+          "metric_value": 12020036,
           "subtitle": "实时上升热点",
           "source_rank": 1
         },
         {
           "rank": 2,
-          "title": "马刺能否翻盘尼克斯",
-          "url": "https://www.douyin.com/hot/2526126",
-          "metric_text": "11,384,438",
-          "metric_value": 11384438,
+          "title": "这首歌送给足球小将们",
+          "url": "https://www.douyin.com/hot/2525718",
+          "metric_text": "11,957,728",
+          "metric_value": 11957728,
           "subtitle": "实时上升热点",
           "source_rank": 2
         },
         {
           "rank": 3,
-          "title": "清洁低碳氢煤混烧技术取得重大突破",
-          "url": "https://www.douyin.com/hot/2526517",
-          "metric_text": "11,307,033",
-          "metric_value": 11307033,
+          "title": "我国新型滚装船下水",
+          "url": "https://www.douyin.com/hot/2526451",
+          "metric_text": "11,892,350",
+          "metric_value": 11892350,
           "subtitle": "实时上升热点",
           "source_rank": 3
         },
@@ -195,8 +238,8 @@
           "rank": 4,
           "title": "高考物理",
           "url": "https://www.douyin.com/hot/2526766",
-          "metric_text": "11,042,930",
-          "metric_value": 11042930,
+          "metric_text": "11,855,983",
+          "metric_value": 11855983,
           "subtitle": "实时上升热点",
           "source_rank": 4
         },
@@ -204,8 +247,8 @@
           "rank": 5,
           "title": "直击高考次日",
           "url": "https://www.douyin.com/hot/2526713",
-          "metric_text": "10,369,438",
-          "metric_value": 10369438,
+          "metric_text": "11,195,195",
+          "metric_value": 11195195,
           "subtitle": "实时上升热点",
           "source_rank": 5
         },
@@ -213,8 +256,8 @@
           "rank": 6,
           "title": "高考历史",
           "url": "https://www.douyin.com/hot/2526768",
-          "metric_text": "10,368,893",
-          "metric_value": 10368893,
+          "metric_text": "11,029,726",
+          "metric_value": 11029726,
           "subtitle": "实时上升热点",
           "source_rank": 6
         },
@@ -222,8 +265,8 @@
           "rank": 7,
           "title": "菲律宾群岛地区发生7.9级地震",
           "url": "https://www.douyin.com/hot/2526744",
-          "metric_text": "9,217,846",
-          "metric_value": 9217846,
+          "metric_text": "9,619,665",
+          "metric_value": 9619665,
           "subtitle": "实时上升热点",
           "source_rank": 7
         },
@@ -231,26 +274,26 @@
           "rank": 8,
           "title": "苹果系穿搭深得我心",
           "url": "https://www.douyin.com/hot/2525560",
-          "metric_text": "9,193,456",
-          "metric_value": 9193456,
+          "metric_text": "9,028,163",
+          "metric_value": 9028163,
           "subtitle": "实时上升热点",
           "source_rank": 8
         },
         {
           "rank": 9,
-          "title": "音乐一响富贵新疆小羊列队登场",
-          "url": "https://www.douyin.com/hot/2525923",
-          "metric_text": "9,082,924",
-          "metric_value": 9082924,
+          "title": "哈兰德获哈兰德模仿大赛第二名",
+          "url": "https://www.douyin.com/hot/2525205",
+          "metric_text": "8,933,201",
+          "metric_value": 8933201,
           "subtitle": "实时上升热点",
           "source_rank": 9
         },
         {
           "rank": 10,
-          "title": "印度或将成全球第四大经济体",
-          "url": "https://www.douyin.com/hot/2525914",
-          "metric_text": "9,017,908",
-          "metric_value": 9017908,
+          "title": "A股",
+          "url": "https://www.douyin.com/hot/2526841",
+          "metric_text": "8,862,816",
+          "metric_value": 8862816,
           "subtitle": "实时上升热点",
           "source_rank": 10
         }
@@ -262,16 +305,20 @@
       "name": "微博",
       "en": "Weibo",
       "title": "热搜榜",
-      "status": "fresh",
-      "status_text": "今日已更新",
-      "stale": false,
-      "fallback": null,
-      "note": "数据来自 TopHub 首页公开榜单卡片。",
+      "status": "stale",
+      "status_text": "沿用上次数据",
+      "stale": true,
+      "fallback": {
+        "type": "previous_data",
+        "reason": "TopHub 首页抓取失败：403 Client Error: Forbidden for url: https://tophub.today/",
+        "from_generated_at": "2026-06-08T02:13:49Z"
+      },
+      "note": "数据来自 TopHub 首页公开榜单卡片。 本次抓取失败，已沿用仓库内上一版 微博 数据。",
       "source_kind": "web",
       "source_name": "TopHub 微博热搜榜",
       "source_url": "https://tophub.today/n/KqndgxeLl9",
       "updated_at": "4分钟前",
-      "generated_at": "2026-06-08T02:13:49Z",
+      "generated_at": "2026-06-08T03:25:09Z",
       "item_count": 10,
       "items": [
         {
@@ -362,16 +409,20 @@
       "name": "百度",
       "en": "Baidu",
       "title": "实时热点",
-      "status": "fresh",
-      "status_text": "今日已更新",
-      "stale": false,
-      "fallback": null,
-      "note": "数据来自 TopHub 首页公开榜单卡片。",
+      "status": "stale",
+      "status_text": "沿用上次数据",
+      "stale": true,
+      "fallback": {
+        "type": "previous_data",
+        "reason": "TopHub 首页抓取失败：403 Client Error: Forbidden for url: https://tophub.today/",
+        "from_generated_at": "2026-06-08T02:13:49Z"
+      },
+      "note": "数据来自 TopHub 首页公开榜单卡片。 本次抓取失败，已沿用仓库内上一版 百度 数据。",
       "source_kind": "web",
       "source_name": "TopHub 百度实时热点",
       "source_url": "https://tophub.today/n/Jb0vmloB1G",
       "updated_at": "4分钟前",
-      "generated_at": "2026-06-08T02:13:49Z",
+      "generated_at": "2026-06-08T03:25:09Z",
       "item_count": 10,
       "items": [
         {
@@ -462,16 +513,20 @@
       "name": "快手",
       "en": "Kuaishou",
       "title": "实时热榜",
-      "status": "fresh",
-      "status_text": "今日已更新",
-      "stale": false,
-      "fallback": null,
-      "note": "数据来自 TopHub 首页公开榜单卡片。",
+      "status": "stale",
+      "status_text": "沿用上次数据",
+      "stale": true,
+      "fallback": {
+        "type": "previous_data",
+        "reason": "TopHub 首页抓取失败：403 Client Error: Forbidden for url: https://tophub.today/",
+        "from_generated_at": "2026-06-08T02:13:49Z"
+      },
+      "note": "数据来自 TopHub 首页公开榜单卡片。 本次抓取失败，已沿用仓库内上一版 快手 数据。",
       "source_kind": "web",
       "source_name": "TopHub 快手实时热榜",
       "source_url": "https://tophub.today/n/MZd7PrPerO",
       "updated_at": "7分钟前",
-      "generated_at": "2026-06-08T02:13:49Z",
+      "generated_at": "2026-06-08T03:25:09Z",
       "item_count": 10,
       "items": [
         {
@@ -564,16 +619,20 @@
       "name": "淘宝天猫",
       "en": "Tmall",
       "title": "热销总榜",
-      "status": "fresh",
-      "status_text": "今日已更新",
-      "stale": false,
-      "fallback": null,
-      "note": "数据来自 TopHub / 今日热卖公开商品榜单。",
+      "status": "stale",
+      "status_text": "沿用上次数据",
+      "stale": true,
+      "fallback": {
+        "type": "previous_data",
+        "reason": "TopHub 首页抓取失败：403 Client Error: Forbidden for url: https://tophub.today/",
+        "from_generated_at": "2026-06-08T02:13:49Z"
+      },
+      "note": "数据来自 TopHub / 今日热卖公开商品榜单。 本次抓取失败，已沿用仓库内上一版 淘宝天猫 数据。",
       "source_kind": "web",
       "source_name": "TopHub 淘宝天猫热销总榜",
       "source_url": "https://tophub.today/n/yjvQDpjobg",
       "updated_at": "19分钟前",
-      "generated_at": "2026-06-08T02:13:49Z",
+      "generated_at": "2026-06-08T03:25:09Z",
       "item_count": 10,
       "items": [
         {
@@ -658,22 +717,129 @@
         }
       ]
     },
+    "douyin_shop": {
+      "key": "douyin_shop",
+      "section": "products",
+      "name": "抖音商城",
+      "en": "Douyin Shop",
+      "title": "热卖榜",
+      "status": "fresh",
+      "status_text": "今日已更新",
+      "stale": false,
+      "fallback": {
+        "type": "mock_data",
+        "reason": "当前未接入稳定的抖音商城公开榜单源"
+      },
+      "note": "当前未接入稳定的抖音商城公域榜单，已自动补齐 618 主题 Mock Top10，确保商品词云和榜单展示可用。",
+      "source_kind": "mock",
+      "source_name": "抖音商城 618 主题模拟榜单",
+      "source_url": "https://www.douyin.com/",
+      "updated_at": "2026-06-08 11:25:09 CST",
+      "generated_at": "2026-06-08T03:25:09Z",
+      "item_count": 10,
+      "items": [
+        {
+          "rank": 1,
+          "title": "618 防晒喷雾买一赠一",
+          "url": "https://www.douyin.com/",
+          "metric_text": "成交热度 99.1",
+          "subtitle": "夏季刚需 + 短视频爆发款",
+          "source_rank": 1
+        },
+        {
+          "rank": 2,
+          "title": "国补空调一口价专场",
+          "url": "https://www.douyin.com/",
+          "metric_text": "成交热度 97.8",
+          "subtitle": "大家电补贴 + 直播冲量",
+          "source_rank": 2
+        },
+        {
+          "rank": 3,
+          "title": "抗老精华 618 加赠旅行装",
+          "url": "https://www.douyin.com/",
+          "metric_text": "成交热度 96.3",
+          "subtitle": "高客单护肤，适合达人种草转化",
+          "source_rank": 3
+        },
+        {
+          "rank": 4,
+          "title": "男士剃须刀礼盒限时补贴",
+          "url": "https://www.douyin.com/",
+          "metric_text": "成交热度 94.6",
+          "subtitle": "父亲节送礼场景强相关",
+          "source_rank": 4
+        },
+        {
+          "rank": 5,
+          "title": "家庭囤货抽纸整箱秒杀",
+          "url": "https://www.douyin.com/",
+          "metric_text": "成交热度 93.5",
+          "subtitle": "低决策快消，适合直播抢购",
+          "source_rank": 5
+        },
+        {
+          "rank": 6,
+          "title": "冰丝凉感阔腿裤女夏薄款",
+          "url": "https://www.douyin.com/",
+          "metric_text": "成交热度 92.4",
+          "subtitle": "服饰换季热卖，短视频试穿高转化",
+          "source_rank": 6
+        },
+        {
+          "rank": 7,
+          "title": "敏感肌修护面膜囤货装",
+          "url": "https://www.douyin.com/",
+          "metric_text": "成交热度 91.6",
+          "subtitle": "美妆个护复购型单品",
+          "source_rank": 7
+        },
+        {
+          "rank": 8,
+          "title": "山姆风零食大礼包直播补券",
+          "url": "https://www.douyin.com/",
+          "metric_text": "成交热度 90.8",
+          "subtitle": "零食囤货心智强，适合晚间直播",
+          "source_rank": 8
+        },
+        {
+          "rank": 9,
+          "title": "儿童DHA藻油 618 直播专享",
+          "url": "https://www.douyin.com/",
+          "metric_text": "成交热度 89.9",
+          "subtitle": "母婴品类，适合达人答疑场景",
+          "source_rank": 9
+        },
+        {
+          "rank": 10,
+          "title": "便携榨汁杯第二件半价",
+          "url": "https://www.douyin.com/",
+          "metric_text": "成交热度 88.7",
+          "subtitle": "小家电轻决策，适合短视频带货",
+          "source_rank": 10
+        }
+      ]
+    },
     "jd": {
       "key": "jd",
       "section": "products",
       "name": "京东",
       "en": "JD",
       "title": "热销总榜",
-      "status": "fresh",
-      "status_text": "今日已更新",
-      "stale": false,
-      "fallback": null,
-      "note": "数据来自 TopHub / 今日热卖公开商品榜单。",
+      "status": "stale",
+      "status_text": "沿用上次数据",
+      "stale": true,
+      "fallback": {
+        "type": "previous_data",
+        "reason": "TopHub 首页抓取失败：403 Client Error: Forbidden for url: https://tophub.today/",
+        "from_generated_at": "2026-06-08T02:13:49Z"
+      },
+      "note": "数据来自 TopHub / 今日热卖公开商品榜单。 本次抓取失败，已沿用仓库内上一版 京东 数据。",
       "source_kind": "web",
       "source_name": "TopHub 京东热销总榜",
       "source_url": "https://tophub.today/n/YqoXzV6dOD",
       "updated_at": "8分钟前",
-      "generated_at": "2026-06-08T02:13:49Z",
+      "generated_at": "2026-06-08T03:25:09Z",
       "item_count": 10,
       "items": [
         {
@@ -764,16 +930,20 @@
       "name": "今日热卖",
       "en": "Today Best Sellers",
       "title": "全网线报聚合",
-      "status": "fresh",
-      "status_text": "今日已更新",
-      "stale": false,
-      "fallback": null,
-      "note": "数据来自 TopHub / 今日热卖公开商品榜单。",
+      "status": "stale",
+      "status_text": "沿用上次数据",
+      "stale": true,
+      "fallback": {
+        "type": "previous_data",
+        "reason": "TopHub 首页抓取失败：403 Client Error: Forbidden for url: https://tophub.today/",
+        "from_generated_at": "2026-06-08T02:13:49Z"
+      },
+      "note": "数据来自 TopHub / 今日热卖公开商品榜单。 本次抓取失败，已沿用仓库内上一版 今日热卖 数据。",
       "source_kind": "web",
       "source_name": "TopHub 今日热卖全网线报聚合",
       "source_url": "https://tophub.today/n/x9ozqX7eXb",
       "updated_at": "6分钟前",
-      "generated_at": "2026-06-08T02:13:49Z",
+      "generated_at": "2026-06-08T03:25:09Z",
       "item_count": 10,
       "items": [
         {
@@ -875,8 +1045,8 @@
       "source_kind": "mock",
       "source_name": "快手电商 618 主题模拟榜单",
       "source_url": "https://www.kuaishou.com/",
-      "updated_at": "2026-06-08 10:13:49 CST",
-      "generated_at": "2026-06-08T02:13:49Z",
+      "updated_at": "2026-06-08 11:25:09 CST",
+      "generated_at": "2026-06-08T03:25:09Z",
       "item_count": 10,
       "items": [
         {
