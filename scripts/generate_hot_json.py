@@ -2,7 +2,9 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import copy
+import gzip
 import json
 import re
 from datetime import datetime, timezone
@@ -12,6 +14,7 @@ from zoneinfo import ZoneInfo
 
 import requests
 from bs4 import BeautifulSoup
+from Crypto.Cipher import AES
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = ROOT / "data" / "hot.json"
@@ -19,6 +22,15 @@ SH_TZ = ZoneInfo("Asia/Shanghai")
 
 TOPHUB_HOME_URL = "https://tophub.today/"
 DOUYIN_API_URL = "https://test12345-eta.vercel.app/douyin"
+CHANMAMA_DOUYIN_SALES_RANK_URL = "https://api-service.chanmama.com/v6/board/home/rank/yesterdaySaleRank"
+CHANMAMA_DECRYPT_KEY = "Kj7pQr4Df8s6tXbW"
+CHANMAMA_HEADERS = {
+    "X-Client-Hash": "dd3697867df706e41c2c474bce9fde2852703f11",
+    "X-Client-Version": "1",
+    "X-Encrypt-Version": "2",
+    "X-Platform-Id": "10000",
+    "X-Client-Id": "test",
+}
 REQUEST_HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
@@ -373,33 +385,65 @@ def unavailable_platform(spec: Dict[str, Any], context: Dict[str, str], reason: 
     )
 
 
-def build_douyin_shop_mock(spec: Dict[str, Any], context: Dict[str, str], reason: str) -> Dict[str, Any]:
-    mock_items = [
-        {"rank": 1, "title": "618 防晒喷雾买一赠一", "url": "https://www.douyin.com/", "metric_text": "成交热度 99.1", "subtitle": "夏季刚需 + 短视频爆发款", "source_rank": 1},
-        {"rank": 2, "title": "国补空调一口价专场", "url": "https://www.douyin.com/", "metric_text": "成交热度 97.8", "subtitle": "大家电补贴 + 直播冲量", "source_rank": 2},
-        {"rank": 3, "title": "抗老精华 618 加赠旅行装", "url": "https://www.douyin.com/", "metric_text": "成交热度 96.3", "subtitle": "高客单护肤，适合达人种草转化", "source_rank": 3},
-        {"rank": 4, "title": "男士剃须刀礼盒限时补贴", "url": "https://www.douyin.com/", "metric_text": "成交热度 94.6", "subtitle": "父亲节送礼场景强相关", "source_rank": 4},
-        {"rank": 5, "title": "家庭囤货抽纸整箱秒杀", "url": "https://www.douyin.com/", "metric_text": "成交热度 93.5", "subtitle": "低决策快消，适合直播抢购", "source_rank": 5},
-        {"rank": 6, "title": "冰丝凉感阔腿裤女夏薄款", "url": "https://www.douyin.com/", "metric_text": "成交热度 92.4", "subtitle": "服饰换季热卖，短视频试穿高转化", "source_rank": 6},
-        {"rank": 7, "title": "敏感肌修护面膜囤货装", "url": "https://www.douyin.com/", "metric_text": "成交热度 91.6", "subtitle": "美妆个护复购型单品", "source_rank": 7},
-        {"rank": 8, "title": "山姆风零食大礼包直播补券", "url": "https://www.douyin.com/", "metric_text": "成交热度 90.8", "subtitle": "零食囤货心智强，适合晚间直播", "source_rank": 8},
-        {"rank": 9, "title": "儿童DHA藻油 618 直播专享", "url": "https://www.douyin.com/", "metric_text": "成交热度 89.9", "subtitle": "母婴品类，适合达人答疑场景", "source_rank": 9},
-        {"rank": 10, "title": "便携榨汁杯第二件半价", "url": "https://www.douyin.com/", "metric_text": "成交热度 88.7", "subtitle": "小家电轻决策，适合短视频带货", "source_rank": 10},
-    ]
-    return build_platform_payload(
-        spec,
-        context=context,
-        source_name="抖音商城 618 主题模拟榜单",
-        source_url="https://www.douyin.com/",
-        source_kind="mock",
-        updated_at=context["display_local"],
-        items=mock_items,
-        status="fresh",
-        status_text="今日已更新",
-        stale=False,
-        fallback={"type": "mock_data", "reason": reason},
-        note="当前未接入稳定的抖音商城公域榜单，已自动补齐 618 主题 Mock Top10，确保商品词云和榜单展示可用。",
+def decrypt_chanmama_payload(encrypted_text: str) -> Dict[str, Any]:
+    cipher = AES.new(CHANMAMA_DECRYPT_KEY.encode("utf-8"), AES.MODE_ECB)
+    decrypted = cipher.decrypt(base64.b64decode(encrypted_text))
+    pad = decrypted[-1]
+    if 1 <= pad <= 16:
+        decrypted = decrypted[:-pad]
+    plain_text = gzip.decompress(decrypted).decode("utf-8")
+    return json.loads(plain_text)
+
+
+def fetch_douyin_shop_sales_rank(session: requests.Session, top_n: int = 10) -> Dict[str, Any]:
+    response = session.get(
+        CHANMAMA_DOUYIN_SALES_RANK_URL,
+        params={"is_board": 1},
+        headers=CHANMAMA_HEADERS,
+        timeout=20,
     )
+    response.raise_for_status()
+    payload = response.json()
+    encrypted = (((payload or {}).get("data") or {}).get("data") or "").strip()
+    if not encrypted:
+        raise FetchError(f"蝉妈妈接口返回为空 errCode={payload.get('errCode')} errMsg={payload.get('errMsg')}")
+
+    rank_payload = decrypt_chanmama_payload(encrypted)
+    rows = (rank_payload or {}).get("list") or []
+    if not rows:
+        raise FetchError("蝉妈妈接口未解析到抖音销量榜条目")
+
+    items: List[Dict[str, Any]] = []
+    for idx, row in enumerate(rows[:top_n], start=1):
+        title = clean_text(row.get("title"))
+        url = row.get("product_short_url") or "https://haohuo.jinritemai.com/"
+        metric_text = clean_text(row.get("day_order_count_text") or row.get("order_count_text") or row.get("amount_text") or "昨日销量")
+        subtitle_parts = [clean_text(row.get("shop_name")), clean_text(row.get("amount_text"))]
+        subtitle = " · ".join(part for part in subtitle_parts if part)
+        metric_value_raw = row.get("day_order_count_text_cmm_ind") or row.get("order_count_text_cmm_ind") or row.get("day_amount") or 0
+        try:
+            metric_value = int(float(metric_value_raw))
+        except (TypeError, ValueError):
+            metric_value = idx
+        items.append(
+            {
+                "rank": idx,
+                "title": title or f"抖音热卖商品 {idx}",
+                "url": url,
+                "metric_text": metric_text,
+                "metric_value": metric_value,
+                "subtitle": subtitle,
+                "source_rank": idx,
+            }
+        )
+
+    return {
+        "source_name": "蝉妈妈 抖音销量榜",
+        "source_url": "https://www.chanmama.com/promotionRank/",
+        "items": items,
+        "updated_text": "每日更新（页面展示为昨日销量榜）",
+        "extra_note": "匿名访问蝉妈妈公开榜单接口 yesterdaySaleRank，并按其前端公开解密逻辑还原 Top10 数据。",
+    }
 
 
 def build_kuaishou_shop_mock(spec: Dict[str, Any], context: Dict[str, str], reason: str) -> Dict[str, Any]:
@@ -512,8 +556,20 @@ def collect_data(existing_root: Dict[str, Any]) -> Dict[str, Any]:
         try:
             if not spec.get("hashid"):
                 if spec["key"] == "douyin_shop":
-                    failure_reason = "当前未接入稳定的抖音商城公开榜单源"
-                    platform_payload = build_douyin_shop_mock(spec, context, failure_reason)
+                    rank_data = fetch_douyin_shop_sales_rank(session)
+                    platform_payload = build_platform_payload(
+                        spec,
+                        context=context,
+                        source_name=rank_data["source_name"],
+                        source_url=rank_data["source_url"],
+                        source_kind="web",
+                        updated_at=context["display_local"],
+                        items=rank_data["items"],
+                        status="fresh",
+                        status_text=rank_data.get("updated_text") or "今日已更新",
+                        stale=False,
+                        note=rank_data.get("extra_note") or "来自公开榜单页面的真实商品数据。",
+                    )
                 elif spec["key"] == "kuaishou_shop":
                     failure_reason = "当前未接入稳定的快手电商公开榜单源"
                     platform_payload = build_kuaishou_shop_mock(spec, context, failure_reason)
