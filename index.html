@@ -518,7 +518,7 @@
             <div class="section-head-number">02</div>
             <div>
               <h2 class="editorial-title text-3xl font-black text-ink lg:text-4xl">电商爆款单品 TOP10</h2>
-              <p class="mt-2 text-sm tracking-[0.14em] text-[#6b6256] uppercase">淘宝天猫 · 京东 · 快手电商 · 今日热卖</p>
+              <p class="mt-2 text-sm tracking-[0.14em] text-[#6b6256] uppercase">淘宝天猫 · 京东 · 抖音商城 · 快手电商 · 今日热卖</p>
             </div>
           </div>
           <div class="max-w-xl text-sm leading-7 text-[#5d7292] cn-serif">
@@ -548,7 +548,7 @@
         </div>
         <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div id="tabs-cloud" class="flex flex-wrap gap-2"></div>
-          <div class="text-[12px] text-[#6b6256]">标注：<span class="font-semibold text-ink">话题词来自微博 / 百度 / 抖音，商品词来自淘宝天猫 / 京东 / 快手 / 今日热卖</span></div>
+          <div class="text-[12px] text-[#6b6256]">标注：<span class="font-semibold text-ink">话题词来自微博 / 百度 / 抖音，商品词来自淘宝天猫 / 京东 / 抖音 / 快手 / 今日热卖</span></div>
         </div>
         <div id="cloud-summary" class="mb-5 rounded-3xl border border-ink/80 bg-[rgba(223,234,251,0.82)] p-5 shadow-editorial"></div>
         <div class="wordcloud-shell grid grid-cols-1 lg:grid-cols-2">
@@ -561,7 +561,7 @@
           </div>
           <div class="word-panel">
             <div class="label-tag" style="background:#1e40af;">商品词 · PRODUCTS</div>
-            <div class="source-note">来源：淘宝天猫 / 京东 / 快手 / 今日热卖</div>
+            <div class="source-note">来源：淘宝天猫 / 京东 / 抖音 / 快手 / 今日热卖</div>
             <div class="word-title">电商商品词云</div>
             <div class="word-sub">看今天更适合承接什么商品词、主推什么卖点、重点拎什么二级品类。</div>
             <div id="product-cloud" class="word-chart"></div>
@@ -617,6 +617,7 @@
     const PRODUCT_PLATFORMS = [
       { key: 'tmall', name: '淘宝天猫', en: 'Tmall', metric: '热度指数' },
       { key: 'jd', name: '京东', en: 'JD', metric: '销量指数' },
+      { key: 'douyin_shop', name: '抖音商城', en: 'Douyin Shop', metric: '成交指数' },
       { key: 'kuaishou_shop', name: '快手电商', en: 'Kuaishou Shop', metric: '成交指数' },
       { key: 'jinri_shop', name: '今日热卖', en: 'Today Best Sellers', metric: '热卖指数' }
     ];
@@ -902,6 +903,7 @@
       all: { label: '全部', accent: '#10233f', glow: '#dfeafb', short: 'ALL' },
       tmall: { label: '淘宝天猫', accent: '#2563eb', glow: 'rgba(37,99,235,0.12)', short: 'TM' },
       jd: { label: '京东', accent: '#4f46e5', glow: 'rgba(79,70,229,0.12)', short: 'JD' },
+      douyin_shop: { label: '抖音商城', accent: '#1d4ed8', glow: 'rgba(29,78,216,0.12)', short: 'DY SHOP' },
       remai: { label: '今日热卖', accent: '#0284c7', glow: 'rgba(2,132,199,0.12)', short: 'RM' },
       kuaishou_shop: { label: '快手电商', accent: '#1d4ed8', glow: 'rgba(29,78,216,0.12)', short: 'KS SHOP' }
     };
@@ -988,7 +990,7 @@
       const keys = Object.keys(section);
       const orderedKeys = sectionKey === 'hot'
         ? ['douyin', 'weibo', 'baidu', 'kuaishou'].filter(key => keys.includes(key)).concat(keys.filter(key => !['douyin', 'weibo', 'baidu', 'kuaishou'].includes(key)))
-        : ['tmall', 'jd', 'remai', 'kuaishou_shop'].filter(key => keys.includes(key)).concat(keys.filter(key => !['tmall', 'jd', 'remai', 'kuaishou_shop'].includes(key)));
+        : ['tmall', 'jd', 'douyin_shop', 'remai', 'kuaishou_shop'].filter(key => keys.includes(key)).concat(keys.filter(key => !['tmall', 'jd', 'douyin_shop', 'remai', 'kuaishou_shop'].includes(key)));
       return (selectedKey && selectedKey !== 'all' ? orderedKeys.filter(key => key === selectedKey) : orderedKeys).map(key => section[key]).filter(Boolean);
     }
 
@@ -1041,6 +1043,53 @@
     function buildStrategies(industryKey) {
       const keys = getIndustryKeys(industryKey);
       return keys.flatMap(key => INDUSTRY_DATA[key].strategies.map(item => ({ ...item, industry: key })));
+    }
+
+    function buildDouyinPlaybook(item) {
+      const firstWord = item.hotWords?.[0] || '高热词';
+      const secondWord = item.hotWords?.[1] || '转化卖点';
+      const templates = {
+        fashion: {
+          positioning: `先用“${firstWord} + 上身变化”抢前 3 秒停留，再把${item.subCategory}做成直播间重点转化款。`,
+          actions: ['短视频优先拍真人试穿、显瘦对比和材质近景，封面直接写到手价或适合人群。', '直播节奏建议走“爆款试穿 → 尺码答疑 → 福利返场”，每 10-15 分钟重复一次核心权益。', '搜索与商城标题统一补齐凉感、防晒、显瘦、通勤等关键词，承接看完视频后主动搜索的人群。'],
+          metric: '重点盯短视频完播率、商品点击率和直播间试穿时段成交。'
+        },
+        beauty: {
+          positioning: `抖音场域先做“${firstWord}实测”建立信任，再用直播解释成分、肤感和适合人群。`,
+          actions: ['短视频内容优先做真人上脸、妆效对比、持妆或防晒实测，减少只讲概念不讲结果。', '直播话术固定围绕成分功效、肤质匹配、到手价和赠品机制，提升成交效率。', '评论区和商品标题同步覆盖油皮、敏感肌、学生党等高频搜索词，把自然搜索流量接住。'],
+          metric: '重点看短视频互动率、直播间停留时长和商品讲解后的加购提升。'
+        },
+        food: {
+          positioning: `抖音里要把${item.subCategory}放进真实生活场景，用“${firstWord}”和“${secondWord}”强化即时消费冲动。`,
+          actions: ['短视频优先拍办公室、健身、居家囤货等高频场景，让用户马上代入什么时候会买。', '直播适合做组合装、限时秒杀和多件多折，借助主播口播反复放大性价比。', '商品卡和搜索词突出低糖、高蛋白、囤货、家庭装等关键词，方便兴趣流量转搜索成交。'],
+          metric: '重点看短视频商品点击率、直播连带件数和组合装成交占比。'
+        },
+        tech: {
+          positioning: `抖音运营重点是“先讲到手价与真实体验，再讲参数”，把${item.subCategory}做成可被快速理解的换新选择。`,
+          actions: ['短视频前 5 秒先给补贴价、核心痛点和真实体验结果，再补充参数差异。', '直播场景增加拆箱、实测、问答和版本推荐，降低高客单决策门槛。', '达人内容、店播切片和搜索广告关键词保持一致，统一承接国补、换新、实测等高意图词。'],
+          metric: '重点盯高客单商品点击率、直播问答转化率和搜索成交占比。'
+        },
+        daily: {
+          positioning: `抖音里更适合把${item.subCategory}做成“看得见效果”的家庭囤货内容，突出${firstWord}和价格权益。`,
+          actions: ['短视频直接展示去污、留香、除菌或驱蚊等效果，避免只拍静态包装。', '直播建议主推大包装、多件装和赠品机制，强化一次性多买更划算。', '通过家庭场景、宿舍场景、带娃场景等细分内容做定向承接，提高不同人群的点击意愿。'],
+          metric: '重点看效果型视频完播率、直播多件购买率和复购人群回流。'
+        },
+        baby: {
+          positioning: `抖音场域先解决家长对安全与成分的顾虑，再把${item.subCategory}推进直播间做答疑成交。`,
+          actions: ['短视频优先回答“会不会刺激、安不安全、怎么用”这类妈妈最关心的问题。', '直播要安排高频答疑和真实使用演示，把红屁屁、防晒、喂养、安全等疑问讲透。', '评论区种草词与商品标题统一覆盖新手妈妈、宝宝夏季护理、家庭囤货等搜索表达。'],
+          metric: '重点看家长咨询率、直播答疑后成交率和母婴人群复购。'
+        },
+        edu: {
+          positioning: `抖音更适合把${item.subCategory}拆成“家长焦虑点 + 解决路径”的内容，先获客再转咨询或试听。`,
+          actions: ['短视频前半段先讲问题和节点紧迫感，后半段给试听、测评或资料包入口。', '直播内容建议走公开课、案例拆解和顾问答疑，提升留资与私信咨询。', '投流素材与落地页统一强调暑期规划、效率提升、试听福利等关键词，减少信息断层。'],
+          metric: '重点看线索获取成本、私信咨询率和试听/留资转化。'
+        }
+      };
+      return templates[item.industry] || {
+        positioning: `抖音场域建议优先放大${item.subCategory}的真实使用场景，再把${firstWord}做成封面关键词。`,
+        actions: ['短视频先给痛点和结果，再补充权益和人群适配。', '直播聚焦高频问题答疑与价格权益重复表达。', '搜索词、商品卡和内容标题保持一致，减少流量损耗。'],
+        metric: '重点看短视频点击率、直播转化率和搜索承接效果。'
+      };
     }
 
     function renderHotLoading() {
@@ -1325,7 +1374,7 @@
           : '词云会在 data/hot.json 加载成功后自动刷新；若 JSON 暂不可用，词云区域会保持空态但页面不会报错。',
         [
           '话题词来自抖音、微博、百度、快手等热搜榜单。',
-          '商品词来自淘宝天猫、京东、今日热卖与快手电商等商品榜单。',
+          '商品词来自淘宝天猫、京东、抖音、今日热卖与快手电商等商品榜单。',
           '平台若处于 stale / unavailable 状态，也会在上方卡片中明确说明。'
         ]
       );
@@ -1345,16 +1394,16 @@
         INDUSTRY_META[state.strategy],
         `${currentLabel}策略建议：${state.strategy === 'all' ? '把全部行业动作混排，适合晨会直接分工' : INDUSTRY_DATA[state.strategy].overview}`,
         state.strategy === 'all'
-          ? '“全部”模式建议看卡片标题先做优先级，再把热点词和渠道组合拆给内容、投流、直播三个角色。'
-          : '每张卡都按“二级行业 → 营销场景 → 热点词 → 内容策略 → 渠道组合”展开，拿去直接执行即可。',
+          ? '“全部”模式建议先看多平台整合打法，再补看每张卡内的抖音场域动作，方便内容、投流、直播三条线同步开工。'
+          : '每张卡都按“二级行业 → 营销场景 → 热点词 → 内容策略 → 多平台整合 → 抖音场域运营建议”展开，拿去直接执行即可。',
         state.strategy === 'all'
-          ? ['晨会先定 2-3 个高优先卡片，不建议同时开太多题。', '热点词适合给内容团队，渠道组合适合给投流与直播。', '今天有直播的行业，优先选择带“价格权益”表达的卡片。']
-          : ['热点词可以直接抄到封面和标题里。', '内容策略适合拆成短视频脚本方向。', '整合营销策略适合作为渠道预算分配参考。']
+          ? ['晨会先定 2-3 个高优先卡片，不建议同时开太多题。', '热点词适合给内容团队，多平台整合适合投流与直播。', '新增的抖音场域建议可以直接拆成短视频、直播、搜索承接三段动作。']
+          : ['热点词可以直接抄到封面和标题里。', '内容策略适合拆成短视频脚本方向。', '抖音场域建议适合作为内容投放、店播节奏和搜索承接的执行清单。']
       );
       const strategyGrid = document.getElementById('strategy-grid');
       strategyGrid.style.display = 'grid';
       strategyGrid.style.gridAutoFlow = 'column';
-      strategyGrid.style.gridAutoColumns = '420px';
+      strategyGrid.style.gridAutoColumns = '460px';
       strategyGrid.style.gridTemplateRows = '1fr';
       strategyGrid.style.overflowX = 'auto';
       strategyGrid.style.overflowY = 'hidden';
@@ -1362,8 +1411,9 @@
       strategyGrid.style.alignItems = 'stretch';
       strategyGrid.innerHTML = list.map(item => {
         const meta = INDUSTRY_META[item.industry];
+        const douyinPlaybook = buildDouyinPlaybook(item);
         return `
-          <article class="strategy-card rounded-[24px] p-5" style="width:420px; min-width:420px; max-width:420px;">
+          <article class="strategy-card rounded-[24px] p-5" style="width:460px; min-width:460px; max-width:460px;">
             <div class="mb-4 flex items-start justify-between gap-3 border-b border-ink/80 pb-4">
               <div>
                 <div class="mb-2 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em]" style="color:${meta.accent}; border-color:${meta.accent}; background:${meta.glow};">
@@ -1389,6 +1439,12 @@
               <div>
                 <div class="mb-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#6b6256]">整合营销策略</div>
                 <div class="cn-serif text-[15px] font-semibold text-ink">${item.integration}</div>
+              </div>
+              <div class="rounded-[20px] border border-ink/80 bg-[rgba(223,234,251,0.62)] p-4">
+                <div class="mb-1 text-[11px] font-bold uppercase tracking-[0.2em]" style="color:${meta.accent};">抖音场域策略运营建议</div>
+                <div class="cn-serif text-[15px] font-semibold text-ink">${douyinPlaybook.positioning}</div>
+                <div class="mt-3 space-y-2">${douyinPlaybook.actions.map(text => `<div class="strategy-point border-b border-dashed border-ink/15 pb-2"><span class="mr-2 font-bold" style="color:${meta.accent};">•</span>${text}</div>`).join('')}</div>
+                <div class="mt-3 text-[12px] font-semibold text-[#324968]">执行重点：${douyinPlaybook.metric}</div>
               </div>
             </div>
           </article>
