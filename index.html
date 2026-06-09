@@ -501,11 +501,11 @@
             <div class="section-head-number">S+</div>
             <div>
               <h2 class="editorial-title text-3xl font-black text-ink lg:text-4xl">今日营销情报</h2>
-              <p class="mt-2 text-sm tracking-[0.14em] text-[#6b6256] uppercase">Sensight Signals · Social Pulse · Featured Posts · Brand Watch</p>
+              <p class="mt-2 text-sm tracking-[0.14em] text-[#6b6256] uppercase">Sensight Signals · Social Pulse · Featured Posts</p>
             </div>
           </div>
           <div class="max-w-xl text-sm leading-7 text-[#5d7292] cn-serif">
-            把当天的社媒讨论、补贴 / 券后价表达、爆文结构和品牌官号动作汇总到一起，方便你在晨会里先做“优先级判断”，再回头看热搜和商品榜单。
+            把当天的社媒讨论、补贴 / 券后价表达和真实高互动爆文汇总到一起，方便你在晨会里先做“优先级判断”，再回头看热搜和商品榜单。
           </div>
         </div>
         <div id="intel-intro" class="mb-5 rounded-3xl border border-ink/80 bg-[rgba(223,234,251,0.82)] p-5 shadow-editorial"></div>
@@ -524,10 +524,6 @@
             <div>
               <div class="mb-3 text-[11px] font-bold uppercase tracking-[0.24em] text-accent">已验证高互动爆文拆解</div>
               <div id="featured-post-grid" class="grid gap-4"></div>
-            </div>
-            <div>
-              <div class="mb-3 text-[11px] font-bold uppercase tracking-[0.24em] text-accent">作者 / 品牌观察</div>
-              <div id="brand-watch-grid" class="grid gap-4"></div>
             </div>
           </div>
         </div>
@@ -1319,8 +1315,7 @@
       const signalRoot = document.getElementById('intel-signal-grid');
       const socialRoot = document.getElementById('social-observation-grid');
       const featuredRoot = document.getElementById('featured-post-grid');
-      const brandRoot = document.getElementById('brand-watch-grid');
-      if (!introRoot || !signalRoot || !socialRoot || !featuredRoot || !brandRoot) return;
+      if (!introRoot || !signalRoot || !socialRoot || !featuredRoot) return;
 
       if (runtimeData.sensightLoadStatus === 'loading') {
         introRoot.innerHTML = `
@@ -1332,7 +1327,6 @@
         signalRoot.innerHTML = loadingCard + loadingCard;
         socialRoot.innerHTML = loadingCard + loadingCard;
         featuredRoot.innerHTML = loadingCard;
-        brandRoot.innerHTML = loadingCard;
         return;
       }
 
@@ -1346,7 +1340,6 @@
         signalRoot.innerHTML = errorCard + errorCard;
         socialRoot.innerHTML = errorCard + errorCard;
         featuredRoot.innerHTML = errorCard;
-        brandRoot.innerHTML = errorCard;
         return;
       }
 
@@ -1422,19 +1415,6 @@
           <div class="mt-3 text-sm leading-7 text-[#5d7292]">${escapeHtml(item.summary || '')}</div>
         </a>
       `).join('') : '<div class="platform-card rounded-[24px] border border-ink bg-paper p-5 text-sm leading-7 text-[#5d7292]">今天没有筛到通过真实互动量校验的高热帖子，爆文拆解区暂不展示冷帖。</div>';
-
-
-      brandRoot.innerHTML = (data.brand_watch || []).map(item => `
-        <div class="platform-card rounded-[24px] border border-ink bg-paper p-5 shadow-editorial">
-          <div class="flex items-center justify-between gap-3 text-[11px] font-bold uppercase tracking-[0.2em] text-[#6b6256]">
-            <span>${escapeHtml(item.brand || '品牌')}</span>
-            <span>${escapeHtml(item.platform || '微博')}</span>
-          </div>
-          <div class="mt-3 cn-serif text-[18px] font-semibold leading-7 text-ink">${escapeHtml(item.insight || '')}</div>
-          <div class="mt-3 text-sm leading-7 text-[#5d7292]">${escapeHtml(item.summary || '')}</div>
-          <div class="mt-4 space-y-2">${(item.recent_posts || []).map(post => `<a class="block rounded-2xl border border-ink/70 bg-[rgba(255,255,255,0.52)] px-4 py-3 text-sm leading-6 text-[#5d7292] transition hover:bg-[rgba(223,234,251,0.55)]" href="${escapeHtml(post.url || '#')}" target="_blank" rel="noreferrer"><b class="text-ink">${escapeHtml(post.title || '最新动态')}</b><div class="mt-1 text-[12px] text-[#6b6256]">${escapeHtml(post.publish_time || '')}</div></a>`).join('')}</div>
-        </div>
-      `).join('');
     }
 
     function buildHotTabs() {
