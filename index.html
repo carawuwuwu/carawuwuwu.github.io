@@ -405,7 +405,7 @@
                   营销情报工作台
                 </h1>
                 <p class="cn-serif mt-4 max-w-3xl text-[15px] leading-7 text-[#5d7292] sm:text-[17px]">
-                  面向 618 大促的静态可视化看板。聚合 <b class="text-ink">多平台热搜</b>、<b class="text-ink">电商爆款</b>、<b class="text-ink">词云洞察</b> 与 <b class="text-ink">当日营销策略</b>，帮助代理商快速判断当天该追什么热点、推什么货、用什么内容和渠道承接转化。
+                  面向 618 大促的静态可视化看板。聚合 <b class="text-ink">多平台热搜</b>、<b class="text-ink">电商爆款</b>、<b class="text-ink">词云洞察</b>、<b class="text-ink">今日营销情报</b> 与 <b class="text-ink">动态策略建议</b>，帮助代理商快速判断当天该追什么热点、推什么货、用户在吐槽什么，以及应该优先放大哪类内容和权益表达。
                 </p>
               </div>
             </div>
@@ -432,13 +432,13 @@
               </div>
               <div class="rounded-2xl border border-ink/80 bg-[rgba(255,255,255,0.42)] p-4">
                 <div class="text-[11px] font-bold uppercase tracking-[0.22em] text-[#6b6256]">今日热点风向</div>
-                <div class="mt-3 text-2xl font-black text-ink cn-serif">618 冲刺 + 直播爆发</div>
-                <div class="mt-2 text-sm text-[#6b6256]">“折扣权益、直播抢购、场景种草”占比最高</div>
+                <div id="stat-trend-title" class="mt-3 text-2xl font-black text-ink cn-serif">618 冲刺 + 直播爆发</div>
+                <div id="stat-trend-desc" class="mt-2 text-sm text-[#6b6256]">“折扣权益、直播抢购、场景种草”占比最高</div>
               </div>
               <div class="rounded-2xl border border-ink/80 bg-[rgba(255,255,255,0.42)] p-4">
                 <div class="text-[11px] font-bold uppercase tracking-[0.22em] text-[#6b6256]">建议使用方式</div>
-                <div class="mt-3 text-2xl font-black text-ink cn-serif">上午定主题，下午推转化</div>
-                <div class="mt-2 text-sm text-[#6b6256]">热点先定内容钩子，爆款再定商品承接</div>
+                <div id="stat-recommend-title" class="mt-3 text-2xl font-black text-ink cn-serif">上午定主题，下午推转化</div>
+                <div id="stat-recommend-desc" class="mt-2 text-sm text-[#6b6256]">热点先定内容钩子，爆款再定商品承接</div>
               </div>
             </div>
           </div>
@@ -447,7 +447,7 @@
               <span class="inline-flex h-2.5 w-2.5 rounded-full bg-accent shadow-[0_0_0_6px_rgba(37,99,235,0.16)]"></span>
               Today Key Signals
             </div>
-            <div class="space-y-4 text-sm leading-7 text-[#5d7292] cn-serif">
+            <div id="today-key-signals" class="space-y-4 text-sm leading-7 text-[#5d7292] cn-serif">
               <p><b class="text-ink">服饰：</b>“防晒衣、薄款凉感、通勤穿搭”热度持续抬头，适合做夏季场景化直播切片。</p>
               <p><b class="text-ink">美妆：</b>防晒与底妆双线并行，内容建议突出 <span class="text-accent">户外持妆 + 618 券后到手价</span>。</p>
               <p><b class="text-ink">食饮：</b>“低糖、囤货、办公室提神”是成交关键词，适合短视频测款 + 直播承接。</p>
@@ -471,7 +471,11 @@
       </header>
 
       <nav class="sticky top-0 z-20 mt-5 rounded-2xl border border-ink bg-[rgba(238,244,255,0.96)] shadow-editorial backdrop-blur-md">
-        <div class="grid grid-cols-2 gap-px bg-ink/80 md:grid-cols-4">
+        <div class="grid grid-cols-2 gap-px bg-ink/80 md:grid-cols-5">
+          <a class="jump-link flex items-center justify-center gap-3 bg-paper px-4 py-4 transition hover:bg-ink hover:text-paper" href="#section-intel">
+            <span class="editorial-title text-2xl font-black">S+</span>
+            <span class="text-center text-sm font-bold tracking-[0.18em] text-[#6b6256]">今日营销<br/>情报</span>
+          </a>
           <a class="jump-link flex items-center justify-center gap-3 bg-paper px-4 py-4 transition hover:bg-ink hover:text-paper" href="#section-hot">
             <span class="editorial-title text-2xl font-black">01</span>
             <span class="text-center text-sm font-bold tracking-[0.18em] text-[#6b6256]">热搜<br/>TOP10</span>
@@ -490,6 +494,44 @@
           </a>
         </div>
       </nav>
+
+      <section id="section-intel" class="section-card mt-6 rounded-[28px] p-5 lg:p-8">
+        <div class="mb-5 flex flex-col gap-4 border-b border-ink/80 pb-5 lg:flex-row lg:items-end lg:justify-between">
+          <div class="flex items-end gap-4">
+            <div class="section-head-number">S+</div>
+            <div>
+              <h2 class="editorial-title text-3xl font-black text-ink lg:text-4xl">今日营销情报</h2>
+              <p class="mt-2 text-sm tracking-[0.14em] text-[#6b6256] uppercase">Sensight Signals · Social Pulse · Featured Posts · Brand Watch</p>
+            </div>
+          </div>
+          <div class="max-w-xl text-sm leading-7 text-[#5d7292] cn-serif">
+            把当天的社媒讨论、补贴 / 券后价表达、爆文结构和品牌官号动作汇总到一起，方便你在晨会里先做“优先级判断”，再回头看热搜和商品榜单。
+          </div>
+        </div>
+        <div id="intel-intro" class="mb-5 rounded-3xl border border-ink/80 bg-[rgba(223,234,251,0.82)] p-5 shadow-editorial"></div>
+        <div class="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+          <div class="space-y-6">
+            <div>
+              <div class="mb-3 text-[11px] font-bold uppercase tracking-[0.24em] text-accent">今日核心信号</div>
+              <div id="intel-signal-grid" class="grid gap-4 md:grid-cols-2"></div>
+            </div>
+            <div>
+              <div class="mb-3 text-[11px] font-bold uppercase tracking-[0.24em] text-accent">社媒观察</div>
+              <div id="social-observation-grid" class="grid gap-4 md:grid-cols-2"></div>
+            </div>
+          </div>
+          <div class="space-y-6">
+            <div>
+              <div class="mb-3 text-[11px] font-bold uppercase tracking-[0.24em] text-accent">爆文拆解</div>
+              <div id="featured-post-grid" class="grid gap-4"></div>
+            </div>
+            <div>
+              <div class="mb-3 text-[11px] font-bold uppercase tracking-[0.24em] text-accent">作者 / 品牌观察</div>
+              <div id="brand-watch-grid" class="grid gap-4"></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section id="section-hot" class="section-card mt-6 rounded-[28px] p-5 lg:p-8">
         <div class="mb-5 flex flex-col gap-4 border-b border-ink/80 pb-5 lg:flex-row lg:items-end lg:justify-between">
@@ -892,6 +934,7 @@
     };
 
     const DATA_JSON_CANDIDATES = ['/data/hot.json', 'data/hot.json', './data/hot.json'];
+    const SENSIGHT_JSON_CANDIDATES = ['/data/sensight.json', 'data/sensight.json', './data/sensight.json'];
     const HOT_TAB_META = {
       all: { label: '全部', accent: '#10233f', glow: '#dfeafb', short: 'ALL' },
       douyin: { label: '抖音', accent: '#2563eb', glow: 'rgba(37,99,235,0.12)', short: 'DY' },
@@ -912,7 +955,11 @@
       dataset: null,
       loadStatus: 'loading',
       error: '',
-      resolvedPath: ''
+      resolvedPath: '',
+      sensightDataset: null,
+      sensightLoadStatus: 'loading',
+      sensightError: '',
+      sensightResolvedPath: ''
     };
 
     const wordCharts = {
@@ -985,6 +1032,35 @@
       return Object.keys(section);
     }
 
+    function getSensightData() {
+      return runtimeData.sensightDataset || {};
+    }
+
+    function getSensightMeta() {
+      return getSensightData().meta || {};
+    }
+
+    function getIndustryOverride(industryKey) {
+      return getSensightData().industry_overrides?.[industryKey] || {};
+    }
+
+    function formatPlatform(platform) {
+      return platform || '社媒';
+    }
+
+    function formatChipLabel(value) {
+      return INDUSTRY_META[value]?.label || value;
+    }
+
+    function renderChipList(list = [], className = 'topic-chip') {
+      return (list || []).map(item => `<span class="${className}">${escapeHtml(formatChipLabel(item))}</span>`).join('');
+    }
+
+    function getPriorityMeta(priority) {
+      if (priority === 'high') return { label: 'HIGH', color: '#1d4ed8', bg: 'rgba(29,78,216,0.12)' };
+      return { label: 'WATCH', color: '#10233f', bg: '#dfeafb' };
+    }
+
     function getSectionList(sectionKey, selectedKey = 'all') {
       const section = getDatasetSection(sectionKey);
       const keys = Object.keys(section);
@@ -996,11 +1072,24 @@
 
     function updateHeaderStats() {
       const meta = runtimeData.dataset?.meta;
+      const sensightHeader = getSensightData().header || {};
       document.getElementById('meta-updated-at').textContent = meta?.generated_at_local || '暂无更新';
       const hotCount = getSectionKeys('hot').length;
       const productCount = getSectionKeys('products').length;
       document.getElementById('stat-platform-count').textContent = String(hotCount + productCount || 0);
       document.getElementById('stat-platform-desc').textContent = `${hotCount} 个热搜平台 + ${productCount} 个电商榜单`;
+      document.getElementById('stat-trend-title').textContent = sensightHeader.trend_title || '618 冲刺 + 直播爆发';
+      document.getElementById('stat-trend-desc').textContent = sensightHeader.trend_desc || '“折扣权益、直播抢购、场景种草”占比最高';
+      document.getElementById('stat-recommend-title').textContent = sensightHeader.recommend_title || '上午定主题，下午推转化';
+      document.getElementById('stat-recommend-desc').textContent = sensightHeader.recommend_desc || '热点先定内容钩子，爆款再定商品承接';
+
+      const signalRoot = document.getElementById('today-key-signals');
+      const signals = getSensightData().today_signals || [];
+      if (signalRoot && signals.length) {
+        signalRoot.innerHTML = signals.slice(0, 4).map(item => `
+          <p><b class="text-ink">${escapeHtml(item.title)}：</b>${escapeHtml(item.summary)}</p>
+        `).join('');
+      }
     }
 
     function createTabs(containerId, tabs, activeKey, onClick) {
@@ -1042,7 +1131,23 @@
 
     function buildStrategies(industryKey) {
       const keys = getIndustryKeys(industryKey);
-      return keys.flatMap(key => INDUSTRY_DATA[key].strategies.map(item => ({ ...item, industry: key })));
+      return keys.flatMap(key => {
+        const override = getIndustryOverride(key);
+        return INDUSTRY_DATA[key].strategies.map(item => ({
+          ...item,
+          industry: key,
+          hotWords: Array.from(new Set([...(override.hot_words || []), ...(item.hotWords || [])])).slice(0, 6),
+          content: [
+            ...((override.content_angles || []).map(text => `今日增量：${text}`)),
+            ...(item.content || [])
+          ].slice(0, 4),
+          integration: override.recommended_action
+            ? `${override.recommended_action}｜${item.integration}`
+            : item.integration,
+          dynamicSummary: override.summary || '',
+          dynamicPainPoints: override.pain_points || []
+        }));
+      });
     }
 
     function buildDouyinPlaybook(item) {
@@ -1200,6 +1305,120 @@
         '重新发布后页面会自动恢复。'
       ]);
       document.getElementById('product-grid').innerHTML = '<div class="empty-state md:col-span-2 xl:col-span-4">暂时无法读取商品榜单，请稍后刷新重试。</div>';
+    }
+
+    function renderIntelSection() {
+      const introRoot = document.getElementById('intel-intro');
+      const signalRoot = document.getElementById('intel-signal-grid');
+      const socialRoot = document.getElementById('social-observation-grid');
+      const featuredRoot = document.getElementById('featured-post-grid');
+      const brandRoot = document.getElementById('brand-watch-grid');
+      if (!introRoot || !signalRoot || !socialRoot || !featuredRoot || !brandRoot) return;
+
+      if (runtimeData.sensightLoadStatus === 'loading') {
+        introRoot.innerHTML = `
+          <div class="text-[11px] font-bold uppercase tracking-[0.22em] text-accent">Sensight 正在加载</div>
+          <div class="mt-3 cn-serif text-xl font-bold text-ink">正在读取 /data/sensight.json</div>
+          <div class="mt-2 text-sm leading-7 text-[#5d7292]">页面会先保证原有热搜 / 爆款 / 词云正常可用，情报增强区稍后自动补齐。</div>
+        `;
+        const loadingCard = '<div class="platform-card rounded-[24px] border border-ink bg-paper p-5 text-sm text-[#5d7292]">情报数据加载中…</div>';
+        signalRoot.innerHTML = loadingCard + loadingCard;
+        socialRoot.innerHTML = loadingCard + loadingCard;
+        featuredRoot.innerHTML = loadingCard;
+        brandRoot.innerHTML = loadingCard;
+        return;
+      }
+
+      if (runtimeData.sensightLoadStatus === 'error') {
+        introRoot.innerHTML = `
+          <div class="text-[11px] font-bold uppercase tracking-[0.22em] text-accent">Sensight 暂不可用</div>
+          <div class="mt-3 cn-serif text-xl font-bold text-ink">情报增强区本次未能刷新</div>
+          <div class="mt-2 text-sm leading-7 text-[#5d7292]">${escapeHtml(runtimeData.sensightError || '当前未读取到 sensight.json，但页面其他模块仍可正常浏览。')}</div>
+        `;
+        const errorCard = '<div class="platform-card rounded-[24px] border border-ink bg-paper p-5 text-sm text-[#5d7292]">本次没有拿到新的情报数据，稍后重试即可。</div>';
+        signalRoot.innerHTML = errorCard + errorCard;
+        socialRoot.innerHTML = errorCard + errorCard;
+        featuredRoot.innerHTML = errorCard;
+        brandRoot.innerHTML = errorCard;
+        return;
+      }
+
+      const data = getSensightData();
+      const meta = getSensightMeta();
+      const observations = data.social_observations || {};
+      const eventBrief = data.event_brief || [];
+      introRoot.innerHTML = `
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+          <div>
+            <div class="text-[11px] font-bold uppercase tracking-[0.22em] text-accent">${escapeHtml(meta.status || 'success')}</div>
+            <div class="mt-3 cn-serif text-2xl font-bold text-ink">${escapeHtml(data.header?.trend_title || '权益表达与社媒体感已接入')}</div>
+            <div class="mt-2 max-w-2xl text-sm leading-7 text-[#5d7292]">${escapeHtml(data.header?.recommend_desc || '把社媒讨论、爆文结构和品牌动作放到一起看，更容易先定今日执行优先级。')}</div>
+          </div>
+          <div class="text-sm leading-7 text-[#5d7292]">
+            <div><b class="text-ink">情报更新时间：</b>${escapeHtml(meta.generated_at_local || '暂无')}</div>
+            <div><b class="text-ink">重点行业：</b>${escapeHtml(data.header?.industry_focus || '3C / 家电')}</div>
+            <div><b class="text-ink">重点入口：</b><span class="inline-flex flex-wrap gap-2 align-middle">${renderChipList(observations.positive_keywords || [], 'topic-chip')}</span></div>
+          </div>
+        </div>
+        ${eventBrief.length ? `<div class="mt-4 grid gap-3 md:grid-cols-3">${eventBrief.slice(0, 3).map(item => `<a class="rounded-2xl border border-ink/80 bg-[rgba(255,255,255,0.52)] p-4 transition hover:-translate-y-0.5 hover:shadow-editorial" href="${escapeHtml(item.url || '#')}" target="_blank" rel="noreferrer"><div class="text-[11px] uppercase tracking-[0.18em] text-accent">${escapeHtml(item.source || '热点事件')}</div><div class="mt-2 cn-serif text-[17px] font-semibold text-ink">${escapeHtml(item.title)}</div><div class="mt-2 text-sm leading-6 text-[#5d7292]">${escapeHtml(item.summary || '')}</div></a>`).join('')}</div>` : ''}
+      `;
+
+      signalRoot.innerHTML = (data.today_signals || []).map(item => {
+        const metaInfo = getPriorityMeta(item.priority);
+        return `
+          <article class="platform-card rounded-[24px] border border-ink bg-paper p-5 shadow-editorial">
+            <div class="flex items-start justify-between gap-3">
+              <div class="text-[11px] font-bold uppercase tracking-[0.22em] text-[#6b6256]">Signal</div>
+              <span class="rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em]" style="color:${metaInfo.color};background:${metaInfo.bg};">${metaInfo.label}</span>
+            </div>
+            <div class="mt-3 cn-serif text-xl font-bold text-ink">${escapeHtml(item.title)}</div>
+            <div class="mt-3 text-sm leading-7 text-[#5d7292]">${escapeHtml(item.summary)}</div>
+            <div class="mt-3 rounded-2xl bg-[rgba(223,234,251,0.55)] px-4 py-3 text-sm leading-6 text-[#5d7292]">${escapeHtml(item.evidence || '')}</div>
+          </article>
+        `;
+      }).join('');
+
+      socialRoot.innerHTML = (observations.items || []).slice(0, 6).map(item => `
+        <a class="platform-card rounded-[24px] border border-ink bg-paper p-5 shadow-editorial transition hover:-translate-y-0.5 hover:shadow-[8px_8px_0_#10233f]" href="${escapeHtml(item.url || '#')}" target="_blank" rel="noreferrer">
+          <div class="flex items-center justify-between gap-3 text-[11px] font-bold uppercase tracking-[0.2em] text-[#6b6256]">
+            <span>${escapeHtml(formatPlatform(item.platform))}</span>
+            <span class="rounded-full bg-[rgba(29,78,216,0.12)] px-3 py-1 text-accent">${escapeHtml(item.tag || '观察')}</span>
+          </div>
+          <div class="mt-3 cn-serif text-[18px] font-semibold leading-7 text-ink">${escapeHtml(item.title)}</div>
+          <div class="mt-2 text-sm leading-7 text-[#5d7292]">${escapeHtml(item.snippet || '')}</div>
+          <div class="mt-4 flex flex-wrap items-center gap-2 text-[12px] text-[#6b6256]">
+            <span>${escapeHtml(item.user_name || '作者')}</span>
+            <span>·</span>
+            <span>${escapeHtml(item.publish_time || '')}</span>
+          </div>
+          <div class="mt-4 flex flex-wrap gap-2">${renderChipList(item.industries || [], 'tag-pill')}</div>
+        </a>
+      `).join('');
+
+      featuredRoot.innerHTML = (data.featured_posts || []).map(item => `
+        <a class="platform-card rounded-[24px] border border-ink bg-paper p-5 shadow-editorial transition hover:-translate-y-0.5 hover:shadow-[8px_8px_0_#10233f]" href="${escapeHtml(item.url || '#')}" target="_blank" rel="noreferrer">
+          <div class="flex items-center justify-between gap-3 text-[11px] font-bold uppercase tracking-[0.2em] text-[#6b6256]">
+            <span>${escapeHtml(formatPlatform(item.platform))}</span>
+            <span class="rounded-full bg-[rgba(16,35,63,0.08)] px-3 py-1 text-ink">${escapeHtml(item.tag || '拆解')}</span>
+          </div>
+          <div class="mt-3 cn-serif text-[18px] font-semibold leading-7 text-ink">${escapeHtml(item.title)}</div>
+          <div class="mt-3 rounded-2xl bg-[rgba(223,234,251,0.55)] px-4 py-3 text-sm leading-6 text-[#5d7292]"><b class="text-ink">为什么能火：</b>${escapeHtml(item.why_hot || '')}</div>
+          <div class="mt-3 text-sm leading-7 text-[#5d7292]"><b class="text-ink">可复用钩子：</b>${escapeHtml(item.hook || '')}</div>
+          <div class="mt-3 text-sm leading-7 text-[#5d7292]">${escapeHtml(item.summary || '')}</div>
+        </a>
+      `).join('');
+
+      brandRoot.innerHTML = (data.brand_watch || []).map(item => `
+        <div class="platform-card rounded-[24px] border border-ink bg-paper p-5 shadow-editorial">
+          <div class="flex items-center justify-between gap-3 text-[11px] font-bold uppercase tracking-[0.2em] text-[#6b6256]">
+            <span>${escapeHtml(item.brand || '品牌')}</span>
+            <span>${escapeHtml(item.platform || '微博')}</span>
+          </div>
+          <div class="mt-3 cn-serif text-[18px] font-semibold leading-7 text-ink">${escapeHtml(item.insight || '')}</div>
+          <div class="mt-3 text-sm leading-7 text-[#5d7292]">${escapeHtml(item.summary || '')}</div>
+          <div class="mt-4 space-y-2">${(item.recent_posts || []).map(post => `<a class="block rounded-2xl border border-ink/70 bg-[rgba(255,255,255,0.52)] px-4 py-3 text-sm leading-6 text-[#5d7292] transition hover:bg-[rgba(223,234,251,0.55)]" href="${escapeHtml(post.url || '#')}" target="_blank" rel="noreferrer"><b class="text-ink">${escapeHtml(post.title || '最新动态')}</b><div class="mt-1 text-[12px] text-[#6b6256]">${escapeHtml(post.publish_time || '')}</div></a>`).join('')}</div>
+        </div>
+      `).join('');
     }
 
     function buildHotTabs() {
@@ -1462,10 +1681,10 @@
       introBlock(
         'strategy-summary',
         INDUSTRY_META[state.strategy],
-        `${currentLabel}策略建议：${state.strategy === 'all' ? '把全部行业动作混排，适合晨会直接分工' : INDUSTRY_DATA[state.strategy].overview}`,
+        `${currentLabel}策略建议：${state.strategy === 'all' ? '把全部行业动作混排，适合晨会直接分工' : `${INDUSTRY_DATA[state.strategy].overview}${getIndustryOverride(state.strategy).summary ? ` 当前情报提醒：${getIndustryOverride(state.strategy).summary}` : ''}`}`,
         state.strategy === 'all'
           ? '“全部”模式建议先看多平台整合打法，再补看每张卡内的抖音场域动作，方便内容、投流、直播三条线同步开工。'
-          : '每张卡都按“二级行业 → 营销场景 → 热点词 → 内容策略 → 多平台整合 → 抖音场域运营建议”展开，拿去直接执行即可。',
+          : '每张卡都按“二级行业 → 营销场景 → 热点词 → 今日情报加成 → 内容策略 → 多平台整合 → 抖音场域运营建议”展开，拿去直接执行即可。',
         state.strategy === 'all'
           ? ['晨会先定 2-3 个高优先卡片，不建议同时开太多题。', '热点词适合给内容团队，多平台整合适合投流与直播。', '新增的抖音场域建议可以直接拆成短视频、直播、搜索承接三段动作。']
           : ['热点词可以直接抄到封面和标题里。', '内容策略适合拆成短视频脚本方向。', '抖音场域建议适合作为内容投放、店播节奏和搜索承接的执行清单。']
@@ -1502,6 +1721,13 @@
                 <div class="mb-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[#6b6256]">热点词</div>
                 <div>${item.hotWords.map(word => `<span class="topic-chip">${word}</span>`).join('')}</div>
               </div>
+              ${item.dynamicSummary ? `
+                <div class="rounded-[20px] border border-ink/80 bg-[rgba(223,234,251,0.62)] p-4">
+                  <div class="mb-1 text-[11px] font-bold uppercase tracking-[0.2em]" style="color:${meta.accent};">今日情报加成</div>
+                  <div class="cn-serif text-[15px] font-semibold text-ink">${item.dynamicSummary}</div>
+                  ${item.dynamicPainPoints?.length ? `<div class="mt-3 flex flex-wrap gap-2">${item.dynamicPainPoints.map(text => `<span class="tag-pill">${text}</span>`).join('')}</div>` : ''}
+                </div>
+              ` : ''}
               <div>
                 <div class="mb-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[#6b6256]">内容策略</div>
                 <div class="space-y-2">${item.content.map(text => `<div class="strategy-point border-b border-dashed border-ink/15 pb-2"><span class="mr-2 font-bold text-accent">•</span>${text}</div>`).join('')}</div>
@@ -1523,7 +1749,7 @@
     }
 
     function syncJumpNav() {
-      const sections = ['section-hot', 'section-product', 'section-cloud', 'section-strategy'];
+      const sections = ['section-intel', 'section-hot', 'section-product', 'section-cloud', 'section-strategy'];
       const links = Array.from(document.querySelectorAll('.jump-link'));
       const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
@@ -1560,6 +1786,7 @@
           renderHot();
           renderProduct();
           renderCloud();
+          renderStrategy();
           return;
         } catch (error) {
           errors.push(`${candidate} -> ${error.message}`);
@@ -1571,15 +1798,54 @@
       renderHot();
       renderProduct();
       renderCloud();
+      renderStrategy();
+    }
+
+    async function loadSensightJson() {
+      const errors = [];
+      for (const candidate of SENSIGHT_JSON_CANDIDATES) {
+        try {
+          const res = await fetch(candidate, {
+            method: 'GET',
+            headers: { Accept: 'application/json' },
+            cache: 'no-store'
+          });
+          if (!res.ok) {
+            errors.push(`${candidate} -> ${res.status}`);
+            continue;
+          }
+          const payload = await res.json();
+          if (!payload || typeof payload !== 'object') {
+            errors.push(`${candidate} -> invalid json payload`);
+            continue;
+          }
+          runtimeData.sensightDataset = payload;
+          runtimeData.sensightLoadStatus = 'success';
+          runtimeData.sensightResolvedPath = candidate;
+          updateHeaderStats();
+          renderIntelSection();
+          renderStrategy();
+          return;
+        } catch (error) {
+          errors.push(`${candidate} -> ${error.message}`);
+        }
+      }
+      runtimeData.sensightLoadStatus = 'error';
+      runtimeData.sensightError = errors.join('；');
+      updateHeaderStats();
+      renderIntelSection();
+      renderStrategy();
     }
 
     function init() {
       renderHot();
       renderProduct();
       renderCloud();
+      renderIntelSection();
       renderStrategy();
       syncJumpNav();
       loadHotJson();
+      loadSensightJson();
       window.addEventListener('resize', () => {
         if (wordCharts.topic) wordCharts.topic.resize();
         if (wordCharts.product) wordCharts.product.resize();
