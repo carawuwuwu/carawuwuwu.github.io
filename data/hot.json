@@ -2,9 +2,9 @@
   "meta": {
     "version": 1,
     "timezone": "Asia/Shanghai",
-    "generated_at": "2026-06-13T10:43:25Z",
-    "generated_at_local": "2026-06-13 18:43:25 CST",
-    "generated_date": "2026-06-13",
+    "generated_at": "2026-06-14T11:20:01Z",
+    "generated_at_local": "2026-06-14 19:20:01 CST",
+    "generated_date": "2026-06-14",
     "workflow_name": "Daily Hot Data Sync",
     "generator": "scripts/generate_hot_json.py",
     "summary": {
@@ -25,7 +25,7 @@
         "source_kind": "api",
         "source_name": "DailyHotApi /douyin",
         "source_url": "https://test12345-eta.vercel.app/douyin",
-        "updated_at": "2026-06-13T10:43:28.640Z",
+        "updated_at": "2026-06-14T11:20:04.941Z",
         "item_count": 10,
         "note": "优先使用 DailyHotApi 抖音热榜接口。",
         "reason": ""
@@ -40,7 +40,7 @@
         "source_kind": "web",
         "source_name": "TopHub 微博热搜榜",
         "source_url": "https://tophub.today/n/KqndgxeLl9",
-        "updated_at": "4分钟前",
+        "updated_at": "10分钟前",
         "item_count": 10,
         "note": "数据来自 TopHub 首页公开榜单卡片。",
         "reason": ""
@@ -55,7 +55,7 @@
         "source_kind": "web",
         "source_name": "TopHub 百度实时热点",
         "source_url": "https://tophub.today/n/Jb0vmloB1G",
-        "updated_at": "4分钟前",
+        "updated_at": "10分钟前",
         "item_count": 10,
         "note": "数据来自 TopHub 首页公开榜单卡片。",
         "reason": ""
@@ -70,7 +70,7 @@
         "source_kind": "web",
         "source_name": "TopHub 快手实时热榜",
         "source_url": "https://tophub.today/n/MZd7PrPerO",
-        "updated_at": "5分钟前",
+        "updated_at": "12分钟前",
         "item_count": 10,
         "note": "数据来自 TopHub 首页公开榜单卡片。",
         "reason": ""
@@ -85,7 +85,7 @@
         "source_kind": "web",
         "source_name": "TopHub 淘宝天猫热销总榜",
         "source_url": "https://tophub.today/n/yjvQDpjobg",
-        "updated_at": "8分钟前",
+        "updated_at": "5分钟前",
         "item_count": 10,
         "note": "数据来自 TopHub / 今日热卖公开商品榜单。",
         "reason": ""
@@ -100,7 +100,7 @@
         "source_kind": "web",
         "source_name": "蝉妈妈 抖音销量榜",
         "source_url": "https://www.chanmama.com/promotionRank/",
-        "updated_at": "2026-06-13 18:43:25 CST",
+        "updated_at": "2026-06-14 19:20:01 CST",
         "item_count": 10,
         "note": "匿名访问蝉妈妈公开榜单接口 yesterdaySaleRank，并按其前端公开解密逻辑还原 Top10 数据。",
         "reason": ""
@@ -115,7 +115,7 @@
         "source_kind": "web",
         "source_name": "TopHub 京东热销总榜",
         "source_url": "https://tophub.today/n/YqoXzV6dOD",
-        "updated_at": "9分钟前",
+        "updated_at": "5分钟前",
         "item_count": 10,
         "note": "数据来自 TopHub / 今日热卖公开商品榜单。",
         "reason": ""
@@ -130,7 +130,7 @@
         "source_kind": "web",
         "source_name": "TopHub 今日热卖全网线报聚合",
         "source_url": "https://tophub.today/n/x9ozqX7eXb",
-        "updated_at": "7分钟前",
+        "updated_at": "2分钟前",
         "item_count": 10,
         "note": "数据来自 TopHub / 今日热卖公开商品榜单。",
         "reason": ""
@@ -148,7 +148,7 @@
         "source_kind": "mock",
         "source_name": "快手电商 618 主题模拟榜单",
         "source_url": "https://www.kuaishou.com/",
-        "updated_at": "2026-06-13 18:43:25 CST",
+        "updated_at": "2026-06-14 19:20:01 CST",
         "item_count": 10,
         "note": "当前未接入稳定的快手电商公域榜单，已自动补齐 618 主题 Mock Top10，确保对外展示版持续可用。",
         "reason": ""
@@ -175,97 +175,97 @@
       "source_kind": "api",
       "source_name": "DailyHotApi /douyin",
       "source_url": "https://test12345-eta.vercel.app/douyin",
-      "updated_at": "2026-06-13T10:43:28.640Z",
-      "generated_at": "2026-06-13T10:43:25Z",
+      "updated_at": "2026-06-14T11:20:04.941Z",
+      "generated_at": "2026-06-14T11:20:01Z",
       "item_count": 10,
       "items": [
         {
           "rank": 1,
-          "title": "原来成语缝在汉服里",
-          "url": "https://www.douyin.com/hot/2531784",
-          "metric_text": "11,730,047",
-          "metric_value": 11730047,
+          "title": "德国vs库拉索比分预测",
+          "url": "https://www.douyin.com/hot/2534346",
+          "metric_text": "11,884,572",
+          "metric_value": 11884572,
           "subtitle": "实时上升热点",
           "source_rank": 1
         },
         {
           "rank": 2,
-          "title": "巴西队将迎美加墨世界杯首秀",
-          "url": "https://www.douyin.com/hot/2533112",
-          "metric_text": "11,474,977",
-          "metric_value": 11474977,
+          "title": "加米峰把川西美景具象化了",
+          "url": "https://www.douyin.com/hot/2533241",
+          "metric_text": "11,763,435",
+          "metric_value": 11763435,
           "subtitle": "实时上升热点",
           "source_rank": 2
         },
         {
           "rank": 3,
-          "title": "今天是文化和自然遗产日",
-          "url": "https://www.douyin.com/hot/2532925",
-          "metric_text": "11,094,402",
-          "metric_value": 11094402,
+          "title": "世界献血者日",
+          "url": "https://www.douyin.com/hot/2533951",
+          "metric_text": "11,215,414",
+          "metric_value": 11215414,
           "subtitle": "实时上升热点",
           "source_rank": 3
         },
         {
           "rank": 4,
-          "title": "现场观战美国队揭幕战",
-          "url": "https://www.douyin.com/hot/2532870",
-          "metric_text": "11,079,781",
-          "metric_value": 11079781,
+          "title": "尼克斯时隔53年再夺总冠军",
+          "url": "https://www.douyin.com/hot/2533705",
+          "metric_text": "11,194,748",
+          "metric_value": 11194748,
           "subtitle": "实时上升热点",
           "source_rank": 4
         },
         {
           "rank": 5,
-          "title": "内马尔无缘巴西队世界杯首战",
-          "url": "https://www.douyin.com/hot/2532769",
-          "metric_text": "10,468,989",
-          "metric_value": 10468989,
+          "title": "新闻联播",
+          "url": "https://www.douyin.com/hot/2534415",
+          "metric_text": "10,466,240",
+          "metric_value": 10466240,
           "subtitle": "实时上升热点",
           "source_rank": 5
         },
         {
           "rank": 6,
-          "title": "哈兰德把挪威的森林焊死在抖音",
-          "url": "https://www.douyin.com/hot/2533100",
-          "metric_text": "10,457,562",
-          "metric_value": 10457562,
+          "title": "华语歌手黄大炜去世",
+          "url": "https://www.douyin.com/hot/2534081",
+          "metric_text": "10,369,581",
+          "metric_value": 10369581,
           "subtitle": "实时上升热点",
           "source_rank": 6
         },
         {
           "rank": 7,
-          "title": "留学生回国之后就这样大吃特吃",
-          "url": "https://www.douyin.com/hot/2533150",
-          "metric_text": "9,277,863",
-          "metric_value": 9277863,
+          "title": "姜乘澜的保姆级黑眼圈遮瑕教程",
+          "url": "https://www.douyin.com/hot/2534113",
+          "metric_text": "9,235,004",
+          "metric_value": 9235004,
           "subtitle": "实时上升热点",
           "source_rank": 7
         },
         {
           "rank": 8,
-          "title": "美国4:1巴拉圭",
-          "url": "https://www.douyin.com/hot/2532660",
-          "metric_text": "9,214,161",
-          "metric_value": 9214161,
+          "title": "BLG夺得第二赛段优胜者",
+          "url": "https://www.douyin.com/hot/2534333",
+          "metric_text": "9,218,886",
+          "metric_value": 9218886,
           "subtitle": "实时上升热点",
           "source_rank": 8
         },
         {
           "rank": 9,
-          "title": "沉浸式体验美加墨世界杯",
-          "url": "https://www.douyin.com/hot/2532787",
-          "metric_text": "9,203,327",
-          "metric_value": 9203327,
+          "title": "荷兰vs日本前瞻",
+          "url": "https://www.douyin.com/hot/2533915",
+          "metric_text": "9,174,429",
+          "metric_value": 9174429,
           "subtitle": "实时上升热点",
           "source_rank": 9
         },
         {
           "rank": 10,
-          "title": "体验史上最贵世界杯要花多少钱",
-          "url": "https://www.douyin.com/hot/2533152",
-          "metric_text": "9,162,360",
-          "metric_value": 9162360,
+          "title": "懂球天团锐评桑巴足球是否没落",
+          "url": "https://www.douyin.com/hot/2534210",
+          "metric_text": "9,119,718",
+          "metric_value": 9119718,
           "subtitle": "实时上升热点",
           "source_rank": 10
         }
@@ -285,88 +285,88 @@
       "source_kind": "web",
       "source_name": "TopHub 微博热搜榜",
       "source_url": "https://tophub.today/n/KqndgxeLl9",
-      "updated_at": "4分钟前",
-      "generated_at": "2026-06-13T10:43:25Z",
+      "updated_at": "10分钟前",
+      "generated_at": "2026-06-14T11:20:01Z",
       "item_count": 10,
       "items": [
         {
           "rank": 1,
-          "title": "六级",
-          "url": "https://s.weibo.com/weibo?q=%E5%85%AD%E7%BA%A7",
-          "metric_text": "423万",
-          "subtitle": "423万",
+          "title": "小县城取消中考选拔全员直升高中",
+          "url": "https://s.weibo.com/weibo?q=%E5%B0%8F%E5%8E%BF%E5%9F%8E%E5%8F%96%E6%B6%88%E4%B8%AD%E8%80%83%E9%80%89%E6%8B%94%E5%85%A8%E5%91%98%E7%9B%B4%E5%8D%87%E9%AB%98%E4%B8%AD",
+          "metric_text": "150万",
+          "subtitle": "150万",
           "source_rank": 1
         },
         {
           "rank": 2,
-          "title": "六级翻译",
-          "url": "https://s.weibo.com/weibo?q=%E5%85%AD%E7%BA%A7%E7%BF%BB%E8%AF%91",
-          "metric_text": "214万",
-          "subtitle": "214万",
+          "title": "黄大炜去世",
+          "url": "https://s.weibo.com/weibo?q=%E9%BB%84%E5%A4%A7%E7%82%9C%E5%8E%BB%E4%B8%96",
+          "metric_text": "112万",
+          "subtitle": "112万",
           "source_rank": 2
         },
         {
           "rank": 3,
-          "title": "各地抢收小麦进度条全力冲刺",
-          "url": "https://s.weibo.com/weibo?q=%E5%90%84%E5%9C%B0%E6%8A%A2%E6%94%B6%E5%B0%8F%E9%BA%A6%E8%BF%9B%E5%BA%A6%E6%9D%A1%E5%85%A8%E5%8A%9B%E5%86%B2%E5%88%BA",
-          "metric_text": "172万",
-          "subtitle": "172万",
+          "title": "神23乘组要在太空过端午了",
+          "url": "https://s.weibo.com/weibo?q=%E7%A5%9E23%E4%B9%98%E7%BB%84%E8%A6%81%E5%9C%A8%E5%A4%AA%E7%A9%BA%E8%BF%87%E7%AB%AF%E5%8D%88%E4%BA%86",
+          "metric_text": "112万",
+          "subtitle": "112万",
           "source_rank": 3
         },
         {
           "rank": 4,
-          "title": "梅西6到飞起",
-          "url": "https://s.weibo.com/weibo?q=%E6%A2%85%E8%A5%BF6%E5%88%B0%E9%A3%9E%E8%B5%B7",
-          "metric_text": "135万",
-          "subtitle": "135万",
+          "title": "高圆圆在京东开直播测护腰椅",
+          "url": "https://s.weibo.com/weibo?q=%E9%AB%98%E5%9C%86%E5%9C%86%E5%9C%A8%E4%BA%AC%E4%B8%9C%E5%BC%80%E7%9B%B4%E6%92%AD%E6%B5%8B%E6%8A%A4%E8%85%B0%E6%A4%85",
+          "metric_text": "112万",
+          "subtitle": "112万",
           "source_rank": 4
         },
         {
           "rank": 5,
-          "title": "黄灿灿工作室员工在张月身后抽烟",
-          "url": "https://s.weibo.com/weibo?q=%E9%BB%84%E7%81%BF%E7%81%BF%E5%B7%A5%E4%BD%9C%E5%AE%A4%E5%91%98%E5%B7%A5%E5%9C%A8%E5%BC%A0%E6%9C%88%E8%BA%AB%E5%90%8E%E6%8A%BD%E7%83%9F",
-          "metric_text": "133万",
-          "subtitle": "133万",
+          "title": "王俊凯P领口",
+          "url": "https://s.weibo.com/weibo?q=%E7%8E%8B%E4%BF%8A%E5%87%AFP%E9%A2%86%E5%8F%A3",
+          "metric_text": "112万",
+          "subtitle": "112万",
           "source_rank": 5
         },
         {
           "rank": 6,
-          "title": "帅氏药膳鸡",
-          "url": "https://s.weibo.com/weibo?q=%E5%B8%85%E6%B0%8F%E8%8D%AF%E8%86%B3%E9%B8%A1",
-          "metric_text": "124万",
-          "subtitle": "124万",
+          "title": "上海还是太超前了",
+          "url": "https://s.weibo.com/weibo?q=%E4%B8%8A%E6%B5%B7%E8%BF%98%E6%98%AF%E5%A4%AA%E8%B6%85%E5%89%8D%E4%BA%86",
+          "metric_text": "112万",
+          "subtitle": "112万",
           "source_rank": 6
         },
         {
           "rank": 7,
-          "title": "六级听力",
-          "url": "https://s.weibo.com/weibo?q=%E5%85%AD%E7%BA%A7%E5%90%AC%E5%8A%9B",
-          "metric_text": "119万",
-          "subtitle": "119万",
+          "title": "上班这件事不要本末倒置",
+          "url": "https://s.weibo.com/weibo?q=%E4%B8%8A%E7%8F%AD%E8%BF%99%E4%BB%B6%E4%BA%8B%E4%B8%8D%E8%A6%81%E6%9C%AC%E6%9C%AB%E5%80%92%E7%BD%AE",
+          "metric_text": "112万",
+          "subtitle": "112万",
           "source_rank": 7
         },
         {
           "rank": 8,
-          "title": "没想到最上头3D打印的是我爷",
-          "url": "https://s.weibo.com/weibo?q=%E6%B2%A1%E6%83%B3%E5%88%B0%E6%9C%80%E4%B8%8A%E5%A4%B43D%E6%89%93%E5%8D%B0%E7%9A%84%E6%98%AF%E6%88%91%E7%88%B7",
-          "metric_text": "117万",
-          "subtitle": "117万",
+          "title": "王濛戒酒吧我求你",
+          "url": "https://s.weibo.com/weibo?q=%E7%8E%8B%E6%BF%9B%E6%88%92%E9%85%92%E5%90%A7%E6%88%91%E6%B1%82%E4%BD%A0",
+          "metric_text": "62万",
+          "subtitle": "62万",
           "source_rank": 8
         },
         {
           "rank": 9,
-          "title": "睡觉的权威性我后知后觉",
-          "url": "https://s.weibo.com/weibo?q=%E7%9D%A1%E8%A7%89%E7%9A%84%E6%9D%83%E5%A8%81%E6%80%A7%E6%88%91%E5%90%8E%E7%9F%A5%E5%90%8E%E8%A7%89",
-          "metric_text": "97万",
-          "subtitle": "97万",
+          "title": "养猫人才知道小猫这一脚的含金量",
+          "url": "https://s.weibo.com/weibo?q=%E5%85%BB%E7%8C%AB%E4%BA%BA%E6%89%8D%E7%9F%A5%E9%81%93%E5%B0%8F%E7%8C%AB%E8%BF%99%E4%B8%80%E8%84%9A%E7%9A%84%E5%90%AB%E9%87%91%E9%87%8F",
+          "metric_text": "37万",
+          "subtitle": "37万",
           "source_rank": 9
         },
         {
           "rank": 10,
-          "title": "居民存款两个月缩水超2万亿",
-          "url": "https://s.weibo.com/weibo?q=%E5%B1%85%E6%B0%91%E5%AD%98%E6%AC%BE%E4%B8%A4%E4%B8%AA%E6%9C%88%E7%BC%A9%E6%B0%B4%E8%B6%852%E4%B8%87%E4%BA%BF",
-          "metric_text": "92万",
-          "subtitle": "92万",
+          "title": "微博电影之夜红毯",
+          "url": "https://s.weibo.com/weibo?q=%E5%BE%AE%E5%8D%9A%E7%94%B5%E5%BD%B1%E4%B9%8B%E5%A4%9C%E7%BA%A2%E6%AF%AF",
+          "metric_text": "37万",
+          "subtitle": "37万",
           "source_rank": 10
         }
       ]
@@ -385,88 +385,88 @@
       "source_kind": "web",
       "source_name": "TopHub 百度实时热点",
       "source_url": "https://tophub.today/n/Jb0vmloB1G",
-      "updated_at": "4分钟前",
-      "generated_at": "2026-06-13T10:43:25Z",
+      "updated_at": "10分钟前",
+      "generated_at": "2026-06-14T11:20:01Z",
       "item_count": 10,
       "items": [
         {
           "rank": 1,
-          "title": "跟着总书记“打卡”世界遗产",
-          "url": "https://www.baidu.com/s?wd=%E8%B7%9F%E7%9D%80%E6%80%BB%E4%B9%A6%E8%AE%B0%E2%80%9C%E6%89%93%E5%8D%A1%E2%80%9D%E4%B8%96%E7%95%8C%E9%81%97%E4%BA%A7",
+          "title": "大国外交里的文化遗产",
+          "url": "https://www.baidu.com/s?wd=%E5%A4%A7%E5%9B%BD%E5%A4%96%E4%BA%A4%E9%87%8C%E7%9A%84%E6%96%87%E5%8C%96%E9%81%97%E4%BA%A7",
           "metric_text": "790.5万",
           "subtitle": "790.5万",
           "source_rank": 1
         },
         {
           "rank": 2,
-          "title": "投资772亿工程开工仪式不到15分钟",
-          "url": "https://www.baidu.com/s?wd=%E6%8A%95%E8%B5%84772%E4%BA%BF%E5%B7%A5%E7%A8%8B%E5%BC%80%E5%B7%A5%E4%BB%AA%E5%BC%8F%E4%B8%8D%E5%88%B015%E5%88%86%E9%92%9F",
+          "title": "大学里最被劝退的专业 它排第一",
+          "url": "https://www.baidu.com/s?wd=%E5%A4%A7%E5%AD%A6%E9%87%8C%E6%9C%80%E8%A2%AB%E5%8A%9D%E9%80%80%E7%9A%84%E4%B8%93%E4%B8%9A+%E5%AE%83%E6%8E%92%E7%AC%AC%E4%B8%80",
           "metric_text": "780.8万",
           "subtitle": "780.8万",
           "source_rank": 2
         },
         {
           "rank": 3,
-          "title": "水均益：美国举办的世界杯是战争杯",
-          "url": "https://www.baidu.com/s?wd=%E6%B0%B4%E5%9D%87%E7%9B%8A%EF%BC%9A%E7%BE%8E%E5%9B%BD%E4%B8%BE%E5%8A%9E%E7%9A%84%E4%B8%96%E7%95%8C%E6%9D%AF%E6%98%AF%E6%88%98%E4%BA%89%E6%9D%AF",
-          "metric_text": "771.3万",
-          "subtitle": "771.3万",
+          "title": "小男孩发现警方宣传画里人有三只手",
+          "url": "https://www.baidu.com/s?wd=%E5%B0%8F%E7%94%B7%E5%AD%A9%E5%8F%91%E7%8E%B0%E8%AD%A6%E6%96%B9%E5%AE%A3%E4%BC%A0%E7%94%BB%E9%87%8C%E4%BA%BA%E6%9C%89%E4%B8%89%E5%8F%AA%E6%89%8B",
+          "metric_text": "771.2万",
+          "subtitle": "771.2万",
           "source_rank": 3
         },
         {
           "rank": 4,
-          "title": "连续3个月超4万亿 中国外贸持续向好",
-          "url": "https://www.baidu.com/s?wd=%E8%BF%9E%E7%BB%AD3%E4%B8%AA%E6%9C%88%E8%B6%854%E4%B8%87%E4%BA%BF+%E4%B8%AD%E5%9B%BD%E5%A4%96%E8%B4%B8%E6%8C%81%E7%BB%AD%E5%90%91%E5%A5%BD",
-          "metric_text": "761.6万",
-          "subtitle": "761.6万",
+          "title": "暴雨、强对流预警持续",
+          "url": "https://www.baidu.com/s?wd=%E6%9A%B4%E9%9B%A8%E3%80%81%E5%BC%BA%E5%AF%B9%E6%B5%81%E9%A2%84%E8%AD%A6%E6%8C%81%E7%BB%AD",
+          "metric_text": "761.8万",
+          "subtitle": "761.8万",
           "source_rank": 4
         },
         {
           "rank": 5,
-          "title": "明日世界杯上演强强对战",
-          "url": "https://www.baidu.com/s?wd=%E6%98%8E%E6%97%A5%E4%B8%96%E7%95%8C%E6%9D%AF%E4%B8%8A%E6%BC%94%E5%BC%BA%E5%BC%BA%E5%AF%B9%E6%88%98",
-          "metric_text": "752.1万",
-          "subtitle": "752.1万",
+          "title": "记者实测最贵世界杯 1瓶水5.25美元",
+          "url": "https://www.baidu.com/s?wd=%E8%AE%B0%E8%80%85%E5%AE%9E%E6%B5%8B%E6%9C%80%E8%B4%B5%E4%B8%96%E7%95%8C%E6%9D%AF+1%E7%93%B6%E6%B0%B45.25%E7%BE%8E%E5%85%83",
+          "metric_text": "752.4万",
+          "subtitle": "752.4万",
           "source_rank": 5
         },
         {
           "rank": 6,
-          "title": "遇见小面：已撤销对“渝见小面”诉讼",
-          "url": "https://www.baidu.com/s?wd=%E9%81%87%E8%A7%81%E5%B0%8F%E9%9D%A2%EF%BC%9A%E5%B7%B2%E6%92%A4%E9%94%80%E5%AF%B9%E2%80%9C%E6%B8%9D%E8%A7%81%E5%B0%8F%E9%9D%A2%E2%80%9D%E8%AF%89%E8%AE%BC",
-          "metric_text": "742.6万",
-          "subtitle": "742.6万",
+          "title": "100岁卢燕获上影节终身成就奖",
+          "url": "https://www.baidu.com/s?wd=100%E5%B2%81%E5%8D%A2%E7%87%95%E8%8E%B7%E4%B8%8A%E5%BD%B1%E8%8A%82%E7%BB%88%E8%BA%AB%E6%88%90%E5%B0%B1%E5%A5%96",
+          "metric_text": "742.4万",
+          "subtitle": "742.4万",
           "source_rank": 6
         },
         {
           "rank": 7,
-          "title": "“机器人伴侣”来了 10天预售3800台",
-          "url": "https://www.baidu.com/s?wd=%E2%80%9C%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BC%B4%E4%BE%A3%E2%80%9D%E6%9D%A5%E4%BA%86+10%E5%A4%A9%E9%A2%84%E5%94%AE3800%E5%8F%B0",
-          "metric_text": "732.9万",
-          "subtitle": "732.9万",
+          "title": "小县城取消中考选拔全员直升高中",
+          "url": "https://www.baidu.com/s?wd=%E5%B0%8F%E5%8E%BF%E5%9F%8E%E5%8F%96%E6%B6%88%E4%B8%AD%E8%80%83%E9%80%89%E6%8B%94%E5%85%A8%E5%91%98%E7%9B%B4%E5%8D%87%E9%AB%98%E4%B8%AD",
+          "metric_text": "733.0万",
+          "subtitle": "733.0万",
           "source_rank": 7
         },
         {
           "rank": 8,
-          "title": "赴墨看球遭持枪抢劫中国男子已回国",
-          "url": "https://www.baidu.com/s?wd=%E8%B5%B4%E5%A2%A8%E7%9C%8B%E7%90%83%E9%81%AD%E6%8C%81%E6%9E%AA%E6%8A%A2%E5%8A%AB%E4%B8%AD%E5%9B%BD%E7%94%B7%E5%AD%90%E5%B7%B2%E5%9B%9E%E5%9B%BD",
+          "title": "伊布：梅西赢得世界杯已终结梅罗争论",
+          "url": "https://www.baidu.com/s?wd=%E4%BC%8A%E5%B8%83%EF%BC%9A%E6%A2%85%E8%A5%BF%E8%B5%A2%E5%BE%97%E4%B8%96%E7%95%8C%E6%9D%AF%E5%B7%B2%E7%BB%88%E7%BB%93%E6%A2%85%E7%BD%97%E4%BA%89%E8%AE%BA",
           "metric_text": "723.4万",
           "subtitle": "723.4万",
           "source_rank": 8
         },
         {
           "rank": 9,
-          "title": "装修工走错楼层将303当403拆成毛坯",
-          "url": "https://www.baidu.com/s?wd=%E8%A3%85%E4%BF%AE%E5%B7%A5%E8%B5%B0%E9%94%99%E6%A5%BC%E5%B1%82%E5%B0%86303%E5%BD%93403%E6%8B%86%E6%88%90%E6%AF%9B%E5%9D%AF",
-          "metric_text": "714.2万",
-          "subtitle": "714.2万",
+          "title": "97岁网红刘老太离世",
+          "url": "https://www.baidu.com/s?wd=97%E5%B2%81%E7%BD%91%E7%BA%A2%E5%88%98%E8%80%81%E5%A4%AA%E7%A6%BB%E4%B8%96",
+          "metric_text": "714.0万",
+          "subtitle": "714.0万",
           "source_rank": 9
         },
         {
           "rank": 10,
-          "title": "杀不光的蚊子将遇“克星”",
-          "url": "https://www.baidu.com/s?wd=%E6%9D%80%E4%B8%8D%E5%85%89%E7%9A%84%E8%9A%8A%E5%AD%90%E5%B0%86%E9%81%87%E2%80%9C%E5%85%8B%E6%98%9F%E2%80%9D",
-          "metric_text": "704.9万",
-          "subtitle": "704.9万",
+          "title": "猴子闯闹市炫3斤香蕉 店主：让它吃吧",
+          "url": "https://www.baidu.com/s?wd=%E7%8C%B4%E5%AD%90%E9%97%AF%E9%97%B9%E5%B8%82%E7%82%AB3%E6%96%A4%E9%A6%99%E8%95%89+%E5%BA%97%E4%B8%BB%EF%BC%9A%E8%AE%A9%E5%AE%83%E5%90%83%E5%90%A7",
+          "metric_text": "704.1万",
+          "subtitle": "704.1万",
           "source_rank": 10
         }
       ]
@@ -485,88 +485,88 @@
       "source_kind": "web",
       "source_name": "TopHub 快手实时热榜",
       "source_url": "https://tophub.today/n/MZd7PrPerO",
-      "updated_at": "5分钟前",
-      "generated_at": "2026-06-13T10:43:25Z",
+      "updated_at": "12分钟前",
+      "generated_at": "2026-06-14T11:20:01Z",
       "item_count": 10,
       "items": [
         {
           "rank": 1,
-          "title": "二次元COS合集",
-          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E4%BA%8C%E6%AC%A1%E5%85%83COS%E5%90%88%E9%9B%86&rankType=1",
-          "metric_text": "1310.0万",
-          "subtitle": "1310.0万",
+          "title": "one kiss舞蹈",
+          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=one++kiss%E8%88%9E%E8%B9%88&rankType=1",
+          "metric_text": "1338.1万",
+          "subtitle": "1338.1万",
           "source_rank": 1
         },
         {
           "rank": 2,
-          "title": "中国不需要也不可能复制SpaceX",
-          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E4%B8%AD%E5%9B%BD%E4%B8%8D%E9%9C%80%E8%A6%81%E4%B9%9F%E4%B8%8D%E5%8F%AF%E8%83%BD%E5%A4%8D%E5%88%B6SpaceX&rankType=1",
-          "metric_text": "1132.2万",
-          "subtitle": "1132.2万",
+          "title": "小学生申请出战",
+          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E5%B0%8F%E5%AD%A6%E7%94%9F%E7%94%B3%E8%AF%B7%E5%87%BA%E6%88%98&rankType=1",
+          "metric_text": "1265.2万",
+          "subtitle": "1265.2万",
           "source_rank": 2
         },
         {
           "rank": 3,
-          "title": "中国60项世界遗产全名单",
-          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E4%B8%AD%E5%9B%BD60%E9%A1%B9%E4%B8%96%E7%95%8C%E9%81%97%E4%BA%A7%E5%85%A8%E5%90%8D%E5%8D%95&rankType=1",
-          "metric_text": "1126.1万",
-          "subtitle": "1126.1万",
+          "title": "织密六张网锻造中国经济硬核底座",
+          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E7%BB%87%E5%AF%86%E5%85%AD%E5%BC%A0%E7%BD%91%E9%94%BB%E9%80%A0%E4%B8%AD%E5%9B%BD%E7%BB%8F%E6%B5%8E%E7%A1%AC%E6%A0%B8%E5%BA%95%E5%BA%A7&rankType=1",
+          "metric_text": "1239.5万",
+          "subtitle": "1239.5万",
           "source_rank": 3
         },
         {
           "rank": 4,
-          "title": "谢娜张杰持续掉粉",
-          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E8%B0%A2%E5%A8%9C%E5%BC%A0%E6%9D%B0%E6%8C%81%E7%BB%AD%E6%8E%89%E7%B2%89&rankType=1",
-          "metric_text": "1112.3万",
-          "subtitle": "1112.3万",
+          "title": "卡塔尔收获队史首个世界杯积分",
+          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E5%8D%A1%E5%A1%94%E5%B0%94%E6%94%B6%E8%8E%B7%E9%98%9F%E5%8F%B2%E9%A6%96%E4%B8%AA%E4%B8%96%E7%95%8C%E6%9D%AF%E7%A7%AF%E5%88%86&rankType=1",
+          "metric_text": "1182.5万",
+          "subtitle": "1182.5万",
           "source_rank": 4
         },
         {
           "rank": 5,
-          "title": "特朗普三次死里逃生",
-          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E7%89%B9%E6%9C%97%E6%99%AE%E4%B8%89%E6%AC%A1%E6%AD%BB%E9%87%8C%E9%80%83%E7%94%9F&rankType=1",
-          "metric_text": "1109.3万",
-          "subtitle": "1109.3万",
+          "title": "小孩姐送给毕业生的歌",
+          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E5%B0%8F%E5%AD%A9%E5%A7%90%E9%80%81%E7%BB%99%E6%AF%95%E4%B8%9A%E7%94%9F%E7%9A%84%E6%AD%8C&rankType=1",
+          "metric_text": "1136.7万",
+          "subtitle": "1136.7万",
           "source_rank": 5
         },
         {
           "rank": 6,
-          "title": "世界杯亚军早内定好了",
-          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E4%B8%96%E7%95%8C%E6%9D%AF%E4%BA%9A%E5%86%9B%E6%97%A9%E5%86%85%E5%AE%9A%E5%A5%BD%E4%BA%86&rankType=1",
-          "metric_text": "1091.1万",
-          "subtitle": "1091.1万",
+          "title": "尼克斯NBA总冠军",
+          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E5%B0%BC%E5%85%8B%E6%96%AFNBA%E6%80%BB%E5%86%A0%E5%86%9B&rankType=1",
+          "metric_text": "1116.0万",
+          "subtitle": "1116.0万",
           "source_rank": 6
         },
         {
           "rank": 7,
-          "title": "为什么明星都在开演唱会",
-          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%8E%E6%98%9F%E9%83%BD%E5%9C%A8%E5%BC%80%E6%BC%94%E5%94%B1%E4%BC%9A&rankType=1",
-          "metric_text": "1088.9万",
-          "subtitle": "1088.9万",
+          "title": "李小龙姐姐李秋源去世",
+          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E6%9D%8E%E5%B0%8F%E9%BE%99%E5%A7%90%E5%A7%90%E6%9D%8E%E7%A7%8B%E6%BA%90%E5%8E%BB%E4%B8%96&rankType=1",
+          "metric_text": "1094.3万",
+          "subtitle": "1094.3万",
           "source_rank": 7
         },
         {
           "rank": 8,
-          "title": "老外连续三年划瑞安龙舟",
-          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E8%80%81%E5%A4%96%E8%BF%9E%E7%BB%AD%E4%B8%89%E5%B9%B4%E5%88%92%E7%91%9E%E5%AE%89%E9%BE%99%E8%88%9F&rankType=1",
-          "metric_text": "1044.0万",
-          "subtitle": "1044.0万",
+          "title": "快手炒饭大赛火爆开炒",
+          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E5%BF%AB%E6%89%8B%E7%82%92%E9%A5%AD%E5%A4%A7%E8%B5%9B%E7%81%AB%E7%88%86%E5%BC%80%E7%82%92&rankType=1",
+          "metric_text": "1072.7万",
+          "subtitle": "1072.7万",
           "source_rank": 8
         },
         {
           "rank": 9,
-          "title": "中国人保原副总裁俞小平被查",
-          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E4%B8%AD%E5%9B%BD%E4%BA%BA%E4%BF%9D%E5%8E%9F%E5%89%AF%E6%80%BB%E8%A3%81%E4%BF%9E%E5%B0%8F%E5%B9%B3%E8%A2%AB%E6%9F%A5&rankType=1",
-          "metric_text": "1022.4万",
-          "subtitle": "1022.4万",
+          "title": "澳大利亚2比0土耳其",
+          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E6%BE%B3%E5%A4%A7%E5%88%A9%E4%BA%9A2%E6%AF%940%E5%9C%9F%E8%80%B3%E5%85%B6&rankType=1",
+          "metric_text": "1051.6万",
+          "subtitle": "1051.6万",
           "source_rank": 9
         },
         {
           "rank": 10,
-          "title": "全快手都在daidai",
-          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E5%85%A8%E5%BF%AB%E6%89%8B%E9%83%BD%E5%9C%A8daidai&rankType=1",
-          "metric_text": "1019.7万",
-          "subtitle": "1019.7万",
+          "title": "世界杯动起来",
+          "url": "https://index.e.kuaishou.com/rank/hotDetail?keyword=%E4%B8%96%E7%95%8C%E6%9D%AF%E5%8A%A8%E8%B5%B7%E6%9D%A5&rankType=1",
+          "metric_text": "1048.7万",
+          "subtitle": "1048.7万",
           "source_rank": 10
         }
       ]
@@ -587,88 +587,88 @@
       "source_kind": "web",
       "source_name": "TopHub 淘宝天猫热销总榜",
       "source_url": "https://tophub.today/n/yjvQDpjobg",
-      "updated_at": "8分钟前",
-      "generated_at": "2026-06-13T10:43:25Z",
+      "updated_at": "5分钟前",
+      "generated_at": "2026-06-14T11:20:01Z",
       "item_count": 10,
       "items": [
         {
           "rank": 1,
-          "title": "乐事薯片+多口味组合！追综艺来上一包 原价¥72 券后¥39",
-          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2Fo4Wb6VbtrtK60DGWwQfDKjhntN-OqGjQoAuZ6nm4yKAI8e",
-          "metric_text": "热销10000件(近2小时)",
-          "subtitle": "热销10000件(近2小时)",
+          "title": "【8双礼盒装】7A级情侣香薰防臭袜 原价¥70.9 券后¥10.9",
+          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2FaVq568aUotMm0PwJe5tQwmujty-WqGXOmeuX6yORXaRhmD",
+          "metric_text": "热销3000件(近2小时)",
+          "subtitle": "热销3000件(近2小时)",
           "source_rank": 1
         },
         {
           "rank": 2,
-          "title": "贝夫！多款面包营养早餐任选1箱 原价¥29.9 券后¥10.9",
-          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2FzDB34JGRHetaWg5ko6dUv8zFdt4-POG60mWHKjQn3QNmUGg",
-          "metric_text": "热销6000件(近2小时)",
-          "subtitle": "热销6000件(近2小时)",
+          "title": "高颜堂古田免洗有机本草银耳40g 原价¥22.9 券后¥9.9",
+          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2FYB8eenYuptXQDd3jDRFWqGh2t6-NOGKQmNHzJQ5GzOBspg",
+          "metric_text": "热销3000件(近2小时)",
+          "subtitle": "热销3000件(近2小时)",
           "source_rank": 2
         },
         {
           "rank": 3,
-          "title": "袁记大肉馅云吞水饺x5盒+赠5包调味包 原价¥199.9 券后¥59.9",
-          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2FoZA3o9msrtK6xz480vFDKVHntA-D3G9b6AsPwDQm2ORc6A",
-          "metric_text": "热销3000件(近2小时)",
-          "subtitle": "热销3000件(近2小时)",
+          "title": "卫龙缤纷零食大礼包豆干素肉辣条海带 原价¥35.4 券后¥35.4",
+          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2F4BKw4jrigtNvPbNpXztwkzINtq-mPkBXe3U7k8BKyvyhYN",
+          "metric_text": "热销1500件(近2小时)",
+          "subtitle": "热销1500件(近2小时)",
           "source_rank": 3
         },
         {
           "rank": 4,
-          "title": "比比赞椰奶薄脆饼干300克大约18包 原价¥5.9 券后¥5.9",
-          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2FBA0QJXkzC6t837WZaJJipBRurte-nJAVXpdHxY3P2PybuZ",
-          "metric_text": "热销2500件(近2小时)",
-          "subtitle": "热销2500件(近2小时)",
+          "title": "Pigeon贝亲儿童桃叶洗发水沐浴露二合一 原价¥47.9 券后¥37.9",
+          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2FJ3Y0RqJHRtqNAov0nNsXDMfvt6-nJAVXpdHQ0OYX69KTBz",
+          "metric_text": "热销1000件(近2小时)",
+          "subtitle": "热销1000件(近2小时)",
           "source_rank": 4
         },
         {
           "rank": 5,
-          "title": "三只松鼠螺蛳粉335gx3袋柳州特产 原价¥13.9 券后¥12.9",
-          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2FYZe9MWkSptXQVM0r9ViWR2s2t7-D3G9b6AspeYG3zabCOK",
-          "metric_text": "热销2000件(近2小时)",
-          "subtitle": "热销2000件(近2小时)",
+          "title": "充足库存！门店4元一个！沪上阿姨面包组合 原价¥31.98 券后¥13.98",
+          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2FD3M9dor0tDt52wZGeX4IQwKhjtd-YJGeOZNHBvnwBJmkua",
+          "metric_text": "热销1000件(近2小时)",
+          "subtitle": "热销1000件(近2小时)",
           "source_rank": 5
         },
         {
           "rank": 6,
-          "title": "q巧媳妇鲜酿酱油醋料酒 原价¥24.92 券后¥16.92",
-          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2FOqBnVv4eszt6vG3x2RJuN7oTMtJ-36ON23KC0wAo43RquRY",
-          "metric_text": "热销2000件(近2小时)",
-          "subtitle": "热销2000件(近2小时)",
+          "title": "AXE/斧头牌洗洁精柠檬清香1.18kg*2瓶 原价¥17.4 券后¥13.4",
+          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2FBZ9KjqNh6t83wZ0qWRtpKMIrtr-xny6BP3H5vODpBBzi4e",
+          "metric_text": "热销1000件(近2小时)",
+          "subtitle": "热销1000件(近2小时)",
           "source_rank": 6
         },
         {
           "rank": 7,
-          "title": "【活力28】山茶花植萃内衣洗衣液500g 原价¥25.9 券后¥9.9",
-          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2FWQ9bdZNcot20XzZWzwcakYsQta-jGwQkK5Tdy4jAv76ue",
-          "metric_text": "热销2000件(近2小时)",
-          "subtitle": "热销2000件(近2小时)",
+          "title": "j蒙牛特仑苏纯牛奶250ml*16盒 原价¥33.49 券后¥33.49",
+          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2FePx3jJruDtd2x2jR4oH8AyFztz-J5Gmbn7uaxY3mVVpcVq",
+          "metric_text": "热销1000件(近2小时)",
+          "subtitle": "热销1000件(近2小时)",
           "source_rank": 7
         },
         {
           "rank": 8,
-          "title": "卡尔顿！多款面包营养早餐任选1箱 原价¥29.9 券后¥11.9",
-          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2FN9YaWr3c5tG80ZG69OfxmZIRtm-ZrGpqKAIA0GvwRdjtRO",
-          "metric_text": "热销1500件(近2小时)",
-          "subtitle": "热销1500件(近2小时)",
+          "title": "端午 立家 嘉兴肉粽素粽4粽6粽任选 原价¥128.9 券后¥19.9",
+          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2F88vbnQvdSnt9zp7BXg6Cg5rsbt8-6RmxkGoIyVZdDyd4hBW",
+          "metric_text": "热销1000件(近2小时)",
+          "subtitle": "热销1000件(近2小时)",
           "source_rank": 8
         },
         {
           "rank": 9,
-          "title": "拍4吾岛酸奶无蔗糖小杯80g*6+赠 原价¥69 券后¥69",
-          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2FnJBrRJ0SMt3wdbXPyxskZzh0tq-KqGo5mwujbyORvR5F6d",
-          "metric_text": "热销1500件(近2小时)",
-          "subtitle": "热销1500件(近2小时)",
+          "title": "无脑冲！名创优品.高档POLO衫男女7A级抗菌 原价¥129.9 券后¥29.9",
+          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2F6RoDxARZh8tGxJ0337AIwMouot8-v6PKX7dC8D5B5qR5Hd0",
+          "metric_text": "热销800件(近2小时)",
+          "subtitle": "热销800件(近2小时)",
           "source_rank": 9
         },
         {
           "rank": 10,
-          "title": "儿童控笔训练字帖点阵版 原价¥7.9 券后¥3.9",
-          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2FQ0xaOxyKIQtB7WXjk0WIXzZSatQ-RgG3Qn8cXdJdBK0NtYR",
-          "metric_text": "热销1000件(近2小时)",
-          "subtitle": "热销1000件(近2小时)",
+          "title": "【雪萝】咸菜榨菜脆爽麻辣萝卜干260克*2罐 原价¥9.9 券后¥7.9",
+          "url": "https://tophub.today/link?domain=taobao.com&url=https%3A%2F%2Fremai.today%2Flink%2F1%2FXJ03Wp6TGtXvenwyzZiVADuBtg-5n4WgaoH6v4wW59riNO",
+          "metric_text": "热销800件(近2小时)",
+          "subtitle": "热销800件(近2小时)",
           "source_rank": 10
         }
       ]
@@ -687,80 +687,80 @@
       "source_kind": "web",
       "source_name": "蝉妈妈 抖音销量榜",
       "source_url": "https://www.chanmama.com/promotionRank/",
-      "updated_at": "2026-06-13 18:43:25 CST",
-      "generated_at": "2026-06-13T10:43:25Z",
+      "updated_at": "2026-06-14 19:20:01 CST",
+      "generated_at": "2026-06-14T11:20:01Z",
       "item_count": 10,
       "items": [
         {
           "rank": 1,
-          "title": "【云南白药】云南白药光钻白牙膏雪沁山茶香护龈祛渍D-MZ",
-          "url": "https://haohuo.jinritemai.com/ecommerce/trade/detail/index.html?id=3822373664217760133&origin_type=604",
+          "title": "【数量加到4下单】轻集西梅芭乐奇亚籽燕麦片管理营养早餐轻食健康",
+          "url": "https://haohuo.jinritemai.com/ecommerce/trade/detail/index.html?id=3821682146641314267&origin_type=604",
           "metric_text": "10w+",
-          "metric_value": 30910,
-          "subtitle": "云南白药个人护理旗舰店 · 100w+",
+          "metric_value": 31067,
+          "subtitle": "轻集 · 50w~100w",
           "source_rank": 1
         },
         {
           "rank": 2,
-          "title": "公仔牌顽渍净洗衣粉轻松搓洗去污渍除菌除螨3倍洁净去渍家用去黄",
-          "url": "https://haohuo.jinritemai.com/ecommerce/trade/detail/index.html?id=3725778917873811811&origin_type=604",
-          "metric_text": "5w~10w",
-          "metric_value": 13631,
-          "subtitle": "公仔牌官方旗舰店 · 100w+",
+          "title": "草本初色严选桑蚕丝凉感战斗裤男士冰丝内裤夏季透气无痕抗菌内裤",
+          "url": "https://haohuo.jinritemai.com/ecommerce/trade/detail/index.html?id=3824823605980692813&origin_type=604",
+          "metric_text": "10w+",
+          "metric_value": 23392,
+          "subtitle": "草本初色严选运动旗舰店 · 100w+",
           "source_rank": 2
         },
         {
           "rank": 3,
-          "title": "【整箱8包】桑叶苦瓜芹菜面条非油炸爽滑劲道代餐方便速食挂面",
-          "url": "https://haohuo.jinritemai.com/ecommerce/trade/detail/index.html?id=3824974552656642335&origin_type=604",
+          "title": "【云南白药】云南白药光钻白牙膏雪沁山茶香护龈祛渍D-MZ",
+          "url": "https://haohuo.jinritemai.com/ecommerce/trade/detail/index.html?id=3822373664217760133&origin_type=604",
           "metric_text": "5w~10w",
-          "metric_value": 13136,
-          "subtitle": "良源助农优选 · 50w~100w",
+          "metric_value": 16478,
+          "subtitle": "云南白药个人护理旗舰店 · 100w+",
           "source_rank": 3
         },
         {
           "rank": 4,
-          "title": "【全新24H抗糖盾】舒客宝贝升级抗糖防蛀儿童牙膏清洁含氟果味温和4",
-          "url": "https://haohuo.jinritemai.com/ecommerce/trade/detail/index.html?id=3824668366644314161&origin_type=604",
+          "title": "嘉之派牛奶鲜炖花胶即食花胶鱼胶营养代餐滋补含胶原蛋白送礼自用",
+          "url": "https://haohuo.jinritemai.com/ecommerce/trade/detail/index.html?id=3822412995473047642&origin_type=604",
           "metric_text": "5w~10w",
-          "metric_value": 12262,
-          "subtitle": "舒客宝贝SAKYKIDS官方旗舰店 · 100w+",
+          "metric_value": 13188,
+          "subtitle": "嘉之派志悦休闲食品专卖店 · 100w+",
           "source_rank": 4
         },
         {
           "rank": 5,
-          "title": "【1号链接】【K701-K800】【韩代品质】“분위기 좋은 장소”高级感气质上衣",
-          "url": "https://haohuo.jinritemai.com/ecommerce/trade/detail/index.html?id=3825229104479863202&origin_type=604",
+          "title": "【数量加到5下单】沈小善速溶西梅黑咖啡阿拉比卡咖啡冷萃速溶",
+          "url": "https://haohuo.jinritemai.com/ecommerce/trade/detail/index.html?id=3807096252936618547&origin_type=604",
           "metric_text": "5w~10w",
-          "metric_value": 10410,
-          "subtitle": "恩汐Seoul女装2 · 100w+",
+          "metric_value": 11632,
+          "subtitle": "沈小善冲饮旗舰店 · 100w+",
           "source_rank": 5
         },
         {
           "rank": 6,
-          "title": "达人专属Tafe浓郁抹茶芝士威化饼干国产贵州铜仁抹茶好吃解馋休闲独立包装",
-          "url": "https://haohuo.jinritemai.com/ecommerce/trade/detail/index.html?id=3796210239691423795&origin_type=604",
-          "metric_text": "2.5w~5w",
-          "metric_value": 9610,
-          "subtitle": "Tafe食品旗舰店 · 50w~100w",
+          "title": "【弱碱性饮品无糖饮料】依能碱性天然苏打水健康饮品饮用水400ml",
+          "url": "https://haohuo.jinritemai.com/ecommerce/trade/detail/index.html?id=3683254828894650486&origin_type=604",
+          "metric_text": "5w~10w",
+          "metric_value": 11045,
+          "subtitle": "依能官方旗舰店 · 100w+",
           "source_rank": 6
         },
         {
           "rank": 7,
-          "title": "【运费险】时尚高级法式艺术设计感小众气质纽扣516",
-          "url": "https://haohuo.jinritemai.com/ecommerce/trade/detail/index.html?id=3824881873612571108&origin_type=604",
+          "title": "【卡唯朵升级版2.0草本美白祛斑霜】祛斑/美白/抗皱紧致身体可用",
+          "url": "https://haohuo.jinritemai.com/ecommerce/trade/detail/index.html?id=3817195159905501598&origin_type=604",
           "metric_text": "2.5w~5w",
-          "metric_value": 8636,
-          "subtitle": "橙子服装精选 · 100w+",
+          "metric_value": 8771,
+          "subtitle": "卡唯朵个人护理旗舰店 · 100w+",
           "source_rank": 7
         },
         {
           "rank": 8,
-          "title": "万益蓝WonderLab小绿瓶S100益生菌血橙味",
-          "url": "https://haohuo.jinritemai.com/ecommerce/trade/detail/index.html?id=3823308631554785288&origin_type=604",
+          "title": "【运费险】时尚高级设计感小众气质粉色纽扣衬衫女装休闲上衣9025",
+          "url": "https://haohuo.jinritemai.com/ecommerce/trade/detail/index.html?id=3824877112750375859&origin_type=604",
           "metric_text": "2.5w~5w",
-          "metric_value": 8564,
-          "subtitle": "万益蓝WONDERLAB营养膳食旗舰店 · 100w+",
+          "metric_value": 7987,
+          "subtitle": "思萱服装店 · 100w+",
           "source_rank": 8
         },
         {
@@ -768,17 +768,17 @@
           "title": "麦醉侠 湿凉皮7袋*310g/袋红油麻酱凉皮开袋即食现做现发",
           "url": "https://haohuo.jinritemai.com/ecommerce/trade/detail/index.html?id=3736324569976406188&origin_type=604",
           "metric_text": "2.5w~5w",
-          "metric_value": 8342,
+          "metric_value": 7938,
           "subtitle": "麦醉侠速食旗舰店 · 50w~100w",
           "source_rank": 9
         },
         {
           "rank": 10,
-          "title": "【数量加到5下单】沈小善速溶西梅黑咖啡阿拉比卡咖啡冷萃速溶",
-          "url": "https://haohuo.jinritemai.com/ecommerce/trade/detail/index.html?id=3807096252936618547&origin_type=604",
+          "title": "Gik三文鱼水光精华乳霜面膜组合 持抗皱功效 韩国原装进口品牌",
+          "url": "https://haohuo.jinritemai.com/ecommerce/trade/detail/index.html?id=3824449875240681936&origin_type=604",
           "metric_text": "2.5w~5w",
-          "metric_value": 7891,
-          "subtitle": "沈小善冲饮旗舰店 · 100w+",
+          "metric_value": 7702,
+          "subtitle": "吉海外专营店 · 100w+",
           "source_rank": 10
         }
       ]
@@ -797,8 +797,8 @@
       "source_kind": "web",
       "source_name": "TopHub 京东热销总榜",
       "source_url": "https://tophub.today/n/YqoXzV6dOD",
-      "updated_at": "9分钟前",
-      "generated_at": "2026-06-13T10:43:25Z",
+      "updated_at": "5分钟前",
+      "generated_at": "2026-06-14T11:20:01Z",
       "item_count": 10,
       "items": [
         {
@@ -811,74 +811,74 @@
         },
         {
           "rank": 2,
-          "title": "同仁堂（TRT）特级豪州决明子养肝护肝清肝明目养生正宗精选大粒无硫 养生常备 特级决明子名目润肠 300g*4罐 精选大颗粒决明子 原价¥35.9 券后¥34.9",
-          "url": "https://tophub.today/link?domain=jd.com&url=https%3A%2F%2Fremai.today%2Flink%2F2%2FrrfbKGuCWdBpURIkaVB1OSsNt7_391fbKGuCW1Dend4xM",
-          "metric_text": "同仁堂（TRT）",
-          "subtitle": "同仁堂（TRT）",
-          "source_rank": 2
-        },
-        {
-          "rank": 3,
-          "title": "境然居乳胶漆室内自刷家用内墙大桶白色旧墙翻新无甲醛净味环保涂料 白色 【升级款防水防霉抗碱】白色+5斤可刷7.5平方送毛刷 原价¥24.17 券后¥21.17",
-          "url": "https://tophub.today/link?domain=jd.com&url=https%3A%2F%2Fremai.today%2Flink%2F2%2FUUbW6VplHKpTDmMa0XpeLxFY0L_3sdbW6VplHej8kFk1k",
-          "metric_text": "境然居",
-          "subtitle": "境然居",
-          "source_rank": 3
-        },
-        {
-          "rank": 4,
           "title": "珂米2024新款沙发盖布轻奢高级感全盖夏季沙发巾罩套四季通用全包防滑 花开漫烂-灰 180*420cm(五人位) 原价¥219 券后¥159",
           "url": "https://tophub.today/link?domain=jd.com&url=https%3A%2F%2Fremai.today%2Flink%2F2%2FDDNtULg33BTs8XxSPgT02YVDCv_3klNtULg330LXZAHUN",
           "metric_text": "珂米",
           "subtitle": "珂米",
-          "source_rank": 4
+          "source_rank": 2
         },
         {
-          "rank": 5,
+          "rank": 3,
           "title": "谱硕汽车应急启动电源充气泵一体机数显车载电瓶搭电宝强启打火神器各类轮胎电动打气泵带户外照明灯 顶配/黑【12V不限排丨2000A电流】智能夹+收纳袋 原价¥169 券后¥149",
           "url": "https://tophub.today/link?domain=jd.com&url=https%3A%2F%2Fremai.today%2Flink%2F2%2FPI2jDab4Ul7RmmPiZFcWQ39x_3ERAOfCGrUWutsqHDu",
           "metric_text": "谱硕",
           "subtitle": "谱硕",
-          "source_rank": 5
+          "source_rank": 3
         },
         {
-          "rank": 6,
+          "rank": 4,
           "title": "味滋源焦糖饼干曲奇饼500g/盒 原价¥42.9 券后¥12.9",
           "url": "https://tophub.today/link?domain=jd.com&url=https%3A%2F%2Fremai.today%2Flink%2F2%2FyeQLNp0DDu4Eg3pgpdAELWsv_3ghOcnoBnrApjd02LI",
           "metric_text": "味滋源",
           "subtitle": "味滋源",
-          "source_rank": 6
+          "source_rank": 4
         },
         {
-          "rank": 7,
+          "rank": 5,
           "title": "LAMJIE创意飞机风扇双涡轮usb充电风扇办公室宿舍电竞潮玩炫酷桌面摆件风扇长续航夏天降温静音小风扇 5000毫安【无刷电机/炫彩灯光】 5000mAh 【灰瀚银】三重风量加速/长效续航/静音 原价¥169 券后¥159",
           "url": "https://tophub.today/link?domain=jd.com&url=https%3A%2F%2Fremai.today%2Flink%2F2%2FGGzlTLBD096rvY9Lxo6YjeDKx3_3zxzlTLBD0M4p7r2XP",
           "metric_text": "LAMJIE",
           "subtitle": "LAMJIE",
-          "source_rank": 7
+          "source_rank": 5
         },
         {
-          "rank": 8,
+          "rank": 6,
           "title": "同仁堂（TRT）精选贵州特级太子参无熏硫孩儿参浓郁煲汤泡水养生滋补中药材 甄选无硫太子参 250g*4罐 原价¥76.9 券后¥74.9",
           "url": "https://tophub.today/link?domain=jd.com&url=https%3A%2F%2Fremai.today%2Flink%2F2%2Fjjg4C4qNLpd7zjFdThdZct8HNZ_3FGg4C4qNL7rYbXotc",
           "metric_text": "同仁堂（TRT）",
           "subtitle": "同仁堂（TRT）",
-          "source_rank": 8
+          "source_rank": 6
         },
         {
-          "rank": 9,
+          "rank": 7,
           "title": "黑骑仕 鲜蒸海参【胡兵推荐】17g*7 周期套餐正宗辽参全家滋补免解冻撕开即食 【单周套餐-浓香高汤味】17g*7支（首次购买推荐） 原价¥652 券后¥547",
           "url": "https://tophub.today/link?domain=jd.com&url=https%3A%2F%2Fremai.today%2Flink%2F2%2FFF91r4Ac4chPszSWqdhifm5Xvc_3jk91r4Ac4n9g5AQ6l",
           "metric_text": "黑骑仕 鲜蒸海参",
           "subtitle": "黑骑仕 鲜蒸海参",
-          "source_rank": 9
+          "source_rank": 7
         },
         {
-          "rank": 10,
+          "rank": 8,
           "title": "美思源白色直筒牛仔裤女士春季裤子新款2026新款杏色高腰拖地裤阔腿裤 怀旧浅蓝长裤加厚绒 L 【115-125斤】 原价¥219.9 券后¥159.9",
           "url": "https://tophub.today/link?domain=jd.com&url=https%3A%2F%2Fremai.today%2Flink%2F2%2FEMTwGQHXsiHxQpxxQnw8xQpxxQnw8T_340no7vAOlUkdpiclB",
           "metric_text": "美思源",
           "subtitle": "美思源",
+          "source_rank": 8
+        },
+        {
+          "rank": 9,
+          "title": "强生隐形眼镜 安视优 欧舒适 保湿近视隐形眼镜 硅水凝胶日抛30片装 欧舒适日抛30片装 525度 原价¥334 券后¥284",
+          "url": "https://tophub.today/link?domain=jd.com&url=https%3A%2F%2Fremai.today%2Flink%2F2%2FBFQAJ9uFthYw9V7hVByMw9V7hVByMQ_3hj3gPth218pvMbR2r",
+          "metric_text": "强生",
+          "subtitle": "强生",
+          "source_rank": 9
+        },
+        {
+          "rank": 10,
+          "title": "【官方正版】孙子兵法正版原著全套无删减精装文言加解释三十六计中华经典名著青少年版全本全注全译精装烫金版书籍畅销书孙子兵法中华书局孙子兵法三十六计全译全解 【原文+白话文+注解】原著孙子兵法 官方正版 原价¥29.78 券后¥28.78",
+          "url": "https://tophub.today/link?domain=jd.com&url=https%3A%2F%2Fremai.today%2Flink%2F2%2F2qQeKmrS8ov6m61DqgBO6m61DqgBOQ_31Q6KvurIDGd6V2FMK",
+          "metric_text": "未知",
+          "subtitle": "未知",
           "source_rank": 10
         }
       ]
@@ -897,8 +897,8 @@
       "source_kind": "web",
       "source_name": "TopHub 今日热卖全网线报聚合",
       "source_url": "https://tophub.today/n/x9ozqX7eXb",
-      "updated_at": "7分钟前",
-      "generated_at": "2026-06-13T10:43:25Z",
+      "updated_at": "2分钟前",
+      "generated_at": "2026-06-14T11:20:01Z",
       "item_count": 10,
       "items": [
         {
@@ -1000,8 +1000,8 @@
       "source_kind": "mock",
       "source_name": "快手电商 618 主题模拟榜单",
       "source_url": "https://www.kuaishou.com/",
-      "updated_at": "2026-06-13 18:43:25 CST",
-      "generated_at": "2026-06-13T10:43:25Z",
+      "updated_at": "2026-06-14 19:20:01 CST",
+      "generated_at": "2026-06-14T11:20:01Z",
       "item_count": 10,
       "items": [
         {
