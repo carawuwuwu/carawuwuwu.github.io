@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>618 营销情报工作台</title>
-  <meta name="description" content="618 大促营销工作台，含多平台热搜、爆款单品、词云洞察与营销策略建议。" />
+  <title>日常营销情报工作台</title>
+  <meta name="description" content="日常营销情报工作台，含多平台热搜、爆款单品、词云洞察与营销策略建议。" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@400;600;700;900&display=swap" rel="stylesheet" />
@@ -397,7 +397,7 @@
               </div>
               <div>
                 <p class="mb-3 flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.32em] text-accent">
-                  <span>618 Campaign Intelligence</span>
+                  <span>Always-on Marketing Intelligence</span>
                   <span class="inline-block h-px w-10 bg-ink/40"></span>
                   <span>Daily Auto Data Dashboard</span>
                 </p>
@@ -405,7 +405,7 @@
                   营销情报工作台
                 </h1>
                 <p class="cn-serif mt-4 max-w-3xl text-[15px] leading-7 text-[#5d7292] sm:text-[17px]">
-                  面向 618 大促的静态可视化看板。聚合 <b class="text-ink">多平台热搜</b>、<b class="text-ink">电商爆款</b>、<b class="text-ink">词云洞察</b>、<b class="text-ink">今日营销情报</b> 与 <b class="text-ink">动态策略建议</b>，帮助代理商快速判断当天该追什么热点、推什么货、用户在吐槽什么，以及应该优先放大哪类内容和权益表达。
+                  日常可用的静态可视化看板。聚合 <b class="text-ink">多平台热搜</b>、<b class="text-ink">电商爆款</b>、<b class="text-ink">词云洞察</b>、<b class="text-ink">今日营销情报</b> 与 <b class="text-ink">动态策略建议</b>，帮助代理商快速判断当天该追什么热点、推什么货、用户在吐槽什么，以及应该优先放大哪类内容和权益表达。
                 </p>
               </div>
             </div>
@@ -432,7 +432,7 @@
               </div>
               <div class="rounded-2xl border border-ink/80 bg-[rgba(255,255,255,0.42)] p-4">
                 <div class="text-[11px] font-bold uppercase tracking-[0.22em] text-[#6b6256]">今日热点风向</div>
-                <div id="stat-trend-title" class="mt-3 text-2xl font-black text-ink cn-serif">618 冲刺 + 直播爆发</div>
+                <div id="stat-trend-title" class="mt-3 text-2xl font-black text-ink cn-serif">热点升温 + 内容转化</div>
                 <div id="stat-trend-desc" class="mt-2 text-sm text-[#6b6256]">“折扣权益、直播抢购、场景种草”占比最高</div>
               </div>
               <div class="rounded-2xl border border-ink/80 bg-[rgba(255,255,255,0.42)] p-4">
@@ -449,7 +449,7 @@
             </div>
             <div id="today-key-signals" class="space-y-4 text-sm leading-7 text-[#5d7292] cn-serif">
               <p><b class="text-ink">服饰：</b>“防晒衣、薄款凉感、通勤穿搭”热度持续抬头，适合做夏季场景化直播切片。</p>
-              <p><b class="text-ink">美妆：</b>防晒与底妆双线并行，内容建议突出 <span class="text-accent">户外持妆 + 618 券后到手价</span>。</p>
+              <p><b class="text-ink">美妆：</b>防晒与底妆双线并行，内容建议突出 <span class="text-accent">户外持妆 + 券后到手价</span>。</p>
               <p><b class="text-ink">食饮：</b>“低糖、囤货、办公室提神”是成交关键词，适合短视频测款 + 直播承接。</p>
               <p><b class="text-ink">3C：</b>补贴、性能、换新是核心搜索动机，建议把“平台补贴”和“真实体验”一起讲清楚。</p>
             </div>
@@ -1078,7 +1078,7 @@
       const productCount = getSectionKeys('products').length;
       document.getElementById('stat-platform-count').textContent = String(hotCount + productCount || 0);
       document.getElementById('stat-platform-desc').textContent = `${hotCount} 个热搜平台 + ${productCount} 个电商榜单`;
-      document.getElementById('stat-trend-title').textContent = sensightHeader.trend_title || '618 冲刺 + 直播爆发';
+      document.getElementById('stat-trend-title').textContent = sensightHeader.trend_title || '热点升温 + 内容转化';
       document.getElementById('stat-trend-desc').textContent = sensightHeader.trend_desc || '“折扣权益、直播抢购、场景种草”占比最高';
       document.getElementById('stat-recommend-title').textContent = sensightHeader.recommend_title || '上午定主题，下午推转化';
       document.getElementById('stat-recommend-desc').textContent = sensightHeader.recommend_desc || '热点先定内容钩子，爆款再定商品承接';
